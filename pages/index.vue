@@ -73,7 +73,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
+          <v-btn color="primary" nuxt to="/inspire">
+            Continue
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -81,19 +83,19 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue';
-import VuetifyLogo from '~/components/VuetifyLogo.vue';
-import reactor from '../reactor';
-import { mapGetters } from 'vuex';
+import Logo from "~/components/Logo.vue";
+import VuetifyLogo from "~/components/VuetifyLogo.vue";
+import reactor from "../reactor";
+import { mapGetters } from "vuex";
 
 export default {
-  transition: 'page',
+  transition: "page",
   components: {
     Logo,
     VuetifyLogo
   },
   computed: {
-    ...mapGetters(['navigation'])
+    ...mapGetters(["navigation"])
   }
 };
 </script>
