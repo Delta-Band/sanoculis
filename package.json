@@ -1,17 +1,68 @@
 {
-  "name": "sanoculis",
+  "name": "nucleai-website",
   "version": "1.0.0",
-  "private": true,
+  "main": "index.js",
+  "license": "MIT",
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "dev": "NODE_OPTIONS='--inspect' next",
+    "lint": "esw ./pages ./services ./shared ./components ./*.js",
+    "lint-watch": "esw ./pages ./services ./shared ./components ./*.js -w",
+    "build": "next build",
+    "start": "next start -p 4000",
+    "generate-sitemap": "node sitemap-generator.js"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@n8tb1t/use-scroll-position": "^1.0.43",
+    "@zeit/next-sass": "^1.0.1",
+    "auto-bind": "^3.0.0",
+    "classnames": "^2.2.6",
+    "cross-fetch": "^3.0.5",
+    "deepmerge": "^4.2.2",
+    "emailjs-com": "^2.4.1",
+    "firebase": "^7.14.2",
+    "framer-motion": "^1.11.1",
+    "immutable": "^4.0.0-rc.12",
+    "lodash": "^4.17.19",
+    "next": "9.4.4",
+    "next-redux-wrapper": "^6.0.2",
+    "nextjs-sitemap-generator": "^0.5.0",
+    "node-sass": "^4.13.0",
+    "prop-types": "^15.7.2",
+    "react": "16.13.1",
+    "react-calendly": "^1.0.1",
+    "react-click-outside-hook": "^1.1.1",
+    "react-dom": "16.13.1",
+    "react-ga": "^2.7.0",
+    "react-linkedin-insight": "^0.0.5",
+    "react-redux": "^7.2.0",
+    "react-svg": "^11.0.28",
+    "react-swipeable": "^5.5.1",
+    "react-textarea-autosize": "^7.1.2",
+    "reactor-connect": "^1.1.4",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-immutable": "^4.0.0",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.1.1",
+    "styled-icons": "^10.9.0",
+    "use-overflow": "^1.0.2"
   },
   "devDependencies": {
-    "@nuxtjs/vercel-builder": "^0.17.5",
-    "@nuxtjs/vuetify": "^1.11.2",
-    "firebase": "^7.20.0",
-    "nuxt": "^2.14.0"
+    "eslint": "^6.7.2",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-watch": "^6.0.1",
+    "pre-commit": "^1.2.2"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
