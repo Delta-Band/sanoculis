@@ -8,12 +8,10 @@
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
-  "dependencies": {
-    "firebase": "^7.20.0",
-    "nuxt": "^2.14.0"
-  },
   "devDependencies": {
     "@nuxtjs/vercel-builder": "^0.17.5",
-    "@nuxtjs/vuetify": "^1.11.2"
+    "@nuxtjs/vuetify": "^1.11.2",
+    "firebase": "^7.20.0",
+    "nuxt": "^2.14.0"
   }
 }
