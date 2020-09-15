@@ -13,7 +13,7 @@
     "nuxt": "^2.14.0"
   },
   "devDependencies": {
-    "@nuxtjs/now-builder": "^0.17.3",
+    "@nuxtjs/vercel-builder": "^0.17.5",
     "@nuxtjs/vuetify": "^1.11.2"
   }
 }
