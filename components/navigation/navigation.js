@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import { ReactSVG } from 'react-svg';
 import { Menu as MenuIcon } from '@styled-icons/entypo/Menu';
-import ProgressBar from './progress-bar';
 import { useWindowSize } from '../../hooks';
 import styles from './styles.scss';
 import { device, landscapeBlocker } from '../../store';
@@ -86,7 +85,13 @@ const Navigation = () => {
     >
       <List>
         {['Contact Us'].map((text, index) => (
-          <ListItem button key={text} onClick={console.log}>
+          <ListItem
+            button
+            key={text}
+            onClick={() => {
+              router.push('/contact-us', undefined, { shallow: true });
+            }}
+          >
             <ListItemText primary={text} />
           </ListItem>
         ))}
@@ -141,7 +146,6 @@ const Navigation = () => {
         </React.Fragment>
       </div>
       <Footer />
-      <ProgressBar />
     </Fragment>
   );
 };
