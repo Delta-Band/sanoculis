@@ -6,11 +6,8 @@ replace baseUrl with actual url
  */
 
 sitemap({
-  baseUrl: 'https://nucleai.com',
+  baseUrl: 'https://sanoculis.com',
   pagesDirectory: `${__dirname}/pages`,
   targetDirectory: `${__dirname}/public`,
-  ignoredExtensions: [
-    'xml',
-    'scss'
-  ]
+  ignoredExtensions: ['xml', 'scss']
 });

@@ -1,8 +1,7 @@
 const reducer = (
   state = {
-    tabTitle: 'Nucleai',
-    metaDescription:
-      'Nucleai is a leading provider of AI-powered platform transforming biomarker discovery and treatment decisions.'
+    tabTitle: 'Sanoclis',
+    metaDescription: 'TODO: add text here'
   },
   action
 ) => {

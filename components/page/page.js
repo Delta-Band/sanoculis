@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import cx from 'classnames';
 import styles from './styles.scss';
 
-const AnimatePageVerical = ({ children, className, setRef }) => {
+export default function Page({ children, className, setRef }) {
   return (
     <motion.div
       ref={setRef}
@@ -35,6 +35,4 @@ const AnimatePageVerical = ({ children, className, setRef }) => {
       {children}
     </motion.div>
   );
-};
-
-export default AnimatePageVerical;
+}

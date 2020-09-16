@@ -1,0 +1,33 @@
+@import '../../shared/styles/index';
+
+.section {
+  margin-bottom: #{$spacer-v * 8};
+  .art,
+  .content {
+    height: #{$spacer-h * 15};
+  }
+
+  .content {
+    padding: $spacer-v $spacer-h;
+  }
+
+  .art {
+    // background: rgba(black, 0.1);
+
+    & > img {
+      object-fit: contain;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .header {
+    font-size: 38px;
+    line-height: 38px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .body {
+  }
+  .footer {
+  }
+}

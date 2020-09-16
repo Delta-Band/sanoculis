@@ -1,7 +1,7 @@
 import { send as sendEmail } from 'emailjs-com';
 
 const CONFIG = {
-  SERVICE_ID: 'nucleai_website',
+  SERVICE_ID: 'sanoculis_website',
   USER_ID: 'user_8ymlAbJeHeX4mjCkAkI02',
   TEMPLATES: {
     CONTACT: 'contact_form',

@@ -1,233 +1,33 @@
 @import '../../shared/styles/index';
 
-.progressBar,
 .navBar {
-  z-index: 4;
-}
-
-.navBar {
-  width: 100vw;
+  // width: 100vw;
   height: $navHeight;
   box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: $accentPrime;
   color: white;
-  box-sizing: border-box;
   position: fixed;
   top: 0;
   left: 0;
-  flex-shrink: 0;
+  padding: 0 $spacer-h;
+  z-index: 1;
 
   .logo {
-    height: 100%;
-    cursor: pointer;
-    position: absolute;
-    left: 50%;
-    top: 50%;
     @extend %fadeIn;
-    transform: translate(-50%, -50%);
+    background: gray;
 
     .logoSVG {
       height: 100%;
-      transform: translateY(-2px);
-      & > * {
-        line-height: 0;
-      }
     }
 
     svg {
-      fill: white;
+      // fill: white;
       height: 23px;
       width: auto;
     }
   }
 
-  .prev,
-  .next {
-    text-transform: capitalize;
-    font-size: 18px;
-    transition: 1s $ease;
-    transform: scale(1);
-    box-shadow: none;
-    transition: 1s $ease;
-
-    &:hover {
-      box-shadow: none;
-      border-width: 2px;
-    }
-  }
-
-  .next {
-    height: 50px;
-    position: fixed;
-    bottom: #{3.5 * $gutter};
-    right: #{2 * $gutter};
-    border: 2px solid $accentPrime;
-    padding-right: 8px;
-    display: flex;
-
-    svg {
-      fill: black;
-      transition: 1s $ease;
-    }
-
-    &.hide {
-      opacity: 0;
-      transform: translateX(100%);
-      pointer-events: none;
-    }
-
-    &.secondary {
-      border-color: $accentSecondary;
-
-      &:focus,
-      &:hover {
-        background: $accentSecondary;
-      }
-    }
-
-    &:disabled {
-      background: rgba(white, 0.85) !important;
-      backdrop-filter: blur(5);
-
-      svg {
-        fill: rgba(black, 0.25);
-      }
-    }
-  }
-
-  .prev {
-    height: 100%;
-    border-radius: 0;
-    background: transparent !important;
-    border: none !important;
-
-    &:disabled {
-      opacity: 0 !important;
-      transform: translateX(-100%) !important;
-    }
-  }
-
-  .contactUs {
-    height: 100%;
-    border-radius: 0;
-    background: transparent !important;
-    border: none !important;
-    width: 64px;
-    transition: 1s $ease;
-
-    &:disabled {
-      opacity: 0.3;
-    }
-  }
-
-  .btnTxt {
-    font-size: 19px;
-    margin: 0 10px;
-    // transform: translateY(0px);
-  }
-
-  svg {
-    fill: white;
-  }
-}
-
-.progressBar {
-  background-color: none;
-  height: 8px;
-  width: 100vw;
-  position: fixed;
-  overflow: hidden;
-  bottom: 0;
-  left: 0;
-}
-
-.progress {
-  height: 100%;
-  width: 100%;
-  background: $accentSecondary;
-  transition: 2s $ease;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
-
-.menuItem {
-  text-transform: capitalize;
-  width: 100%;
-  padding: 3px 8px 3px 5px;
-
-  .menuSpacer {
-    width: 10px;
-    flex-grow: 0;
-  }
-}
-
-.menuItemDivider {
-  width: 90%;
-  height: 1px;
-  background-color: rgba($accentPrime, 0.2);
-  margin: 10px 0 10px 5%;
-}
-
-@media screen and (orientation: landscape) {
-  @media (min-width: 1025px) {
-    .navBar {
-      height: 70px;
-
-      .logo {
-        background: transparent !important;
-        border: none !important;
-        svg {
-          height: 30px;
-        }
-      }
-
-      .logoSVG {
-        transform: translateY(-2px);
-      }
-
-      .next {
-        height: 60px;
-        bottom: #{1.2 * $gutter};
-        right: #{1.2 * $gutter};
-      }
-
-      .btnTxt {
-        transform: translateY(2px);
-
-        svg {
-          transform: translateY(-1px);
-        }
-      }
-    }
-  }
-}
-
-@media screen and (orientation: portrait) {
-  .next {
-    &.android {
-      .btnTxt {
-        transform: translateY(1px);
-
-        svg {
-          transform: translateY(-1px);
-        }
-      }
-    }
-  }
-
-  .btnTxt {
-    transform: translateY(-2px);
-
-    svg {
-      transform: translateY(-1px);
-    }
-  }
-
-  .logoSVG {
-    transform: translateY(-2px) !important;
+  .navBtn {
+    padding-left: #{$spacer-h / 2};
+    padding-right: #{$spacer-h / 2};
   }
 }

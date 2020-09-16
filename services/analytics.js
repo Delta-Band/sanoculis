@@ -1,7 +1,7 @@
 import ReactGA from 'react-ga';
 
 const isProd = () => {
-  return Boolean(window.location.host.match(/^nucleaimd.com/));
+  return Boolean(window.location.host.match(/^sanoculis.com/));
 };
 
 const init = (trackingId) => {
@@ -10,7 +10,7 @@ const init = (trackingId) => {
   // const id = urlParams.get('id');
   ReactGA.initialize(trackingId, {
     debug: false,
-    titleCase: false,
+    titleCase: false
     // gaOptions: {
     //   userId: id,
     // },
@@ -22,7 +22,7 @@ const logPageView = (page) => {
   // ReactGA.set({ page: window.location.pathname });
   if (isProd()) {
     ReactGA.pageview(page);
-  };
+  }
 };
 
 //
@@ -40,9 +40,9 @@ const logEvent = (category, action) => {
   if (isProd()) {
     ReactGA.event({
       category,
-      action,
+      action
     });
-  };
+  }
 };
 
 // const contactUs = () => {
@@ -75,5 +75,5 @@ const logEvent = (category, action) => {
 export default {
   init,
   logEvent,
-  logPageView,
+  logPageView
 };
