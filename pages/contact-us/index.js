@@ -1,5 +1,4 @@
 import React, { useEffect, Fragment } from 'react';
-import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { ChevronRight } from '@styled-icons/boxicons-regular/ChevronRight';
@@ -15,6 +14,7 @@ import { MailSend as WriteToUs } from '@styled-icons/boxicons-regular/MailSend';
 import styles from './styles.scss';
 import { GA } from '../../services';
 import { footer, cms } from '../../store';
+import { AnimatePageVerical, Bleed } from '../../components';
 
 const ContactUs = () => {
   const dispatch = useDispatch();
@@ -38,71 +38,47 @@ const ContactUs = () => {
   }, [refYOverflowing]);
 
   return (
-    <motion.div
-      className={styles.page}
-      ref={verticalRef}
-      initial='exit'
-      animate='enter'
-      exit='exit'
-      variants={{
-        exit: {
-          opacity: 0,
-          x: 100,
-          transition: {
-            type: 'spring',
-            stiffness: 200,
-            damping: 40
-          }
-        },
-        enter: {
-          x: 0,
-          opacity: 1,
-          transition: {
-            type: 'spring',
-            stiffness: 200,
-            damping: 40
-          }
-        }
-      }}
-    >
-      <h1>{contactCMS.mainPageHeader}</h1>
-      <Grid container spacing={5}>
-        {isLG && (
-          <Fragment>
-            <Grid item lg={6}>
-              <h2>{contactCMS.mainPageParagraph}</h2>
-            </Grid>
-            <Grid item lg={1} />
-          </Fragment>
-        )}
-        <Grid item xs={12} lg={5}>
-          <Box
-            display='flex'
-            flexDirection='column'
-            justifyContent='center'
-            flexGrow={1}
-            className={styles.actionBox}
-          >
-            <ActionBtn
-              pathname='/contact-us/try-it'
-              icon={<TryIt size={32} className={styles.ctaIcon} />}
-              label={navigationCMS.shareSlidesLabel}
-            />
-            <ActionBtn
-              pathname='/contact-us/schedule-a-meeting'
-              icon={<Calendar size={32} className={styles.ctaIcon} />}
-              label={navigationCMS.scheduleAmeetingLabel}
-            />
-            <ActionBtn
-              pathname='/contact-us/write-to-us'
-              icon={<WriteToUs size={32} className={styles.ctaIcon} />}
-              label={navigationCMS.writeToUsLabel}
-            />
-          </Box>
+    <AnimatePageVerical ref={verticalRef}>
+      <Bleed>
+        <h1>{contactCMS.mainPageHeader}</h1>
+        <Grid container spacing={5}>
+          {isLG && (
+            <Fragment>
+              <Grid item lg={6}>
+                <h2>{contactCMS.mainPageParagraph}</h2>
+              </Grid>
+              <Grid item lg={1} />
+            </Fragment>
+          )}
+          <Grid item xs={12} lg={5}>
+            <Box
+              display='flex'
+              flexDirection='column'
+              justifyContent='center'
+              flexGrow={1}
+              className={styles.actionBox}
+            >
+              <ActionBtn
+                pathname='/contact-us/try-it'
+                icon={<TryIt size={32} className={styles.ctaIcon} />}
+                label={navigationCMS.shareSlidesLabel}
+              />
+              <ActionBtn
+                pathname='/contact-us/schedule-a-meeting'
+                icon={<Calendar size={32} className={styles.ctaIcon} />}
+                label={navigationCMS.scheduleAmeetingLabel}
+              />
+              <ActionBtn
+                pathname='/contact-us/write-to-us'
+                icon={<WriteToUs size={32} className={styles.ctaIcon} />}
+                label={navigationCMS.writeToUsLabel}
+              />
+            </Box>
+          </Grid>
+          <div className={styles.spacer}></div>
         </Grid>
-        <div className={styles.spacer}></div>
-      </Grid>
-    </motion.div>
+      </Bleed>
+    </AnimatePageVerical>
   );
 };
 

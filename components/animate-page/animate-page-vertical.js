@@ -1,11 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import cx from 'classnames';
+import styles from './styles.scss';
 
 const AnimatePageVerical = ({ children, className, setRef }) => {
   return (
     <motion.div
       ref={setRef}
-      className={className}
+      className={cx(className, styles.page)}
       initial='exit'
       animate='enter'
       exit='exit'

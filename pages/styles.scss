@@ -67,8 +67,8 @@
   overflow: auto;
   position: relative;
   -webkit-overflow-scrolling: touch;
-  padding-top: #{$navHeight * 1.5};
-  padding-bottom: #{$navHeight * 1.5};
+  width: 100%;
+  min-height: 100%;
   box-sizing: border-box;
   // background: $accentSecondary;
 }

@@ -3,7 +3,6 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import App from 'next/app';
 import { connect } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
-import Container from '@material-ui/core/Container';
 import { Helmet } from '../shared';
 import { Navigation } from '../components';
 import { wrapper } from '../store/store';
@@ -56,11 +55,9 @@ class MyApp extends App {
         />
         <div className={styles.app}>
           <Navigation />
-          <Container className={styles.stage}>
-            <AnimatePresence>
-              <Component {...pageProps} key={router.route} />
-            </AnimatePresence>
-          </Container>
+          <AnimatePresence>
+            <Component {...pageProps} key={router.route} />
+          </AnimatePresence>
         </div>
       </ThemeProvider>
     );
