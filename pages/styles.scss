@@ -78,62 +78,9 @@ a {
   text-decoration: none;
 }
 
-.loading {
-  width: 100vw;
-  height: 100vh;
-  background: white;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  font-size: 22px;
-  text-transform: uppercase;
-  transition: 2s $ease;
-
-  &.fadeOut {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .content {
-    @extend %fadeIn;
-    animation-duration: 4s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  @keyframes pulse {
-    0% {
-      transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba($accentPrime, 0.7);
-    }
-
-    70% {
-      transform: scale(1);
-      box-shadow: 0 0 0 10px rgba($accentPrime, 0);
-    }
-
-    100% {
-      transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba($accentPrime, 0);
-    }
-  }
-
-  .blob {
-    background: $accentPrime;
-    border-radius: 50%;
-    margin: 20px;
-    height: 20px;
-    width: 20px;
-    box-shadow: 0 0 0 0 rgba($accentPrime, 1);
-    transform: scale(1);
-    animation: pulse 2s infinite;
-  }
+.registered {
+  width: 32px;
+  position: absolute;
+  top: 26px;
+  transform: translateX(10px);
 }

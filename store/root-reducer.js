@@ -1,5 +1,14 @@
 import { combineReducers } from 'redux';
-import { helmet, cms, device, contact, footer, landscapeBlocker, video } from './index';
+import {
+  helmet,
+  cms,
+  device,
+  contact,
+  footer,
+  landscapeBlocker,
+  video,
+  section
+} from './index';
 
 const rootReducer = combineReducers({
   helmet: helmet.reducer,
@@ -9,6 +18,7 @@ const rootReducer = combineReducers({
   footer: footer.reducer,
   video: video.reducer,
   landscapeBlocker: landscapeBlocker.reducer,
+  section: section.reducer
 });
 
 export default rootReducer;

@@ -5,3 +5,4 @@ export { default as contact } from './contact';
 export { default as footer } from './footer';
 export { default as landscapeBlocker } from './landscape-blocker';
 export { default as video } from './video';
+export { default as section } from './section-indicator';

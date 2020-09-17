@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Page, Section } from '../components';
+import { Registered } from '@styled-icons/remix-line/Registered';
+import styles from './styles.scss';
 
 export default function Home() {
+  const pageRef = useRef();
+
   return (
-    <Page>
+    <Page getRef={pageRef}>
       <Section
         type='art-content'
         art={
           <img src='https://vignette.wikia.nocookie.net/muppet/images/0/02/ElectricMayhemWithClifford.jpg/revision/latest?cb=20150725153832' />
           // <div>Art</div>
         }
-        header='Section 1 Header'
+        header={
+          <div>
+            MIMS
+            <Registered className={styles.registered} />
+          </div>
+        }
+        superSizedHeader
         body={<div>Section 1 Body</div>}
         footer={<div>Section 1 footer</div>}
+        pageRef={pageRef}
       />
       <Section
         type='art-content'
@@ -23,6 +34,7 @@ export default function Home() {
         header='Section 2 Header'
         body={<div>Section 2 Body</div>}
         footer={<div>Section 2 footer</div>}
+        pageRef={pageRef}
       />
       <Section
         type='art-content'
@@ -33,6 +45,7 @@ export default function Home() {
         header='Section 3 Header'
         body={<div>Section 3 Body</div>}
         footer={<div>Section 3 footer</div>}
+        pageRef={pageRef}
       />
     </Page>
   );

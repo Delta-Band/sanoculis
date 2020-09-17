@@ -3,14 +3,15 @@ import { motion } from 'framer-motion';
 import cx from 'classnames';
 import styles from './styles.scss';
 
-export default function Page({ children, className, setRef }) {
+export default function Page({ children, className, getRef }) {
   return (
     <motion.div
-      ref={setRef}
+      ref={getRef}
       className={cx(className, styles.page)}
       initial='exit'
       animate='enter'
       exit='exit'
+      id='page'
       variants={{
         exit: {
           y: 100,
