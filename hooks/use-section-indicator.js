@@ -7,7 +7,7 @@ function useSectionIndicator(sectionRef, pageRef) {
     // const sectionRef = document.getElementById(sectionId);
     const rect = sectionRef.current.getBoundingClientRect();
     const location = rect.top + rect.height / 2;
-    setOnTarget(location <= window.innerHeight / 2);
+    setOnTarget(location <= window.innerHeight * 0.6);
   }
 
   useEffect(() => {
