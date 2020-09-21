@@ -30,7 +30,7 @@ const Navigation = () => {
             <ReactSVG src='/images/logo.svg' className={styles.logoSVG} />
           </Button>
         </Grid>
-        <Grid item xs='auto'>
+        {/* <Grid item xs='auto'>
           <Grid
             direction='row'
             justify='flex-end'
@@ -45,7 +45,7 @@ const Navigation = () => {
               </Grid>
             ))}
           </Grid>
-        </Grid>
+        </Grid> */}
       </Grid>
       <Footer />
     </Fragment>

@@ -14,7 +14,7 @@ export default function Section({
   pageRef
 }) {
   const sectionRef = useRef();
-  const onTarget = useSectionIndicator(sectionRef, pageRef);
+  const onTarget = useSectionIndicator(sectionRef, pageRef); // eslint-disable-line
   // const [onTarget, setOnTarget] = useState(false);
 
   // function handleScroll() {
@@ -45,12 +45,7 @@ export default function Section({
 
   function ArtNContent() {
     return (
-      <section
-        ref={sectionRef}
-        style={{
-          backgroundColor: onTarget ? 'green' : 'transparent'
-        }}
-      >
+      <section ref={sectionRef}>
         <Grid
           className={styles.section}
           container

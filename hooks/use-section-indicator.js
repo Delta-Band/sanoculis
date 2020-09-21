@@ -16,7 +16,9 @@ function useSectionIndicator(sectionRef, pageRef) {
     }, 1000);
     pageRef.current.addEventListener('scroll', handleScroll);
     return () => {
-      pageRef.current.removeEventListener('scroll', handleScroll);
+      if (pageRef.current) {
+        pageRef.current.removeEventListener('scroll', handleScroll);
+      }
     };
   }, []);
 

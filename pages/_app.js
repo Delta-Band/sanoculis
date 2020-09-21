@@ -4,7 +4,6 @@ import App from 'next/app';
 import { connect } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
 import { Helmet } from '../shared';
-import { Navigation } from '../components';
 import { wrapper } from '../store/store';
 import reactor from '../reactor-utils';
 import { cms, helmet, device } from '../store';
@@ -54,7 +53,6 @@ class MyApp extends App {
           imageForSocial='/images/logo-social-square.png'
         />
         <div className={styles.app}>
-          <Navigation />
           <AnimatePresence>
             <Component {...pageProps} key={router.route} />
           </AnimatePresence>

@@ -78,9 +78,93 @@ a {
   text-decoration: none;
 }
 
-.registered {
+.art {
+  width: 50vw;
+  height: 94vh;
+  object-fit: contain;
+  // top: 0;
+  // left: 0;
+  // position: absolute;
+}
+
+.logo {
+  object-fit: contain;
+  position: fixed;
+  top: $spacer;
+  left: $spacer;
+}
+
+.contentBox {
+  // background-color: rgba(green, 0.1);
+  // height: 80vh;
+  width: 50vh;
+  position: fixed;
+  left: 50vw;
+  top: 44vh;
+  transform: translateY(-50%);
+
+  img {
+    width: 100%;
+    margin-bottom: $spacer;
+  }
+
+  .email {
+    fieldset {
+      border-radius: 0;
+    }
+  }
+
+  .submit {
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 6vh;
+  background-color: rgba(yellow, 0.1);
+}
+
+.registered,
+.ce {
   width: 32px;
+  height: 32px;
   position: absolute;
-  top: 26px;
-  transform: translateX(10px);
+  right: -38px;
+}
+
+.ce {
+  bottom: 0;
+  transform: translateY(-50%);
+}
+
+.registered {
+  transform: translateY(80%);
+}
+
+.headerTop {
+  font-size: 18px;
+  line-height: 36px;
+  font-weight: 100;
+  text-transform: capitalize;
+}
+
+.headerBotom {
+  font-size: 40px;
+  line-height: 1.3em;
+  font-weight: 400;
+}
+
+.mims {
+  position: relative;
+  width: 525px;
+}
+
+.body {
+  font-size: 20px;
+  line-height: 1.5em;
+  margin-top: $spacer;
 }
