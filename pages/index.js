@@ -22,7 +22,7 @@ export default function Home() {
   // }, []);
 
   return (
-    <Page getRef={pageRef} className={styles.page}>
+    <Page getRef={pageRef} className={styles.stage}>
       <img
         src='images/mims_device.png'
         // src='https://drugsafetynews.com/wp-content/uploads/2018/11/Overseas-Medical-Devices.jpg'

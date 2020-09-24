@@ -65,13 +65,7 @@
 }
 
 .stage {
-  overflow: auto;
-  position: relative;
-  -webkit-overflow-scrolling: touch;
-  width: 100%;
-  min-height: 100%;
-  box-sizing: border-box;
-  // background: $accentSecondary;
+  overflow: hidden;
 }
 
 a {
