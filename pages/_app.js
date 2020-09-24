@@ -28,7 +28,7 @@ const getCMSData = async (dispatch) => {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#000000'
+      main: '#5668FF'
     },
     secondary: {
       main: '#00E3EB'

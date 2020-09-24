@@ -25,6 +25,7 @@ export default function Home() {
     <Page getRef={pageRef} className={styles.page}>
       <img
         src='images/mims_device.png'
+        // src='https://drugsafetynews.com/wp-content/uploads/2018/11/Overseas-Medical-Devices.jpg'
         className={styles.art}
         // style={{
         //   filter: `hue-rotate(${hueRotation}deg)`
@@ -38,7 +39,7 @@ export default function Home() {
           <Grid item xs={8}>
             <TextField
               id='filled-basic'
-              placeholder='Enter yuour email address'
+              placeholder='stay updated'
               variant='outlined'
               fullWidth
               className={styles.email}
@@ -50,6 +51,7 @@ export default function Home() {
               color='primary'
               fullWidth
               className={styles.submit}
+              disableElevation
             >
               Join
             </Button>
@@ -57,14 +59,22 @@ export default function Home() {
         </Grid>
       </div>
       <Box
-        display='flex'
+        // display='flex'
         className={styles.footer}
         justifyContent='center'
         // alignItems='center'
       >
-        info@sanoculis.com | +972 03-550-6432
-        <br />
-        10 Landau, Kiryat Ono, Israel| Sanoculis LTD. 2020
+        <div>
+          <a
+            href='mailto:info@sanoculis.com?subject=Mail from Our Website&body=Please contact me'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            info@sanoculis.com
+          </a>
+          &nbsp; | +972 03-550-6432
+        </div>
+        <div>10 Landau, Kiryat Ono, Israel | Sanoculis LTD. 2020</div>
       </Box>
       {/* <Section
         type='art-content'
