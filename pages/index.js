@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Page } from '../components';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
