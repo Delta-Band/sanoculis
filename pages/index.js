@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Page } from '../components';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -8,11 +8,30 @@ import styles from './styles.scss';
 
 export default function Home() {
   const pageRef = useRef();
+  // const [hueRotation, sethueRotation] = useState(0);
+
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     sethueRotation((hueRotation) =>
+  //       hueRotation > 360 ? 0 : hueRotation + 1
+  //     );
+  //   }, 100);
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // }, []);
 
   return (
     <Page getRef={pageRef} className={styles.page}>
-      <img src='images/mims_device.png' className={styles.art} />
+      <img
+        src='images/mims_device.png'
+        className={styles.art}
+        // style={{
+        //   filter: `hue-rotate(${hueRotation}deg)`
+        // }}
+      />
       <img src='images/logo.svg' className={styles.logo} />
+      <img src='images/ce.svg' className={styles.ceLogo} />
       <div className={styles.contentBox}>
         <img src='images/text-content.svg' />
         <Grid container>
@@ -41,10 +60,11 @@ export default function Home() {
         display='flex'
         className={styles.footer}
         justifyContent='center'
-        alignItems='center'
+        // alignItems='center'
       >
-        info@sanoculis.com | +972 54 555 4678 | Begin st.154, Tel Aviv |
-        Sanoculis LTD. 2020
+        info@sanoculis.com | +972 03-550-6432
+        <br />
+        10 Landau, Kiryat Ono, Israel| Sanoculis LTD. 2020
       </Box>
       {/* <Section
         type='art-content'

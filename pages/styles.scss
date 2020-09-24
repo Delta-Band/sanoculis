@@ -88,10 +88,17 @@ a {
 }
 
 .logo {
-  object-fit: contain;
+  // object-fit: contain;
   position: fixed;
   top: $spacer;
   left: $spacer;
+}
+
+.ceLogo {
+  // object-fit: contain;
+  position: fixed;
+  top: $spacer;
+  right: $spacer;
 }
 
 .contentBox {
@@ -122,10 +129,13 @@ a {
 
 .footer {
   position: fixed;
-  bottom: 0;
+  top: calc(100vh - 100px);
   width: 100vw;
-  height: 6vh;
-  background-color: rgba(yellow, 0.1);
+  height: 100px;
+  text-align: center;
+  color: #07003c;
+  font-size: 15px;
+  line-height: 1.5em;
 }
 
 .registered,
