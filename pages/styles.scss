@@ -62,6 +62,7 @@
   overflow: hidden;
   display: flex;
   -webkit-overflow-scrolling: touch;
+  background-color: #f1f5f8;
 }
 
 .stage {
@@ -74,31 +75,24 @@ a {
 }
 
 .art {
-  width: 50vw;
-  height: 100vh;
+  width: calc(50vw - 40px);
+  height: calc(100vh - 100px);
   object-fit: cover;
-  // top: 0;
-  // left: 0;
-  // position: absolute;
 }
 
 .logo {
-  // object-fit: contain;
   position: fixed;
   top: $spacer;
   left: $spacer;
 }
 
 .ceLogo {
-  // object-fit: contain;
   position: fixed;
   top: $spacer;
   right: $spacer;
 }
 
 .contentBox {
-  // background-color: rgba(green, 0.1);
-  // height: 80vh;
   width: 50vh;
   position: fixed;
   left: 50vw;
@@ -117,12 +111,37 @@ a {
     }
     fieldset {
       border-radius: 0;
+      border-width: 1px !important;
     }
   }
 
   .submit {
     height: 100%;
     border-radius: 0;
+
+    svg {
+      width: 34px;
+    }
+  }
+
+  .errorMsg {
+    font-size: 14px;
+    color: #ff4f26;
+    opacity: 0;
+    transition: 1s $ease;
+
+    &.show {
+      opacity: 1;
+    }
+
+    svg {
+      width: 23px;
+      margin-left: 10px;
+    }
+  }
+
+  .errTxt {
+    transform: translateY(2px);
   }
 }
 
@@ -139,6 +158,10 @@ a {
   a {
     display: inline;
     text-decoration: underline;
+  }
+
+  .pipe {
+    margin: 0 10px;
   }
 }
 
