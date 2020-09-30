@@ -4,6 +4,8 @@ import { Page } from '../components';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Button from '@material-ui/core/Button';
 import { Email } from '@styled-icons/material-rounded/Email';
 import { MarkEmailRead as EmailSent } from '@styled-icons/material-rounded/MarkEmailRead';
@@ -13,11 +15,29 @@ import styles from './styles.scss';
 
 export default function Home() {
   const pageRef = useRef();
-  // const [hueRotation, sethueRotation] = useState(0);
   const [emailSent, setEmailSent] = useState(false);
   const [email, setEmail] = useState('');
   const [emailIsValid, setEmailIsValid] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [scrollPosition, setscrollPosition] = useState(0);
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  function handleScroll() {
+    setscrollPosition(pageRef.current.scrollTop);
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      handleScroll();
+    }, 1000);
+    pageRef.current.addEventListener('scroll', handleScroll);
+    return () => {
+      if (pageRef.current) {
+        pageRef.current.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     setEmailIsValid(validateEmail(email));
@@ -38,38 +58,58 @@ export default function Home() {
   }
 
   return (
-    <Page getRef={pageRef} className={styles.stage}>
+    <Page
+      getRef={pageRef}
+      className={cx(styles.stage, { [styles.mobile]: mobile })}
+    >
       <img
-        src='images/mims_device.png'
-        // src='https://drugsafetynews.com/wp-content/uploads/2018/11/Overseas-Medical-Devices.jpg'
-        className={styles.art}
+        src='images/logo.svg'
+        className={cx(styles.logo, { [styles.mobile]: mobile })}
         // style={{
-        //   filter: `hue-rotate(${hueRotation}deg)`
+        //   opacity: 1 - scrollPosition * (1 / 100)
         // }}
       />
-      <img src='images/logo.svg' className={styles.logo} />
-      <img src='images/ce.svg' className={styles.ceLogo} />
-      <div className={styles.contentBox}>
+      <img
+        src='images/ce.svg'
+        className={cx(styles.ceLogo, { [styles.mobile]: mobile })}
+        // style={{
+        //   opacity: 1 - scrollPosition * (1 / 100)
+        // }}
+      />
+      <img
+        src={
+          mobile ? 'images/mims_device_mobile.png' : 'images/mims_device.png'
+        }
+        className={cx(styles.art, { [styles.mobile]: mobile })}
+        style={{
+          transform: `translateX(-${scrollPosition * 0.5}%)`,
+          opacity: 1 - scrollPosition * (1 / 150)
+        }}
+      />
+      <div className={cx(styles.contentBox, { [styles.mobile]: mobile })}>
         <img src='images/text-content.svg' />
-        <Grid container>
+        <Grid
+          container
+          className={cx(styles.textBox, { [styles.mobile]: mobile })}
+        >
           <Grid item xs={10}>
             <TextField
               id='filled-basic'
               placeholder='stay updated'
               variant='outlined'
               fullWidth
-              className={styles.email}
+              className={cx(styles.email, { [styles.mobile]: mobile })}
               onChange={(e) => {
                 setEmail(e.currentTarget.value);
               }}
             />
           </Grid>
-          <Grid item xs='auto'>
+          <Grid item xs={2}>
             <Button
               variant='contained'
               color='primary'
               fullWidth
-              className={styles.submit}
+              className={cx(styles.submit, { [styles.mobile]: mobile })}
               disableElevation
               onClick={sendEmail}
             >
@@ -90,31 +130,36 @@ export default function Home() {
       </div>
       <Box
         display='flex'
-        className={styles.footer}
+        flexDirection={mobile ? 'column' : 'row'}
+        className={cx(styles.footer, { [styles.mobile]: mobile })}
         justifyContent='center'
         alignItems='center'
       >
-        <a
-          href='mailto:info@sanoculis.com?subject=Mail from Our Website&body=Please contact me'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Linkedin
-        </a>
-        <div className={styles.pipe}>|</div>
-        <a
-          href='mailto:info@sanoculis.com?subject=Mail from Our Website&body=Please contact me'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          info@sanoculis.com
-        </a>
-        <div className={styles.pipe}>|</div>
+        <Box display='flex'>
+          <a
+            href='mailto:info@sanoculis.com?subject=Mail from Our Website&body=Please contact me'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            Linkedin
+          </a>
+          <div className={styles.pipe}>|</div>
+          <a
+            href='mailto:info@sanoculis.com?subject=Mail from Our Website&body=Please contact me'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            info@sanoculis.com
+          </a>
+        </Box>
+        {!mobile && <div className={styles.pipe}>|</div>}
         <div>10 Landau, Kiryat Ono, Israel</div>
-        <div className={styles.pipe}>|</div>
-        <div>+972 03-550-6432</div>
-        <div className={styles.pipe}>|</div>
-        <div>Sanoculis LTD. 2020</div>
+        {!mobile && <div className={styles.pipe}>|</div>}
+        <Box display='flex'>
+          <div>+972 03-550-6432</div>
+          <div className={styles.pipe}>|</div>
+          <div>Sanoculis LTD. 2020</div>
+        </Box>
       </Box>
     </Page>
   );

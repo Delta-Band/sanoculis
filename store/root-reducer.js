@@ -6,8 +6,7 @@ import {
   contact,
   footer,
   landscapeBlocker,
-  video,
-  section
+  video
 } from './index';
 
 const rootReducer = combineReducers({
@@ -17,8 +16,7 @@ const rootReducer = combineReducers({
   contact: contact.reducer,
   footer: footer.reducer,
   video: video.reducer,
-  landscapeBlocker: landscapeBlocker.reducer,
-  section: section.reducer
+  landscapeBlocker: landscapeBlocker.reducer
 });
 
 export default rootReducer;
