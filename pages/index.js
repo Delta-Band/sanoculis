@@ -65,16 +65,16 @@ export default function Home() {
       <img
         src='images/logo.svg'
         className={cx(styles.logo, { [styles.mobile]: mobile })}
-        // style={{
-        //   opacity: 1 - scrollPosition * (1 / 100)
-        // }}
+        style={{
+          opacity: 3 - scrollPosition * (1 / 100)
+        }}
       />
       <img
         src='images/ce.svg'
         className={cx(styles.ceLogo, { [styles.mobile]: mobile })}
-        // style={{
-        //   opacity: 1 - scrollPosition * (1 / 100)
-        // }}
+        style={{
+          opacity: 3 - scrollPosition * (1 / 100)
+        }}
       />
       <img
         src={

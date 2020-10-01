@@ -93,9 +93,10 @@ a {
   position: fixed;
   top: $spacer;
   left: $spacer;
+  z-index: 1;
 
   &.mobile {
-    height: 2.2 * $spacer;
+    height: 20px;
     top: 2.5 * $spacer;
     left: 2.5 * $spacer;
     // position: static;
@@ -108,7 +109,7 @@ a {
   right: $spacer;
 
   &.mobile {
-    height: 2.2 * $spacer;
+    height: 20px;
     top: 2.5 * $spacer;
     right: 2.5 * $spacer;
   }
