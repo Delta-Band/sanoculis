@@ -21,7 +21,7 @@ export default function Home() {
   const [showError, setShowError] = useState(false);
   const [scrollPosition, setscrollPosition] = useState(0);
   const theme = useTheme();
-  const mobile = useMediaQuery(theme.breakpoints.down('md'));
+  const mobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   function handleScroll() {
     setscrollPosition(pageRef.current.scrollTop);
@@ -55,6 +55,14 @@ export default function Home() {
     } else {
       setEmailSent(true);
     }
+  }
+
+  function attachTypingClass() {
+    document.getElementById('__next').classList.add('typing');
+  }
+
+  function removeTypingClass() {
+    document.getElementById('__next').classList.remove('typing');
   }
 
   return (
@@ -102,6 +110,8 @@ export default function Home() {
               onChange={(e) => {
                 setEmail(e.currentTarget.value);
               }}
+              onFocus={attachTypingClass}
+              onBlur={removeTypingClass}
             />
           </Grid>
           <Grid item xs={2}>
@@ -109,7 +119,10 @@ export default function Home() {
               variant='contained'
               color='primary'
               fullWidth
-              className={cx(styles.submit, { [styles.mobile]: mobile })}
+              className={cx(styles.submit, {
+                [styles.mobile]: mobile,
+                [styles.sent]: emailSent
+              })}
               disableElevation
               onClick={sendEmail}
             >

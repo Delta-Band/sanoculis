@@ -21,6 +21,34 @@
 
   #__next {
     height: 100%;
+
+    &:not(.typing) {
+      @include orientation('landscape') {
+        &::before {
+          content: 'please rotate your device to portrait mode';
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        & > div {
+          @include orientation('landscape') {
+            display: none;
+
+            @include media('>tablet') {
+              display: flex;
+            }
+          }
+        }
+
+        @include media('>tablet') {
+          &::before {
+            content: '';
+          }
+        }
+      }
+    }
   }
 
   h2 {
@@ -62,7 +90,7 @@
   height: 100%;
 
   &.mobile {
-    padding-top: 90vw;
+    padding-top: #{90vw + (4 * $spacer)};
     height: auto;
     overflow-y: auto;
   }
@@ -89,6 +117,7 @@ a {
     left: 0;
     top: 0;
     position: fixed;
+    pointer-events: none;
   }
 }
 
@@ -181,6 +210,7 @@ a {
     border-radius: 0;
     padding: 0;
     min-width: 0;
+    transition: 1s $ease;
 
     svg {
       width: 34px;
@@ -188,6 +218,10 @@ a {
 
     &.mobile {
       height: 45px;
+    }
+
+    &.sent {
+      background: green;
     }
   }
 
