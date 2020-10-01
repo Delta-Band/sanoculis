@@ -82,8 +82,8 @@ export default function Home() {
         }
         className={cx(styles.art, { [styles.mobile]: mobile })}
         style={{
-          transform: `translateX(-${scrollPosition * 0.5}%)`,
-          opacity: 1 - scrollPosition * (1 / 150)
+          transform: `translateX(-${scrollPosition * 0.15}%)`,
+          opacity: 1 - scrollPosition * (1 / 250)
         }}
       />
       <div className={cx(styles.contentBox, { [styles.mobile]: mobile })}>
