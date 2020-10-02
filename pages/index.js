@@ -103,7 +103,7 @@ export default function Home() {
           <Grid item xs={10}>
             <TextField
               id='filled-basic'
-              placeholder='stay updated'
+              placeholder='Get updates on clinical progress'
               variant='outlined'
               fullWidth
               className={cx(styles.email, { [styles.mobile]: mobile })}
