@@ -10,12 +10,15 @@ import Button from '@material-ui/core/Button';
 import { Email } from '@styled-icons/material-rounded/Email';
 import { MarkEmailRead as EmailSent } from '@styled-icons/material-rounded/MarkEmailRead';
 import { Warning } from '@styled-icons/material-rounded/Warning';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { validateEmail } from '../utils';
+import { emailJS, GA } from '../services';
 import styles from './styles.scss';
 
 export default function Home() {
   const pageRef = useRef();
   const [emailSent, setEmailSent] = useState(false);
+  const [working, setWorking] = useState(false);
   const [email, setEmail] = useState('');
   const [emailIsValid, setEmailIsValid] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -49,11 +52,19 @@ export default function Home() {
     }
   }, [emailIsValid]);
 
-  function sendEmail() {
+  async function sendEmail() {
     if (!emailIsValid) {
       setShowError(true);
     } else {
-      setEmailSent(true);
+      setWorking(true);
+      try {
+        await emailJS.send({ email });
+        setEmailSent(true);
+        GA.logEvent('contact-form', 'sent-successful');
+      } catch (err) {
+        GA.logEvent('contact-form', 'sent-failed');
+      }
+      setWorking(false);
     }
   }
 
@@ -126,7 +137,16 @@ export default function Home() {
               disableElevation
               onClick={sendEmail}
             >
-              {emailSent ? <EmailSent key='sent' /> : <Email key='not_sent' />}
+              {working ? (
+                <CircularProgress
+                  color='secondary'
+                  className={styles.circularProgress}
+                />
+              ) : emailSent ? (
+                <EmailSent key='sent' />
+              ) : (
+                <Email key='not_sent' />
+              )}
             </Button>
           </Grid>
           <Grid item xs={12}>
