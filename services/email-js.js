@@ -1,25 +1,19 @@
 import { send as sendEmail } from 'emailjs-com';
 
 const CONFIG = {
-  SERVICE_ID: 'sanoculis_website',
-  USER_ID: 'user_8ymlAbJeHeX4mjCkAkI02',
+  SERVICE_ID: 'nir_g_suite',
+  USER_ID: 'user_B2olhGaEdFk0PBurdMa1A',
   TEMPLATES: {
-    CONTACT: 'contact_form',
-    CONTACT_WITH_SHARED_LINK: 'contact_form_with_shared_link'
+    CONTACT: 'contact-from-website'
   }
 };
 
-const send = ({ name, organization, role, email, letter, shareLink }) => {
+const send = ({ email }) => {
   return sendEmail(
     CONFIG.SERVICE_ID,
-    CONFIG.TEMPLATES[shareLink.length ? 'CONTACT_WITH_SHARED_LINK' : 'CONTACT'],
+    CONFIG.TEMPLATES.CONTACT,
     {
-      name,
-      organization,
-      role,
-      email,
-      letter,
-      shareLink
+      email
     },
     CONFIG.USER_ID
   );
