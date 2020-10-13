@@ -170,7 +170,7 @@ export default function Home() {
       >
         <Box display='flex'>
           <a
-            href='mailto:info@sanoculis.com?subject=Mail from Our Website&body=Please contact me'
+            href='https://www.linkedin.com/company/sanoculis/'
             target='_blank'
             rel='noopener noreferrer'
           >
