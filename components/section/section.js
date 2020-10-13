@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import cx from 'classnames';
 import styles from './styles.scss';

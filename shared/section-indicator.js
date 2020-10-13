@@ -50,7 +50,11 @@ const SectionIndicator = ({
   function scrollToRef(i) {
     console.log('debug');
     if (refs[i]) {
-      scrollContainer.current.scrollTo(0, refs[i].current.offsetTop);
+      const rect = refs[i].current.getBoundingClientRect();
+      scrollContainer.current.scrollTo(
+        0,
+        refs[i].current.offsetTop - (window.innerHeight - rect.height) / 2
+      );
     }
   }
 
