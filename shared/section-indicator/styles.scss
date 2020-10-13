@@ -1,0 +1,15 @@
+@import '../styles/index';
+
+.envelope {
+  list-style: none;
+  position: fixed;
+  left: $spacer * 2;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0;
+}
+
+// .item {
+//   background-color: ;
+// }

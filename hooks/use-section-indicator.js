@@ -6,8 +6,8 @@ function useSectionIndicator(sectionRef, pageRef) {
   function handleScroll() {
     // const sectionRef = document.getElementById(sectionId);
     const rect = sectionRef.current.getBoundingClientRect();
-    const location = rect.top + rect.height / 2;
-    setOnTarget(location <= window.innerHeight * 0.6);
+    // const midPoint = rect.top + rect.height / 2;
+    setOnTarget(rect.top <= window.innerHeight * 0.5);
   }
 
   useEffect(() => {
@@ -16,13 +16,15 @@ function useSectionIndicator(sectionRef, pageRef) {
     }, 1000);
     pageRef.current.addEventListener('scroll', handleScroll);
     return () => {
-      pageRef.current.removeEventListener('scroll', handleScroll);
+      if (pageRef.current) {
+        pageRef.current.removeEventListener('scroll', handleScroll);
+      }
     };
   }, []);
 
-  useEffect(() => {
-    console.log(`onTarget: ${onTarget}`);
-  }, [onTarget]);
+  // useEffect(() => {
+  //   console.log(`onTarget: ${onTarget}`);
+  // }, [onTarget]);
 
   return onTarget;
 }

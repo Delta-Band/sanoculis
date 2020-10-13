@@ -29,12 +29,17 @@ const getCMSData = async (dispatch) => {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#000000'
+      main: '#5668FF'
     },
     secondary: {
-      main: '#00E3EB'
+      main: '#ffffff'
     }
-  }
+  },
+  pageGutter: 10,
+  navHeight: 70,
+  easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+  cursorPointer:
+    'url("/images/cursor/cursor-pointer.svg") 12 0, auto !important'
 });
 
 class MyApp extends App {

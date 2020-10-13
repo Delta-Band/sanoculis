@@ -1,14 +1,14 @@
 @import '../../shared/styles/index';
 
 .section {
-  margin-bottom: #{$spacer-h * 3};
+  margin-bottom: #{$spacer * 3};
   .art,
   .content {
-    height: #{$spacer-h * 15};
+    height: #{$spacer * 15};
   }
 
   .content {
-    padding: $spacer-v $spacer-h;
+    padding: $spacer $spacer;
   }
 
   .art {

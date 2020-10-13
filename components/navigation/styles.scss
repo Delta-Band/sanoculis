@@ -8,12 +8,11 @@
   position: fixed;
   top: 0;
   left: 0;
-  padding: 0 $spacer-h;
+  padding: 0 $spacer;
   z-index: 1;
 
   .logo {
     @extend %fadeIn;
-    background: gray;
 
     .logoSVG {
       height: 100%;
@@ -27,7 +26,7 @@
   }
 
   .navBtn {
-    padding-left: #{$spacer-h / 2};
-    padding-right: #{$spacer-h / 2};
+    padding-left: #{$spacer / 2};
+    padding-right: #{$spacer / 2};
   }
 }

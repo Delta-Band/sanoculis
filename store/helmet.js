@@ -1,7 +1,7 @@
 const reducer = (
   state = {
     tabTitle: 'Sanoclis',
-    metaDescription: 'TODO: add text here'
+    metaDescription: 'Sanoculis MIMS Device'
   },
   action
 ) => {

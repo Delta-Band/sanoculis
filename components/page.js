@@ -1,9 +1,23 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import cx from 'classnames';
-import styles from './styles.scss';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  page: {
+    padding: `${theme.navHeight * 1.5}px ${theme.pageGutter}vw`,
+    boxSizing: 'border-box',
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+    overflowY: 'auto',
+    scrollBehavior: 'smooth'
+  }
+}));
 
 export default function Page({ children, className, getRef }) {
+  const styles = useStyles();
+
   return (
     <motion.div
       ref={getRef}

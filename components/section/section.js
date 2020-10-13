@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import cx from 'classnames';
 import styles from './styles.scss';
@@ -11,10 +11,11 @@ export default function Section({
   body,
   footer,
   superSizedHeader,
-  pageRef
+  pageRef,
+  onTarget,
+  sectionRef
 }) {
-  const sectionRef = useRef();
-  const onTarget = useSectionIndicator(sectionRef, pageRef);
+  const _onTarget = useSectionIndicator(sectionRef, pageRef);
   // const [onTarget, setOnTarget] = useState(false);
 
   // function handleScroll() {
@@ -39,18 +40,13 @@ export default function Section({
   //   console.log(`onTarget: ${onTarget}`);
   // }, [onTarget]);
 
-  // useEffect(() => {
-  //   console.log(`onTarget: ${onTarget}`);
-  // }, [onTarget]);
+  useEffect(() => {
+    onTarget(_onTarget);
+  }, [_onTarget]);
 
   function ArtNContent() {
     return (
-      <section
-        ref={sectionRef}
-        style={{
-          backgroundColor: onTarget ? 'green' : 'transparent'
-        }}
-      >
+      <section ref={sectionRef}>
         <Grid
           className={styles.section}
           container

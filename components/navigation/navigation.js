@@ -1,13 +1,34 @@
 import React, { Fragment } from 'react';
 import { useRouter } from 'next/router';
 import Button from '@material-ui/core/Button';
-import { ReactSVG } from 'react-svg';
 import Grid from '@material-ui/core/Grid';
-import styles from './styles.scss';
+import { makeStyles } from '@material-ui/core/styles';
+// import styles from './styles.scss';
 import Footer from '../footer/footer';
+
+const useStyles = makeStyles((theme) => ({
+  navBar: {
+    height: theme.navHeight,
+    boxSizing: 'border-box',
+    color: 'white',
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    padding: '0 2.5vw',
+    zIndex: '1'
+  },
+  logo: {
+    width: '12vw'
+    // padding: '1vw'
+  },
+  navBtn: {
+    pdding: '0 1.25vw'
+  }
+}));
 
 const Navigation = () => {
   const router = useRouter();
+  const styles = useStyles();
 
   return (
     <Fragment>
@@ -22,12 +43,12 @@ const Navigation = () => {
           <Button
             color='primary'
             disableRipple
-            className={styles.logo}
+            // className={styles.logo}
             onClick={() => {
               router.push('/', undefined, { shallow: true });
             }}
           >
-            <ReactSVG src='/images/logo.svg' className={styles.logoSVG} />
+            <img src='/images/logo.svg' className={styles.logo} />
           </Button>
         </Grid>
         <Grid item xs='auto'>
