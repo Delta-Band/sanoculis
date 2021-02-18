@@ -4,12 +4,10 @@ import App from 'next/app';
 import { connect } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
 import { Helmet } from '../shared';
-import { Navigation } from '../components';
 import { wrapper } from '../store/store';
 import reactor from '../reactor-utils';
-import { cms, helmet, device } from '../store';
+import { cms, helmet } from '../store';
 // import { GA } from '../services';
-import styles from './styles.scss';
 
 reactor.init();
 
@@ -58,12 +56,9 @@ class MyApp extends App {
           description={helmet.metaDescription}
           imageForSocial='/images/logo-social-square.png'
         />
-        <div className={styles.app}>
-          <Navigation />
-          <AnimatePresence>
-            <Component {...pageProps} key={router.route} />
-          </AnimatePresence>
-        </div>
+        <AnimatePresence>
+          <Component {...pageProps} key={router.route} />
+        </AnimatePresence>
       </ThemeProvider>
     );
   }
@@ -74,7 +69,7 @@ MyApp.getInitialProps = async ({ ctx }) => {
   await getCMSData(ctx.store.dispatch);
   if (ctx.req) {
     // mimic device on server
-    ctx.store.dispatch(device.actions.ssr(ctx.req.headers['user-agent']));
+    // ctx.store.dispatch(device.actions.ssr(ctx.req.headers['user-agent']));
   }
   return {};
 };
@@ -86,5 +81,5 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({});
 
 export default wrapper.withRedux(
-  connect(mapStateToProps, mapDispatchToProps)(device.HOC(MyApp))
+  connect(mapStateToProps, mapDispatchToProps)(MyApp)
 );
