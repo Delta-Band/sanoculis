@@ -70,7 +70,7 @@ function Right() {
 function Center() {
   const theme = useTheme();
   return (
-    <Box width={1} pt={22} display='flex' flexDirection='column'>
+    <Box width={1} pt={18} display='flex' flexDirection='column'>
       <Box
         height='80vw'
         width='80vw'

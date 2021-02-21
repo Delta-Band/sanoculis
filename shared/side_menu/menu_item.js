@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
+import { Button } from '@material-ui/core';
 
 const variants = {
   open: {
@@ -18,9 +19,7 @@ const variants = {
   }
 };
 
-const colors = ['#FF008C', '#D309E1', '#9C1AFF', '#7700FF', '#4400FF'];
-
-export const MenuItem = ({ i }) => {
+export const MenuItem = ({ text, closeMenu }) => {
   return (
     <motion.li
       variants={variants}
@@ -34,16 +33,7 @@ export const MenuItem = ({ i }) => {
         cursor: 'pointer'
       }}
     >
-      <div
-        className='text-placeholder'
-        style={{
-          borderRadius: '5px',
-          width: '200px',
-          height: '20px',
-          flex: '1',
-          border: `2px solid ${colors[i]}`
-        }}
-      />
+      <Button onClick={closeMenu}>{text}</Button>
     </motion.li>
   );
 };

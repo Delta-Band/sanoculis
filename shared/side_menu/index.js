@@ -49,13 +49,14 @@ function SideMenu() {
           position: 'fixed',
           top: 0,
           left: 0,
-          bottom: 0,
-          width: 300,
-          background: '#fff'
+          height: '100%',
+          width: '100vw',
+          background: 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(5px)'
         }}
       />
-      <Navigation />
-      <MenuToggle toggle={() => toggleOpen()} />
+      <Navigation closeMenu={() => toggleOpen(!isOpen)} />
+      <MenuToggle toggle={() => toggleOpen(!isOpen)} />
     </motion.nav>
   );
 }

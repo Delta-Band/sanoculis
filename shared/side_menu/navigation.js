@@ -11,23 +11,23 @@ const variants = {
   }
 };
 
-const itemIds = [0, 1, 2, 3, 4];
+const items = ['about', 'clinical', 'distributors', 'contact'];
 
-function Navigation() {
+function Navigation({ closeMenu }) {
   return (
     <motion.ul
       variants={variants}
       style={{
         margin: 0,
         padding: '25px',
-        paddingTop: '100px',
+        paddingTop: '140px',
         position: 'absolute',
         top: 0,
         width: '230px'
       }}
     >
-      {itemIds.map((i) => (
-        <MenuItem i={i} key={i} />
+      {items.map((i) => (
+        <MenuItem closeMenu={closeMenu} key={i} text={i} />
       ))}
     </motion.ul>
   );
