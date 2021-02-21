@@ -16,7 +16,8 @@
     "no-new": 0,
     "spaced-comment": 0,
     "indent": 0,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "multiline-ternary": 0
   },
   "globals": {
     "Image": true,

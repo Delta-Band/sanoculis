@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { Box, Button } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+// import { MenuAlt4 as Menu } from '@styled-icons/heroicons-outline/MenuAlt4';
+// import { CloseOutline as MenuClose } from '@styled-icons/evaicons-outline/CloseOutline';
 import {
   createMuiTheme,
   ThemeProvider,
   useTheme
 } from '@material-ui/core/styles';
+import { SideMenu } from '../shared';
 import '../styles/globals.css';
 
 const theme = createMuiTheme({
@@ -36,13 +40,19 @@ const theme = createMuiTheme({
       }
     }
   },
-  transition: '1s cubic-bezier(.21,.47,.49,.92)'
+  transition: '1s cubic-bezier(.21,.47,.49,.92)',
+  fastTransition: '0.2s cubic-bezier(.21,.47,.49,.92)'
 });
 
 function NavBar() {
+  // State
   const [fadeInItems, setFadeInItems] = useState(false);
 
+  // Hooks
   const theme = useTheme();
+  const isPortrait = useMediaQuery('(max-width:1355px)');
+
+  // Effects
   useEffect(() => {
     setTimeout(() => {
       setFadeInItems(true);
@@ -63,46 +73,54 @@ function NavBar() {
       pb={0}
       pt={4}
       display='flex'
-      justifyContent='space-between'
+      justifyContent={isPortrait ? 'flex-end' : 'space-between'}
+      flexDirection={isPortrait ? 'row-reverse' : 'row'}
       alignItems='center'
     >
       <img src='/sanoculis_logo.svg' />
-      <Box display='flex'>
-        <Button
-          style={{
-            ...transitionDef
-          }}
-        >
-          About
-        </Button>
-        <Box ml='2vw' />
-        <Button
-          style={{
-            ...transitionDef,
-            transitionDuration: '1.5s'
-          }}
-        >
-          Clinical
-        </Button>
-        <Box ml='2vw' />
-        <Button
-          style={{
-            ...transitionDef,
-            transitionDuration: '2s'
-          }}
-        >
-          Distributors
-        </Button>
-        <Box ml='2vw' />
-        <Button
-          style={{
-            ...transitionDef,
-            transitionDuration: '2.5s'
-          }}
-        >
-          CONTACT
-        </Button>
-      </Box>
+      {isPortrait ? (
+        <Fragment>
+          <Box ml={4} />
+          <SideMenu />
+        </Fragment>
+      ) : (
+        <Box display='flex'>
+          <Button
+            style={{
+              ...transitionDef
+            }}
+          >
+            About
+          </Button>
+          <Box ml='2vw' />
+          <Button
+            style={{
+              ...transitionDef,
+              transitionDuration: '1.5s'
+            }}
+          >
+            Clinical
+          </Button>
+          <Box ml='2vw' />
+          <Button
+            style={{
+              ...transitionDef,
+              transitionDuration: '2s'
+            }}
+          >
+            Distributors
+          </Button>
+          <Box ml='2vw' />
+          <Button
+            style={{
+              ...transitionDef,
+              transitionDuration: '2.5s'
+            }}
+          >
+            CONTACT
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 }

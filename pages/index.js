@@ -27,7 +27,6 @@ function Left() {
 }
 
 function Right() {
-  const widescreen = useMediaQuery('(min-width:2200px)');
   return (
     <Box
       width='55%'
@@ -39,11 +38,11 @@ function Right() {
       <img
         src='/mims_for_hero.svg'
         style={{
-          width: '28vw',
-          minWidth: 516
+          width: '32vw',
+          minWidth: 393
         }}
       />
-      <Box mb={widescreen ? 10 : 6} />
+      <Box mb='5vh' />
       <Typography
         style={{
           lineHeight: '1em',
@@ -52,7 +51,7 @@ function Right() {
       >
         LEAVE NO THING BEHIND
       </Typography>
-      <Box mb={widescreen ? 12 : 8} />
+      <Box mb='5vh' />
       <Typography
         style={{
           lineHeight: '2em'
@@ -68,7 +67,59 @@ function Right() {
   );
 }
 
+function Center() {
+  const theme = useTheme();
+  return (
+    <Box width={1} pt={22} display='flex' flexDirection='column'>
+      <Box
+        height='80vw'
+        width='80vw'
+        borderRadius='70vw'
+        flexShrink={0}
+        style={{
+          margin: '0 auto 50px',
+          backgroundColor: theme.palette.primary.dark
+        }}
+      ></Box>
+      <img
+        src='/mims_for_hero.svg'
+        style={{
+          width: '80vw',
+          minWidth: 393,
+          margin: '0 auto'
+        }}
+      />
+      <Box mb={6} />
+      <Typography
+        style={{
+          lineHeight: '1em',
+          fontSize: 24,
+          padding: '0 10vw'
+        }}
+      >
+        LEAVE NO THING BEHIND
+      </Typography>
+      <Box mb={4} />
+      <Typography
+        style={{
+          fontSize: 16,
+          lineHeight: '1.8em',
+          padding: '0 10vw'
+        }}
+      >
+        Minimally Invasive Micro Sclerostomy is a Stentless,
+        <br />
+        Simple & Fast Glaucoma treatment to effectively lower
+        <br />
+        IOP without invasive surgery or medication.
+      </Typography>
+      <Box mb={4} />
+    </Box>
+  );
+}
+
 export default function Home() {
+  const isPortrait = useMediaQuery('(max-width:1355px)');
   return (
     <Fragment>
       <Head>
@@ -78,7 +129,7 @@ export default function Home() {
       </Head>
       <Box
         width={1}
-        height='54vw'
+        height={isPortrait ? 'auto' : '54vw'}
         display='flex'
         style={{
           backgroundImage: 'url(/hero_bg.png)',
@@ -86,8 +137,9 @@ export default function Home() {
           backgroundPosition: 'center center'
         }}
       >
-        <Left />
-        <Right />
+        {!isPortrait && <Left />}
+        {!isPortrait && <Right />}
+        {isPortrait && <Center />}
       </Box>
     </Fragment>
   );

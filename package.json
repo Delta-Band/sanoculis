@@ -14,9 +14,13 @@
   ],
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "framer-motion": "^3.6.2",
+    "gsap": "^3.6.0",
     "next": "10.0.7",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "styled-components": "^5.2.1",
+    "styled-icons": "^10.28.0"
   },
   "devDependencies": {
     "eslint": "^7.20.0",
