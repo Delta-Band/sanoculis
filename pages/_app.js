@@ -44,6 +44,9 @@ const theme = createMuiTheme({
         fontSize: pxToRem(16)
       }
     },
+    p: {
+      padding: 0
+    },
     h2: {
       fontSize: '42px',
       fontFamily: 'Domaine',
@@ -61,7 +64,7 @@ const theme = createMuiTheme({
     }
   },
   transition: '1s cubic-bezier(.21,.47,.49,.92)',
-  mobileGutter: '2vw',
+  mobileGutter: '6vw',
   fastTransition: '0.2s cubic-bezier(.21,.47,.49,.92)'
 });
 

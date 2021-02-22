@@ -34,7 +34,7 @@ function Right({ children }) {
 
 function Center({ children }) {
   return (
-    <Box width={1} pt={12} pb={12} display='flex' flexDirection='column'>
+    <Box width={1} pt={12} pb={0} display='flex' flexDirection='column'>
       {children}
     </Box>
   );
@@ -108,7 +108,7 @@ function HeroMobile() {
       <img
         src='/mims_for_hero.svg'
         style={{
-          width: `calc(100vw - ${theme.spacing(2) * 2}px)`,
+          width: `calc(100vw - ${theme.mobileGutter} - ${theme.mobileGutter})`,
           margin: '0 auto'
         }}
       />
@@ -117,7 +117,7 @@ function HeroMobile() {
         style={{
           lineHeight: '1em',
           fontSize: 24,
-          padding: `0 ${theme.spacing(2)}px`
+          padding: `0 ${theme.mobileGutter}`
         }}
       >
         LEAVE NO THING BEHIND
@@ -125,7 +125,7 @@ function HeroMobile() {
       <Box mb={4} />
       <Typography
         style={{
-          padding: `0 ${theme.spacing(2)}px`
+          padding: `0 ${theme.mobileGutter}`
         }}
       >
         Minimally Invasive Micro Sclerostomy is a Stentless, Simple & Fast
@@ -180,11 +180,7 @@ function Inovation() {
         </Typography>
         <Box mb='5vh' />
         <Box maxWidth='40vw'>
-          <Typography
-            style={{
-              padding: `0 ${theme.spacing(2)}px`
-            }}
-          >
+          <Typography>
             MIMS is a rapid & minimal procedure at the forefront of
             Interventional Glaucoma treatments. Fewer complications and less
             reliance on medications allows for effective IOP management.
@@ -208,22 +204,80 @@ function Inovation() {
       <Typography
         variant='h2'
         style={{
-          padding: `0 ${theme.spacing(2)}px`
+          padding: `0 ${theme.mobileGutter}`
         }}
       >
         A Simple & Stent-less
         <br />
         Treatment Innovation
       </Typography>
-      <Box mb='5vh' />
+      <Box mb={3} />
       <Typography
         style={{
-          padding: `0 ${theme.spacing(2)}px`
+          padding: `0 ${theme.mobileGutter}`
         }}
       >
         MIMS is a rapid & minimal procedure at the forefront of Interventional
         Glaucoma treatments. Fewer complications and less reliance on
         medications allows for effective IOP management.
+      </Typography>
+    </Center>
+  );
+}
+
+function HowItWorksVideo({ width, height }) {
+  return (
+    <video controls style={{ maxWidth: '100%', maxHeight: '100%' }}>
+      <source src='/how_mims_works.mp4' type='video/mp4' />
+    </video>
+  );
+}
+
+function HowItWorks() {
+  const isPortrait = useMediaQuery('(max-width:1355px)');
+  const theme = useTheme();
+  return !isPortrait ? (
+    <Box width={1} pt={18} pb={18} display='flex' flexDirection='row'>
+      <Left>
+        <Box width={500} height={280}>
+          <HowItWorksVideo width='500' height='280' />
+        </Box>
+      </Left>
+      <Right>
+        <Typography variant='h2'>How MIMS® Works</Typography>
+        <Box mb='5vh' />
+        <Box maxWidth='40vw'>
+          <Typography>
+            Minimally Invasive Micro Sclerostomy is fast, accessible &
+            effective. It works by inserting a specially designed needle into
+            the sclera & removing a small channel of tissue. This channel will
+            remain open & contentiously drain, effectively reducing IOP buildup.
+          </Typography>
+        </Box>
+      </Right>
+    </Box>
+  ) : (
+    <Center>
+      <HowItWorksVideo />
+      <Box mb={5} />
+      <Typography
+        variant='h2'
+        style={{
+          padding: `0 ${theme.mobileGutter}`
+        }}
+      >
+        How MIMS® Works
+      </Typography>
+      <Box mb={3} />
+      <Typography
+        style={{
+          padding: `0 ${theme.mobileGutter}`
+        }}
+      >
+        Minimally Invasive Micro Sclerostomy is fast, accessible & effective. It
+        works by inserting a specially designed needle into the sclera &
+        removing a small channel of tissue. This channel will remain open &
+        contentiously drain, effectively reducing IOP buildup.
       </Typography>
     </Center>
   );
@@ -239,6 +293,7 @@ export default function Home() {
       </Head>
       <Hero />
       <Inovation />
+      <HowItWorks />
     </Fragment>
   );
 }
