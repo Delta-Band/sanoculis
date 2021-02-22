@@ -11,6 +11,12 @@ import {
 import { SideMenu } from '../shared';
 import '../styles/globals.css';
 
+const defaultTheme = createMuiTheme();
+const {
+  breakpoints,
+  typography: { pxToRem }
+} = defaultTheme;
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -27,10 +33,24 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    fontFamily: ['Rubik'].join(','),
-    fontSize: 20,
+    fontFamily: ['Rubik', 'Domaine'].join(','),
+    lineHeight: '1.8em',
     allVariants: {
       color: '#06003B'
+    },
+    body1: {
+      fontSize: 20,
+      [breakpoints.down('xs')]: {
+        fontSize: pxToRem(16)
+      }
+    },
+    h2: {
+      fontSize: '42px',
+      fontFamily: 'Domaine',
+      fontWeight: 'bold',
+      [breakpoints.down('xs')]: {
+        fontSize: '28px'
+      }
     }
   },
   overrides: {
@@ -130,7 +150,13 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
-      <Component {...pageProps} />
+      <div
+        style={{
+          background: '#F1F5F8'
+        }}
+      >
+        <Component {...pageProps} />
+      </div>
     </ThemeProvider>
   );
 }

@@ -4,8 +4,7 @@ import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Head from 'next/head';
 
-function Left() {
-  const theme = useTheme();
+function Left({ children }) {
   return (
     <Box
       width='45%'
@@ -14,19 +13,12 @@ function Left() {
       alignItems='center'
       pr='5vw'
     >
-      <Box
-        height='28vw'
-        width='28vw'
-        borderRadius='28vw'
-        style={{
-          backgroundColor: theme.palette.primary.dark
-        }}
-      ></Box>
+      {children}
     </Box>
   );
 }
 
-function Right() {
+function Right({ children }) {
   return (
     <Box
       width='55%'
@@ -35,6 +27,38 @@ function Right() {
       flexDirection='column'
       justifyContent='center'
     >
+      {children}
+    </Box>
+  );
+}
+
+function Center({ children }) {
+  return (
+    <Box width={1} pt={12} pb={12} display='flex' flexDirection='column'>
+      {children}
+    </Box>
+  );
+}
+
+function HeroLeft() {
+  const theme = useTheme();
+  return (
+    <Left>
+      <Box
+        height='28vw'
+        width='28vw'
+        borderRadius='28vw'
+        style={{
+          backgroundColor: theme.palette.primary.dark
+        }}
+      ></Box>
+    </Left>
+  );
+}
+
+function HeroRight() {
+  return (
+    <Right>
       <img
         src='/mims_for_hero.svg'
         style={{
@@ -63,14 +87,14 @@ function Right() {
         <br />
         IOP without invasive surgery or medication.
       </Typography>
-    </Box>
+    </Right>
   );
 }
 
-function Center() {
+function HeroMobile() {
   const theme = useTheme();
   return (
-    <Box width={1} pt={18} display='flex' flexDirection='column'>
+    <Box width={1} pt={18} pb={4} display='flex' flexDirection='column'>
       <Box
         height='80vw'
         width='80vw'
@@ -101,8 +125,6 @@ function Center() {
       <Box mb={4} />
       <Typography
         style={{
-          fontSize: 16,
-          lineHeight: '1.8em',
           padding: `0 ${theme.spacing(2)}px`
         }}
       >
@@ -115,8 +137,99 @@ function Center() {
   );
 }
 
-export default function Home() {
+function Hero() {
   const isPortrait = useMediaQuery('(max-width:1355px)');
+  return (
+    <Box
+      width={1}
+      height={isPortrait ? 'auto' : '54vw'}
+      display='flex'
+      style={{
+        backgroundImage: 'url(/hero_bg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center'
+      }}
+    >
+      {!isPortrait && <HeroLeft />}
+      {!isPortrait && <HeroRight />}
+      {isPortrait && <HeroMobile />}
+    </Box>
+  );
+}
+
+function Inovation() {
+  const isPortrait = useMediaQuery('(max-width:1355px)');
+  const theme = useTheme();
+  return !isPortrait ? (
+    <Box width={1} pt={18} pb={18} display='flex' flexDirection='row'>
+      <Left>
+        <Box
+          height='28vw'
+          width='28vw'
+          borderRadius='28vw'
+          style={{
+            backgroundColor: theme.palette.primary.dark
+          }}
+        ></Box>
+      </Left>
+      <Right>
+        <Typography variant='h2'>
+          A Simple & Stent-less
+          <br />
+          Treatment Innovation
+        </Typography>
+        <Box mb='5vh' />
+        <Box maxWidth='40vw'>
+          <Typography
+            style={{
+              padding: `0 ${theme.spacing(2)}px`
+            }}
+          >
+            MIMS is a rapid & minimal procedure at the forefront of
+            Interventional Glaucoma treatments. Fewer complications and less
+            reliance on medications allows for effective IOP management.
+          </Typography>
+        </Box>
+      </Right>
+    </Box>
+  ) : (
+    <Center>
+      <Box
+        height='80vw'
+        width='80vw'
+        borderRadius='70vw'
+        flexShrink={0}
+        style={{
+          margin: '0 auto 50px',
+          backgroundColor: theme.palette.primary.dark
+        }}
+      ></Box>
+      <Box mb={4} />
+      <Typography
+        variant='h2'
+        style={{
+          padding: `0 ${theme.spacing(2)}px`
+        }}
+      >
+        A Simple & Stent-less
+        <br />
+        Treatment Innovation
+      </Typography>
+      <Box mb='5vh' />
+      <Typography
+        style={{
+          padding: `0 ${theme.spacing(2)}px`
+        }}
+      >
+        MIMS is a rapid & minimal procedure at the forefront of Interventional
+        Glaucoma treatments. Fewer complications and less reliance on
+        medications allows for effective IOP management.
+      </Typography>
+    </Center>
+  );
+}
+
+export default function Home() {
   return (
     <Fragment>
       <Head>
@@ -124,20 +237,8 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
         <link rel='preload' href='/fonts/Rubik.ttf' as='font' crossOrigin='' />
       </Head>
-      <Box
-        width={1}
-        height={isPortrait ? 'auto' : '54vw'}
-        display='flex'
-        style={{
-          backgroundImage: 'url(/hero_bg.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center'
-        }}
-      >
-        {!isPortrait && <Left />}
-        {!isPortrait && <Right />}
-        {isPortrait && <Center />}
-      </Box>
+      <Hero />
+      <Inovation />
     </Fragment>
   );
 }
