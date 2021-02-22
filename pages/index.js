@@ -239,7 +239,7 @@ function HowItWorks() {
   return !isPortrait ? (
     <Box width={1} pt={18} pb={18} display='flex' flexDirection='row'>
       <Left>
-        <Box width={500} height={280}>
+        <Box width='28vw' height={`${0.56 * 28}vw`}>
           <HowItWorksVideo width='500' height='280' />
         </Box>
       </Left>
