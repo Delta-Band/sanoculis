@@ -1,6 +1,5 @@
 import * as React from 'react';
 import IconButton from '@material-ui/core/IconButton';
-import { useTheme } from '@material-ui/core/styles';
 import { motion } from 'framer-motion';
 
 const Path = (props) => (
@@ -14,16 +13,14 @@ const Path = (props) => (
 );
 
 function MenuToggle({ toggle }) {
-  // Hooks
-  const theme = useTheme();
-
   return (
     <IconButton
       onClick={toggle}
-      style={{
-        background: 'white',
-        padding: theme.spacing(2)
-      }}
+      style={
+        {
+          // padding: theme.spacing(2)
+        }
+      }
     >
       <svg width='25' height='25' viewBox='0 0 22 18'>
         <Path

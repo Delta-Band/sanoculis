@@ -70,12 +70,12 @@ function NavBar() {
     <Box
       position='fixed'
       width='100vw'
-      p={isPortrait ? 2 : 6}
+      p={isPortrait ? 3 : 6}
       pb={0}
-      pt={4}
+      pt={isPortrait ? 3 : 4}
       display='flex'
-      justifyContent={isPortrait ? 'flex-end' : 'space-between'}
-      flexDirection={isPortrait ? 'row-reverse' : 'row'}
+      justifyContent='space-between'
+      flexDirection='row'
       alignItems='center'
     >
       <img src='/sanoculis_logo.svg' />
