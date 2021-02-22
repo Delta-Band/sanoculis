@@ -84,8 +84,7 @@ function Center() {
       <img
         src='/mims_for_hero.svg'
         style={{
-          width: '80vw',
-          minWidth: 393,
+          width: `calc(100vw - ${theme.spacing(2) * 2}px)`,
           margin: '0 auto'
         }}
       />
@@ -94,7 +93,7 @@ function Center() {
         style={{
           lineHeight: '1em',
           fontSize: 24,
-          padding: '0 10vw'
+          padding: `0 ${theme.spacing(2)}px`
         }}
       >
         LEAVE NO THING BEHIND
@@ -104,14 +103,12 @@ function Center() {
         style={{
           fontSize: 16,
           lineHeight: '1.8em',
-          padding: '0 10vw'
+          padding: `0 ${theme.spacing(2)}px`
         }}
       >
-        Minimally Invasive Micro Sclerostomy is a Stentless,
-        <br />
-        Simple & Fast Glaucoma treatment to effectively lower
-        <br />
-        IOP without invasive surgery or medication.
+        Minimally Invasive Micro Sclerostomy is a Stentless, Simple & Fast
+        Glaucoma treatment to effectively lower IOP without invasive surgery or
+        medication.
       </Typography>
       <Box mb={4} />
     </Box>
