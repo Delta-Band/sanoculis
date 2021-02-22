@@ -41,6 +41,7 @@ const theme = createMuiTheme({
     }
   },
   transition: '1s cubic-bezier(.21,.47,.49,.92)',
+  mobileGutter: '2vw',
   fastTransition: '0.2s cubic-bezier(.21,.47,.49,.92)'
 });
 
@@ -69,7 +70,7 @@ function NavBar() {
     <Box
       position='fixed'
       width='100vw'
-      p={6}
+      p={isPortrait ? 2 : 6}
       pb={0}
       pt={4}
       display='flex'

@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { useTheme } from '@material-ui/core/styles';
 import { motion, useCycle } from 'framer-motion';
 import { useDimensions } from '../../hooks';
 import MenuToggle from './menu_toggle';
@@ -10,27 +9,24 @@ function SideMenu() {
   const [isOpen, toggleOpen] = useCycle(false, true);
 
   // Hooks
-  const theme = useTheme();
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
 
   const sidebar = {
     open: (height = 1000) => ({
-      clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
+      clipPath: 'circle(75% at 0 10vh)',
       transition: {
         type: 'spring',
-        stiffness: 20,
-        restDelta: 2
+        mass: 1,
+        damping: 30
       }
     }),
     closed: {
-      clipPath: `circle(29px at ${29 + theme.spacing(6)}px ${
-        29 + theme.spacing(4)
-      }px)`,
+      clipPath: 'circle(0% at 0 0vh)',
       transition: {
         delay: 0.5,
         type: 'spring',
-        stiffness: 400,
+        stiffness: 200,
         damping: 40
       }
     }

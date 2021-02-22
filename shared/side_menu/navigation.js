@@ -21,7 +21,7 @@ function Navigation({ closeMenu }) {
         margin: 0,
         padding: '25px',
         paddingTop: '140px',
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         width: '230px'
       }}
