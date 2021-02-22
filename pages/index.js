@@ -88,7 +88,7 @@ function Center() {
           margin: '0 auto'
         }}
       />
-      <Box mb={6} />
+      <Box mb={2} />
       <Typography
         style={{
           lineHeight: '1em',
