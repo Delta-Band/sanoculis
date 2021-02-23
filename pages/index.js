@@ -56,6 +56,51 @@ function HeroLeft() {
   );
 }
 
+function SectionLayout({ headerTxt, bodyTxt, art, artMobile }) {
+  const isPortrait = useMediaQuery('(max-width:1355px)');
+  const theme = useTheme();
+  return !isPortrait ? (
+    <Box width={1} pt={18} pb={18} display='flex' flexDirection='row'>
+      <Left>{art}</Left>
+      <Right>
+        <Typography
+          variant='h2'
+          style={{
+            maxWidth: 500
+          }}
+        >
+          {headerTxt}
+        </Typography>
+        <Box mb='5vh' />
+        <Box maxWidth='40vw'>
+          <Typography>{bodyTxt}</Typography>
+        </Box>
+      </Right>
+    </Box>
+  ) : (
+    <Center>
+      {artMobile}
+      <Box mb={4} />
+      <Typography
+        variant='h2'
+        style={{
+          padding: `0 ${theme.mobileGutter}`
+        }}
+      >
+        {headerTxt}
+      </Typography>
+      <Box mb={3} />
+      <Typography
+        style={{
+          padding: `0 ${theme.mobileGutter}`
+        }}
+      >
+        {bodyTxt}
+      </Typography>
+    </Center>
+  );
+}
+
 function HeroRight() {
   return (
     <Right>
@@ -158,11 +203,15 @@ function Hero() {
 }
 
 function Inovation() {
-  const isPortrait = useMediaQuery('(max-width:1355px)');
   const theme = useTheme();
-  return !isPortrait ? (
-    <Box width={1} pt={18} pb={18} display='flex' flexDirection='row'>
-      <Left>
+  const headerTxt = 'A Simple & Stent-less Treatment Innovation';
+  const bodyTxt =
+    'MIMS is a rapid & minimal procedure at the forefront of Interventional Glaucoma treatments. Fewer complications and less reliance on medications allows for effective IOP management.';
+  return (
+    <SectionLayout
+      headerTxt={headerTxt}
+      bodyTxt={bodyTxt}
+      art={
         <Box
           height='28vw'
           width='28vw'
@@ -171,57 +220,55 @@ function Inovation() {
             backgroundColor: theme.palette.primary.dark
           }}
         ></Box>
-      </Left>
-      <Right>
-        <Typography variant='h2'>
-          A Simple & Stent-less
-          <br />
-          Treatment Innovation
-        </Typography>
-        <Box mb='5vh' />
-        <Box maxWidth='40vw'>
-          <Typography>
-            MIMS is a rapid & minimal procedure at the forefront of
-            Interventional Glaucoma treatments. Fewer complications and less
-            reliance on medications allows for effective IOP management.
-          </Typography>
-        </Box>
-      </Right>
-    </Box>
-  ) : (
-    <Center>
-      <Box
-        height='80vw'
-        width='80vw'
-        borderRadius='70vw'
-        flexShrink={0}
-        style={{
-          margin: '0 auto 50px',
-          backgroundColor: theme.palette.primary.dark
-        }}
-      ></Box>
-      <Box mb={4} />
-      <Typography
-        variant='h2'
-        style={{
-          padding: `0 ${theme.mobileGutter}`
-        }}
-      >
-        A Simple & Stent-less
-        <br />
-        Treatment Innovation
-      </Typography>
-      <Box mb={3} />
-      <Typography
-        style={{
-          padding: `0 ${theme.mobileGutter}`
-        }}
-      >
-        MIMS is a rapid & minimal procedure at the forefront of Interventional
-        Glaucoma treatments. Fewer complications and less reliance on
-        medications allows for effective IOP management.
-      </Typography>
-    </Center>
+      }
+      aertMobile={
+        <Box
+          height='80vw'
+          width='80vw'
+          borderRadius='70vw'
+          flexShrink={0}
+          style={{
+            margin: '0 auto 50px',
+            backgroundColor: theme.palette.primary.dark
+          }}
+        ></Box>
+      }
+    />
+  );
+}
+
+function MinimalIntervention() {
+  const theme = useTheme();
+  const headerTxt = 'Minimal interventional Glaucoma helps earlier';
+  const bodyTxt =
+    'As the leading cause of blindness, Glaucoma is not yet curable. However, progression can be slowed with a proactive approach. Intervening early & quickly can reduce risky complications.';
+  return (
+    <SectionLayout
+      headerTxt={headerTxt}
+      bodyTxt={bodyTxt}
+      art={
+        <Box
+          height='28vw'
+          width='28vw'
+          borderRadius='28vw'
+          style={{
+            backgroundColor: theme.palette.primary.dark
+          }}
+        ></Box>
+      }
+      aertMobile={
+        <Box
+          height='80vw'
+          width='80vw'
+          borderRadius='70vw'
+          flexShrink={0}
+          style={{
+            margin: '0 auto 50px',
+            backgroundColor: theme.palette.primary.dark
+          }}
+        ></Box>
+      }
+    />
   );
 }
 
@@ -234,52 +281,22 @@ function HowItWorksVideo({ width, height }) {
 }
 
 function HowItWorks() {
-  const isPortrait = useMediaQuery('(max-width:1355px)');
-  const theme = useTheme();
-  return !isPortrait ? (
-    <Box width={1} pt={18} pb={18} display='flex' flexDirection='row'>
-      <Left>
+  const headerTxt = 'How MIMS® Works';
+  const bodyTxt = `Minimally Invasive Micro Sclerostomy is fast, accessible &
+  effective. It works by inserting a specially designed needle into
+  the sclera & removing a small channel of tissue. This channel will
+  remain open & contentiously drain, effectively reducing IOP buildup.`;
+  return (
+    <SectionLayout
+      headerTxt={headerTxt}
+      bodyTxt={bodyTxt}
+      art={
         <Box width='28vw' height={`${0.56 * 28}vw`}>
-          <HowItWorksVideo width='500' height='280' />
+          <HowItWorksVideo />
         </Box>
-      </Left>
-      <Right>
-        <Typography variant='h2'>How MIMS® Works</Typography>
-        <Box mb='5vh' />
-        <Box maxWidth='40vw'>
-          <Typography>
-            Minimally Invasive Micro Sclerostomy is fast, accessible &
-            effective. It works by inserting a specially designed needle into
-            the sclera & removing a small channel of tissue. This channel will
-            remain open & contentiously drain, effectively reducing IOP buildup.
-          </Typography>
-        </Box>
-      </Right>
-    </Box>
-  ) : (
-    <Center>
-      <HowItWorksVideo />
-      <Box mb={5} />
-      <Typography
-        variant='h2'
-        style={{
-          padding: `0 ${theme.mobileGutter}`
-        }}
-      >
-        How MIMS® Works
-      </Typography>
-      <Box mb={3} />
-      <Typography
-        style={{
-          padding: `0 ${theme.mobileGutter}`
-        }}
-      >
-        Minimally Invasive Micro Sclerostomy is fast, accessible & effective. It
-        works by inserting a specially designed needle into the sclera &
-        removing a small channel of tissue. This channel will remain open &
-        contentiously drain, effectively reducing IOP buildup.
-      </Typography>
-    </Center>
+      }
+      aertMobile={<HowItWorksVideo />}
+    />
   );
 }
 
@@ -294,6 +311,7 @@ export default function Home() {
       <Hero />
       <Inovation />
       <HowItWorks />
+      <MinimalIntervention />
     </Fragment>
   );
 }
