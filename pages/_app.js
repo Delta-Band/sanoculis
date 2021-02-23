@@ -100,6 +100,7 @@ function NavBar() {
       justifyContent='space-between'
       flexDirection='row'
       alignItems='center'
+      zIndex={10}
     >
       <img src='/sanoculis_logo.svg' />
       {isPortrait ? (
@@ -155,7 +156,7 @@ function MyApp({ Component, pageProps }) {
       <NavBar />
       <div
         style={{
-          background: '#F1F5F8'
+          background: 'rgba(241,245,248,1)'
         }}
       >
         <Component {...pageProps} />
