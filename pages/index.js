@@ -473,7 +473,9 @@ function Testimonials() {
               width={itemSize}
               height={itemSize}
               key={itm.pic}
-              border={`4px solid ${theme.palette.primary.main}`}
+              border={`4px solid ${
+                item === i ? 'white' : theme.palette.primary.main
+              }`}
               boxShadow={`0 0 ${item === i ? 5 : 0}px rgba(0, 0, 0, 0.2)`}
               borderRadius='13vw'
               flexGrow={0}
