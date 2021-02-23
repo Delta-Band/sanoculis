@@ -221,7 +221,7 @@ function Inovation() {
           }}
         ></Box>
       }
-      aertMobile={
+      artMobile={
         <Box
           height='80vw'
           width='80vw'
@@ -256,7 +256,73 @@ function MinimalIntervention() {
           }}
         ></Box>
       }
-      aertMobile={
+      artMobile={
+        <Box
+          height='80vw'
+          width='80vw'
+          borderRadius='70vw'
+          flexShrink={0}
+          style={{
+            margin: '0 auto 50px',
+            backgroundColor: theme.palette.primary.dark
+          }}
+        ></Box>
+      }
+    />
+  );
+}
+
+function BlueText({ children }) {
+  const theme = useTheme();
+  return (
+    <span style={{ color: theme.palette.primary.main, fontWeight: 'bold' }}>
+      {children}
+    </span>
+  );
+}
+
+function ClinicalPerformance() {
+  const theme = useTheme();
+  const headerTxt = 'Outstanding Clinical Performance';
+  const bodyTxt = (
+    <ul>
+      <li>
+        <Typography>
+          <BlueText>1:50 &plusmn; 0:33</BlueText> Min. Procedure duration
+        </Typography>
+      </li>
+      <li>
+        <Typography>
+          <BlueText>57%</BlueText> IOP Reduction after 12 Months
+        </Typography>
+      </li>
+      <li>
+        <Typography>
+          <BlueText>99%</BlueText> Medication reduction at 12 months
+        </Typography>
+      </li>
+      <li>
+        <Typography>
+          <BlueText>ZERO </BlueText>Major intra/post-op complications
+        </Typography>
+      </li>
+    </ul>
+  );
+  return (
+    <SectionLayout
+      headerTxt={headerTxt}
+      bodyTxt={bodyTxt}
+      art={
+        <Box
+          height='28vw'
+          width='28vw'
+          borderRadius='28vw'
+          style={{
+            backgroundColor: theme.palette.primary.dark
+          }}
+        ></Box>
+      }
+      artMobile={
         <Box
           height='80vw'
           width='80vw'
@@ -295,7 +361,7 @@ function HowItWorks() {
           <HowItWorksVideo />
         </Box>
       }
-      aertMobile={<HowItWorksVideo />}
+      artMobile={<HowItWorksVideo />}
     />
   );
 }
@@ -312,6 +378,7 @@ export default function Home() {
       <Inovation />
       <HowItWorks />
       <MinimalIntervention />
+      <ClinicalPerformance />
     </Fragment>
   );
 }
