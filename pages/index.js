@@ -1,9 +1,13 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { Box, Typography } from '@material-ui/core';
+import { Box, Typography, Link, Button } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import Moment from 'react-moment';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { LeftArrow } from '@styled-icons/boxicons-solid/LeftArrow';
+import { RightArrow } from '@styled-icons/boxicons-solid/RightArrow';
 import Head from 'next/head';
+import mockData from './mock_data';
 
 function Left({ children }) {
   return (
@@ -38,12 +42,12 @@ function Center({ children, style }) {
   return (
     <Box
       width={1}
-      mt={6}
       pt={6}
-      pb={0}
+      pb={6}
       display='flex'
       flexDirection='column'
       style={style}
+      // borderBottom='1px solid red'
     >
       {children}
     </Box>
@@ -66,17 +70,35 @@ function HeroLeft() {
   );
 }
 
-function SectionLayout({ headerTxt, bodyTxt, art, artMobile }) {
+function SectionLayout({
+  headerTxt,
+  bodyTxt,
+  art,
+  artMobile,
+  backgroundColor,
+  headerColor,
+  lessPaddingTop
+}) {
   const isPortrait = useMediaQuery('(max-width:1355px)');
   const theme = useTheme();
   return !isPortrait ? (
-    <Box width={1} pt={18} pb={18} display='flex' flexDirection='row'>
+    <Box
+      width={1}
+      pt={lessPaddingTop ? 9 : 18}
+      pb={18}
+      display='flex'
+      flexDirection='row'
+      style={{
+        backgroundColor: backgroundColor
+      }}
+    >
       <Left>{art}</Left>
       <Right>
         <Typography
           variant='h2'
           style={{
-            maxWidth: 500
+            maxWidth: 600,
+            color: headerColor
           }}
         >
           {headerTxt}
@@ -86,13 +108,19 @@ function SectionLayout({ headerTxt, bodyTxt, art, artMobile }) {
       </Right>
     </Box>
   ) : (
-    <Center>
+    <Center
+      lessPaddingTop={lessPaddingTop}
+      style={{
+        backgroundColor: backgroundColor
+      }}
+    >
       {artMobile}
       <Box mb={4} />
       <Typography
         variant='h2'
         style={{
-          padding: `0 ${theme.mobileGutter}`
+          padding: `0 ${theme.mobileGutter}`,
+          color: headerColor
         }}
       >
         {headerTxt}
@@ -252,6 +280,7 @@ function MinimalIntervention() {
     'As the leading cause of blindness, Glaucoma is not yet curable. However, progression can be slowed with a proactive approach. Intervening early & quickly can reduce risky complications.';
   return (
     <SectionLayout
+      lessPaddingTop
       headerTxt={headerTxt}
       bodyTxt={<Typography>{bodyTxt}</Typography>}
       art={
@@ -318,6 +347,7 @@ function ClinicalPerformance() {
   );
   return (
     <SectionLayout
+      lessPaddingTop
       headerTxt={headerTxt}
       bodyTxt={bodyTxt}
       art={
@@ -362,6 +392,7 @@ function HowItWorks() {
   remain open & contentiously drain, effectively reducing IOP buildup.`;
   return (
     <SectionLayout
+      lessPaddingTop
       headerTxt={headerTxt}
       bodyTxt={<Typography>{bodyTxt}</Typography>}
       art={
@@ -379,41 +410,10 @@ function Testimonials() {
   const theme = useTheme();
   const [item, setItem] = useState(0);
   const timeoutRef = useRef(null);
-  const crew = [
-    {
-      pic:
-        'https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/59847652_10156633652154862_293263699865501696_o.jpg?_nc_cat=107&ccb=3&_nc_sid=09cbfe&_nc_ohc=85OCmee3kMAAX95zRUR&_nc_ht=scontent.fsdv2-1.fna&oh=fc6de66bf18e4f3fe63b752e83de4d4c&oe=605A706D',
-      testimonial:
-        'The procedure is effective in reducing IOP without medication or complications, improving lives and simplifying treatments for glaucoma',
-      name: 'DR. Ike Ahmend',
-      title: 'Opthalmology MD, FRCS(C)'
-    },
-    {
-      pic:
-        'https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/152730701_10159094443472929_6544776907417348034_o.jpg?_nc_cat=103&ccb=3&_nc_sid=09cbfe&_nc_ohc=CqB80quLRQQAX_shd8R&_nc_ht=scontent.fsdv2-1.fna&oh=d63d21b6be4597e1b379937cc55238db&oe=60597653',
-      testimonial: 'Lorem Ipsum',
-      name: 'DR. Freddy Kruger',
-      title: 'NightmareOlogy MD, FRCS(C)'
-    },
-    {
-      pic:
-        'https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/80517166_204613033875990_854933306356006912_o.jpg?_nc_cat=109&ccb=3&_nc_sid=09cbfe&_nc_ohc=4pdZ-q7ohDUAX-KJptC&_nc_ht=scontent.fsdv2-1.fna&oh=2e9c8e6ae073cab21a0a5ba03ac68d9f&oe=605A9370',
-      testimonial: 'Dollar Sit Emmet',
-      name: 'DR. Suzy Sunshine',
-      title: 'GoodVibeOlogy MD, FRCS(C)'
-    },
-    {
-      pic:
-        'https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/89503574_10220243452869293_7949417576457568256_o.jpg?_nc_cat=102&ccb=3&_nc_sid=09cbfe&_nc_ohc=fZJHf_DWJJ8AX9s1K2A&_nc_ht=scontent.fsdv2-1.fna&oh=ecf173791e3c17ab57d822de09fc5aa7&oe=60594DA1',
-      testimonial: 'Dollar Sit Emmet',
-      name: 'DR. Grey Tombs',
-      title: 'Enternalology MD, FRCS(C)'
-    }
-  ];
   const myRef = React.useRef();
   const handlers = useSwipeable({
     onSwipedLeft: () => {
-      setItem(Math.min(crew.length, item + 1));
+      setItem(Math.min(mockData.testimonials.length, item + 1));
     },
     onSwipedRight: () => {
       setItem(Math.max(0, item - 1));
@@ -433,7 +433,7 @@ function Testimonials() {
     }
     timeoutRef.current = setTimeout(() => {
       timeoutRef.current = null;
-      setItem(item < crew.length - 1 ? item + 1 : 0);
+      setItem(item < mockData.testimonials.length - 1 ? item + 1 : 0);
     }, 5000);
   }
 
@@ -444,7 +444,7 @@ function Testimonials() {
     };
   }, [item]);
 
-  const itemsInRow = Math.ceil(Math.sqrt(crew.length));
+  const itemsInRow = Math.ceil(Math.sqrt(mockData.testimonials.length));
   const itemSize = `calc(${28 / itemsInRow}vw)`;
 
   return !isPortrait ? (
@@ -468,11 +468,11 @@ function Testimonials() {
           alignContent='center'
           justifyContent='stretch'
         >
-          {crew.map((itm, i) => (
+          {mockData.testimonials.map((itm, i) => (
             <Box
               width={itemSize}
               height={itemSize}
-              key={itm.pic}
+              key={itm.id}
               border={`4px solid ${
                 item === i ? 'white' : theme.palette.primary.main
               }`}
@@ -489,7 +489,9 @@ function Testimonials() {
                 opacity: item === i ? 1 : 0.75,
                 transition: theme.fastTransition,
                 transform:
-                  item === i ? `scale(${crew.length / 10 + 1})` : 'scale(1)'
+                  item === i
+                    ? `scale(${mockData.testimonials.length / 10 + 1})`
+                    : 'scale(1)'
               }}
               onClick={() => {
                 setItem(i);
@@ -525,7 +527,7 @@ function Testimonials() {
         <Box maxWidth='40vw'>
           <Box height={theme.spacing(22)}>
             <Typography style={{ fontSize: '28px', color: 'white' }}>
-              &#34;{crew[item].testimonial}&#34;
+              &#34;{mockData.testimonials[item].testimonial}&#34;
             </Typography>
           </Box>
           <Typography
@@ -533,14 +535,14 @@ function Testimonials() {
               color: 'white'
             }}
           >
-            {crew[item].name}
+            {mockData.testimonials[item].name}
           </Typography>
           <Typography
             style={{
               color: 'white'
             }}
           >
-            {crew[item].title}
+            {mockData.testimonials[item].title}
           </Typography>
         </Box>
       </Right>
@@ -573,9 +575,9 @@ function Testimonials() {
           overflow: 'hidden'
         }}
       >
-        {crew.map((itm, i) => (
+        {mockData.testimonials.map((itm, i) => (
           <Box
-            key={itm.pic}
+            key={itm.id}
             height='200px'
             width='200px'
             borderRadius='180px'
@@ -612,10 +614,10 @@ function Testimonials() {
         ))}
       </Box>
       <Box mb={3} />
-      <Box pl={theme.mobileGutter} pr={theme.mobileGutter} pb={9}>
+      <Box pl={theme.mobileGutter} pr={theme.mobileGutter}>
         <Box height={theme.spacing(26)}>
           <Typography style={{ fontSize: '24px', color: 'white' }}>
-            &#34;{crew[item].testimonial}&#34;
+            &#34;{mockData.testimonials[item].testimonial}&#34;
           </Typography>
         </Box>
         <Typography
@@ -623,17 +625,146 @@ function Testimonials() {
             color: 'white'
           }}
         >
-          {crew[item].name}
+          {mockData.testimonials[item].name}
         </Typography>
         <Typography
           style={{
             color: 'white'
           }}
         >
-          {crew[item].title}
+          {mockData.testimonials[item].title}
         </Typography>
       </Box>
     </Center>
+  );
+}
+
+function News() {
+  const theme = useTheme();
+  const headerTxt = 'News, Publications & Events';
+  const [index, setIndex] = useState(0);
+  const bodyTxt = (
+    <Box>
+      <ul
+        style={{
+          marginBottom: theme.spacing(4),
+          display: 'flex',
+          flexWrap: 'nowrap',
+          overflow: 'hidden'
+        }}
+      >
+        {mockData.newsCollection.map((item, i) => (
+          <li
+            key={item.id}
+            style={{
+              width: '100%',
+              flexShrink: 0,
+              transition: theme.fastTransition,
+              transform: `translateX(-${index * 100}%)`,
+              opacity: index === i ? 1 : 0
+            }}
+          >
+            <Typography
+              style={{
+                color: 'white',
+                marginBottom: theme.spacing(4)
+              }}
+            >
+              <Moment interval={0} format='MMM D, YYYY'>
+                {item.date}
+              </Moment>
+            </Typography>
+            <Typography
+              style={{
+                color: 'white',
+                marginBottom: theme.spacing(4)
+              }}
+            >
+              <BlueText>
+                <Link href={item.link}>{item.headline}</Link>
+              </BlueText>
+            </Typography>
+            <Typography
+              style={{
+                color: 'white'
+              }}
+            >
+              {item.article}
+            </Typography>
+          </li>
+        ))}
+      </ul>
+      <Box width={1} display='flex' justifyContent='space-between'>
+        <Button
+          onClick={() => {
+            setIndex(Math.max(0, index - 1));
+          }}
+          disabled={index === 0}
+          style={{
+            color: index === 0 ? 'rgba(255, 255, 255, 0.3)' : 'white'
+          }}
+        >
+          <LeftArrow
+            size={16}
+            style={{
+              transform: 'translateY(-1px)',
+              marginRight: theme.spacing(1)
+            }}
+          />
+          Newer
+        </Button>
+        <Button
+          onClick={() => {
+            setIndex(Math.min(mockData.newsCollection.length - 1, index + 1));
+          }}
+          style={{
+            color:
+              index === mockData.newsCollection.length - 1
+                ? 'rgba(255, 255, 255, 0.3)'
+                : 'white'
+          }}
+        >
+          Older
+          <RightArrow
+            size={16}
+            style={{
+              transform: 'translateY(-1px)',
+              marginLeft: theme.spacing(1)
+            }}
+          />
+        </Button>
+      </Box>
+    </Box>
+  );
+  return (
+    <SectionLayout
+      headerTxt={headerTxt}
+      bodyTxt={bodyTxt}
+      headerColor='white'
+      backgroundColor={theme.palette.primary.dark}
+      art={
+        <Box
+          height='28vw'
+          width='28vw'
+          borderRadius='28vw'
+          style={{
+            backgroundColor: 'white'
+          }}
+        ></Box>
+      }
+      artMobile={
+        <Box
+          height='80vw'
+          width='80vw'
+          borderRadius='70vw'
+          flexShrink={0}
+          style={{
+            margin: '0 auto 50px',
+            backgroundColor: 'white'
+          }}
+        ></Box>
+      }
+    />
   );
 }
 
@@ -651,6 +782,7 @@ export default function Home() {
       <MinimalIntervention />
       <ClinicalPerformance />
       <Testimonials />
+      <News />
     </Fragment>
   );
 }

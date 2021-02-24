@@ -61,11 +61,22 @@ const theme = createMuiTheme({
       '@global': {
         '@font-face': ['Rubik']
       }
+    },
+    MuiLink: {
+      underlineHover: {
+        textDecoration: 'underline'
+      }
+    },
+    MuiButton: {
+      label: {
+        fontSize: 16,
+        transform: 'translateY(1px)'
+      }
     }
   },
   transition: '1s cubic-bezier(.21,.47,.49,.92)',
   mobileGutter: '6vw',
-  fastTransition: '0.2s cubic-bezier(.21,.47,.49,.92)'
+  fastTransition: '0.4s cubic-bezier(.21,.47,.49,.92)'
 });
 
 function NavBar() {
