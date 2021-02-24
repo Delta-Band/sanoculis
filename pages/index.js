@@ -7,7 +7,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { LeftArrow } from '@styled-icons/boxicons-solid/LeftArrow';
 import { RightArrow } from '@styled-icons/boxicons-solid/RightArrow';
 import Head from 'next/head';
-import mockData from './mock_data';
+import mockData from '../mock_data';
 
 function Left({ children }) {
   return (
