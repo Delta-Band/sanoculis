@@ -77,9 +77,10 @@ function SectionLayout({
   artMobile,
   backgroundColor,
   headerColor,
-  lessPaddingTop
+  lessPaddingTop,
+  isMobile
 }) {
-  const isPortrait = useMediaQuery('(max-width:1355px)');
+  const isPortrait = isMobile || useMediaQuery('(max-width:1355px)');
   const theme = useTheme();
   return !isPortrait ? (
     <Box
@@ -218,8 +219,8 @@ function HeroMobile() {
   );
 }
 
-function Hero() {
-  const isPortrait = useMediaQuery('(max-width:1355px)');
+function Hero({ isMobile }) {
+  const isPortrait = isMobile || useMediaQuery('(max-width:1355px)');
   return (
     <Box
       width={1}
@@ -238,13 +239,14 @@ function Hero() {
   );
 }
 
-function Inovation() {
+function Inovation({ isMobile }) {
   const theme = useTheme();
   const headerTxt = 'A Simple & Stent-less Treatment Innovation';
   const bodyTxt =
     'MIMS is a rapid & minimal procedure at the forefront of Interventional Glaucoma treatments. Fewer complications and less reliance on medications allows for effective IOP management.';
   return (
     <SectionLayout
+      isMobile={isMobile}
       headerTxt={headerTxt}
       bodyTxt={<Typography>{bodyTxt}</Typography>}
       art={
@@ -273,13 +275,14 @@ function Inovation() {
   );
 }
 
-function MinimalIntervention() {
+function MinimalIntervention({ isMobile }) {
   const theme = useTheme();
   const headerTxt = 'Minimal interventional Glaucoma helps earlier';
   const bodyTxt =
     'As the leading cause of blindness, Glaucoma is not yet curable. However, progression can be slowed with a proactive approach. Intervening early & quickly can reduce risky complications.';
   return (
     <SectionLayout
+      isMobile={isMobile}
       lessPaddingTop
       headerTxt={headerTxt}
       bodyTxt={<Typography>{bodyTxt}</Typography>}
@@ -318,7 +321,7 @@ function BlueText({ children }) {
   );
 }
 
-function ClinicalPerformance() {
+function ClinicalPerformance({ isMobile }) {
   const theme = useTheme();
   const headerTxt = 'Outstanding Clinical Performance';
   const bodyTxt = (
@@ -347,6 +350,7 @@ function ClinicalPerformance() {
   );
   return (
     <SectionLayout
+      isMobile={isMobile}
       lessPaddingTop
       headerTxt={headerTxt}
       bodyTxt={bodyTxt}
@@ -384,7 +388,7 @@ function HowItWorksVideo({ width, height }) {
   );
 }
 
-function HowItWorks() {
+function HowItWorks({ isMobile }) {
   const headerTxt = 'How MIMS® Works';
   const bodyTxt = `Minimally Invasive Micro Sclerostomy is fast, accessible &
   effective. It works by inserting a specially designed needle into
@@ -392,6 +396,7 @@ function HowItWorks() {
   remain open & contentiously drain, effectively reducing IOP buildup.`;
   return (
     <SectionLayout
+      isMobile={isMobile}
       lessPaddingTop
       headerTxt={headerTxt}
       bodyTxt={<Typography>{bodyTxt}</Typography>}
@@ -405,8 +410,8 @@ function HowItWorks() {
   );
 }
 
-function Testimonials() {
-  const isPortrait = useMediaQuery('(max-width:1355px)');
+function Testimonials({ isMobile }) {
+  const isPortrait = isMobile || useMediaQuery('(max-width:1355px)');
   const theme = useTheme();
   const [item, setItem] = useState(0);
   const timeoutRef = useRef(null);
@@ -639,7 +644,7 @@ function Testimonials() {
   );
 }
 
-function News() {
+function News({ isMobile }) {
   const theme = useTheme();
   const headerTxt = 'News, Publications & Events';
   const [index, setIndex] = useState(0);
@@ -738,6 +743,7 @@ function News() {
   );
   return (
     <SectionLayout
+      isMobile={isMobile}
       headerTxt={headerTxt}
       bodyTxt={bodyTxt}
       headerColor='white'
@@ -768,18 +774,22 @@ function News() {
   );
 }
 
-export async function getStaticProps(context) {
-  console.log(context);
+export async function getServerSideProps(context) {
+  console.log(context.req.headers['user-agent']);
+  const isMobile = Boolean(
+    context.req.headers['user-agent'].match(
+      /iPhone|Android|webOS|iPad|iPod|BlackBerry|Windows Phone/i
+    )
+  );
   return {
     props: {
+      isMobile,
       data: 'my data'
     } // will be passed to the page component as props
   };
 }
 
-export default function Home({ data, context }) {
-  console.log(`data: ${data}`);
-  console.log(`context: ${context}`);
+export default function Home({ data, isMobile }) {
   return (
     <Fragment>
       <Head>
@@ -787,13 +797,13 @@ export default function Home({ data, context }) {
         <link rel='icon' href='/favicon.ico' />
         <link rel='preload' href='/fonts/Rubik.ttf' as='font' crossOrigin='' />
       </Head>
-      <Hero />
-      <Inovation />
-      <HowItWorks />
-      <MinimalIntervention />
-      <ClinicalPerformance />
-      <Testimonials />
-      <News />
+      <Hero isMobile={isMobile} />
+      <Inovation isMobile={isMobile} />
+      <HowItWorks isMobile={isMobile} />
+      <MinimalIntervention isMobile={isMobile} />
+      <ClinicalPerformance isMobile={isMobile} />
+      <Testimonials isMobile={isMobile} />
+      <News isMobile={isMobile} />
     </Fragment>
   );
 }
