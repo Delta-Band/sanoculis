@@ -103,7 +103,7 @@ function SectionLayout({
         >
           {headerTxt}
         </Typography>
-        <Box mb='5vh' />
+        <Box mb={5} />
         <Box maxWidth='40vw'>{bodyTxt}</Box>
       </Right>
     </Box>
@@ -147,7 +147,7 @@ function HeroRight() {
           minWidth: 393
         }}
       />
-      <Box mb='5vh' />
+      <Box mb={5} />
       <Typography
         style={{
           lineHeight: '1em',
@@ -156,7 +156,7 @@ function HeroRight() {
       >
         LEAVE NO THING BEHIND
       </Typography>
-      <Box mb='5vh' />
+      <Box mb={4} />
       <Typography
         style={{
           lineHeight: '2em'
@@ -523,7 +523,7 @@ function Testimonials() {
         >
           MIMS® Testimonials
         </Typography>
-        <Box mb='5vh' />
+        <Box mb={5} />
         <Box maxWidth='40vw'>
           <Box height={theme.spacing(22)}>
             <Typography style={{ fontSize: '28px', color: 'white' }}>
@@ -768,7 +768,18 @@ function News() {
   );
 }
 
-export default function Home() {
+export async function getStaticProps(context) {
+  console.log(context);
+  return {
+    props: {
+      data: 'my data'
+    } // will be passed to the page component as props
+  };
+}
+
+export default function Home({ data, context }) {
+  console.log(`data: ${data}`);
+  console.log(`context: ${context}`);
   return (
     <Fragment>
       <Head>
