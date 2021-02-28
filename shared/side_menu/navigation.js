@@ -13,7 +13,7 @@ const variants = {
 
 const items = ['about', 'clinical', 'distributors', 'contact'];
 
-function Navigation({ closeMenu }) {
+function Navigation({ closeMenu, isOpen }) {
   return (
     <motion.ul
       variants={variants}
@@ -24,7 +24,8 @@ function Navigation({ closeMenu }) {
         position: 'fixed',
         top: 0,
         left: 0,
-        width: '230px'
+        width: '230px',
+        pointerEvents: isOpen ? 'all' : 'none'
       }}
     >
       {items.map((i) => (

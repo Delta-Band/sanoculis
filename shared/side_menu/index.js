@@ -17,8 +17,8 @@ function SideMenu() {
       clipPath: 'circle(75% at 0 10vh)',
       transition: {
         type: 'spring',
-        mass: 1,
-        damping: 30
+        stiffness: 100,
+        damping: 15
       }
     }),
     closed: {
@@ -26,8 +26,8 @@ function SideMenu() {
       transition: {
         delay: 0.5,
         type: 'spring',
-        stiffness: 200,
-        damping: 40
+        stiffness: 100,
+        damping: 15
       }
     }
   };
@@ -51,7 +51,7 @@ function SideMenu() {
           backdropFilter: 'blur(5px)'
         }}
       />
-      <Navigation closeMenu={() => toggleOpen(!isOpen)} />
+      <Navigation closeMenu={() => toggleOpen(!isOpen)} isOpen={isOpen} />
       <MenuToggle toggle={() => toggleOpen(!isOpen)} />
     </motion.nav>
   );

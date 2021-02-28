@@ -430,7 +430,7 @@ function Testimonials({ isMobile }) {
   const myRef = React.useRef();
   const handlers = useSwipeable({
     onSwipedLeft: () => {
-      setItem(Math.min(mockData.testimonials.length, item + 1));
+      setItem(Math.min(mockData.testimonials.length - 1, item + 1));
     },
     onSwipedRight: () => {
       setItem(Math.max(0, item - 1));
