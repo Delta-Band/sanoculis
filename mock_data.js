@@ -69,5 +69,29 @@ export default {
         'After months of review and supported by new clinical trial data Sanoculis received the FDA approval for MIMS in North America.',
       link: 'https://delta.band'
     }
+  ],
+  partners: [
+    {
+      id: 1,
+      name: 'Medical EYE Supply Co.',
+      websiteLink: 'https://delta.band',
+      address: '123 fake street, New York, NY, 12345',
+      addressLink:
+        'https://www.google.com/maps/place/New+York,+NY,+USA/@40.6971494,-74.2598673,10z/data=!3m1!4b1!4m5!3m4!1s0x89c24fa5d33f083b:0xc80b8f06e177fe62!8m2!3d40.7127753!4d-74.0059728',
+      phone: '917-123-4567',
+      email: 'Email@gmail.com',
+      contryRegion: 'China'
+    },
+    {
+      id: 2,
+      name: 'Medicalos EYEos Supplyos Co.',
+      websiteLink: 'https://delta.band',
+      address: '123 fake street, Guadalajara, Jalisco 12345',
+      addressLink:
+        'https://www.google.com/maps/place/Guadalajara,+Jalisco,+Mexico/@20.6737777,-103.4054537,12z/data=!3m1!4b1!4m5!3m4!1s0x8428b18cb52fd39b:0xd63d9302bf865750!8m2!3d20.6596988!4d-103.3496092',
+      phone: '917-123-4567',
+      email: 'Email@gmail.com',
+      contryRegion: 'Mexico'
+    }
   ]
 };

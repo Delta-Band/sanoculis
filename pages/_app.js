@@ -71,6 +71,24 @@ const theme = createMuiTheme({
       label: {
         fontSize: 16,
         transform: 'translateY(1px)'
+      },
+      containedPrimary: {
+        '&:hover': {
+          backgroundColor: 'rgba(255, 255, 255, 0.5)'
+        }
+      }
+    },
+    MuiRadio: {
+      root: {
+        color: 'white'
+      },
+      colorPrimary: {
+        color: 'white !important'
+      }
+    },
+    MuiFormControlLabel: {
+      label: {
+        color: 'white'
       }
     }
   },

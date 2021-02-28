@@ -1,13 +1,25 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { Box, Typography, Link, Button } from '@material-ui/core';
+import {
+  Box,
+  Typography,
+  Link,
+  Button,
+  Radio,
+  FormControl,
+  FormControlLabel,
+  RadioGroup
+} from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import { motion } from 'framer-motion';
 import Moment from 'react-moment';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { LeftArrow } from '@styled-icons/boxicons-solid/LeftArrow';
 import { RightArrow } from '@styled-icons/boxicons-solid/RightArrow';
+import { DownArrow } from '@styled-icons/boxicons-solid/DownArrow';
 import Head from 'next/head';
 import mockData from '../mock_data';
+import { Modal } from '../shared';
 
 function Left({ children }) {
   return (
@@ -659,14 +671,17 @@ function News({ isMobile }) {
         }}
       >
         {mockData.newsCollection.map((item, i) => (
-          <li
+          <motion.li
             key={item.id}
+            transition={{ type: 'spring', stiffness: 75, damping: 15 }}
+            animate={{
+              transform: `translateX(-${index * 100}%)`,
+              opacity: index === i ? 1 : 0
+            }}
             style={{
               width: '100%',
               flexShrink: 0,
-              transition: theme.fastTransition,
-              transform: `translateX(-${index * 100}%)`,
-              opacity: index === i ? 1 : 0
+              transition: theme.fastTransition
             }}
           >
             <Typography
@@ -696,7 +711,7 @@ function News({ isMobile }) {
             >
               {item.article}
             </Typography>
-          </li>
+          </motion.li>
         ))}
       </ul>
       <Box width={1} display='flex' justifyContent='space-between'>
@@ -774,6 +789,150 @@ function News({ isMobile }) {
   );
 }
 
+function DropMenu({ partner, setOpen, open }) {
+  const theme = useTheme();
+  return (
+    <Box
+      height={50}
+      width={390}
+      borderRadius={3}
+      display='flex'
+      justifyContent='space-between'
+      alignItems='center'
+      onClick={() => {
+        setOpen(!open);
+      }}
+      style={{
+        background: 'white',
+        overflow: 'hidden',
+        cursor: 'pointer'
+      }}
+    >
+      <Box pl={2}>
+        <Typography
+          noWrap
+          style={{
+            maxWidth: 300,
+            overflow: 'hidden',
+            textOverflow: 'elipsses'
+          }}
+        >
+          {partner.name}
+        </Typography>
+      </Box>
+      <Box
+        height={1}
+        width={50}
+        p={1}
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+        style={{
+          backgroundColor: theme.palette.primary.main
+        }}
+      >
+        <DownArrow size={18} color='white' />
+      </Box>
+    </Box>
+  );
+}
+
+function Partners({ isMobile }) {
+  const theme = useTheme();
+  const [index, setIndex] = useState(0);
+  const [open, setOpen] = React.useState(false);
+  const headerTxt = 'Global Distribution & Partners';
+  const partner = mockData.partners[index];
+  const bodyTxt = (
+    <Fragment>
+      <DropMenu partner={partner} setOpen={setOpen} open={open} />
+      <Box mb={4} />
+      <Link href={partner.websiteLink}>{partner.name}</Link>
+      <Box mb={2} />
+      <Link href={partner.addressLink}>{partner.address}</Link>
+      <Box mb={2} />
+      <Link href={`tel:${partner.phone.replace('-', '')}`}>
+        {partner.phone}
+      </Link>
+      <Box mb={2} />
+      <Link href={`mailto:${partner.email}`}>{partner.email}</Link>
+      <Box mb={6} />
+      <Button
+        variant='contained'
+        color='primary'
+        style={{
+          borderRadius: 40,
+          paddingLeft: 30,
+          paddingRight: 30
+        }}
+      >
+        Distributor Login
+      </Button>
+      <Modal
+        isOpen={open}
+        title='SELECT YOUR COUNTRY / REGION'
+        onClose={() => {
+          setOpen(false);
+        }}
+      >
+        <Fragment>
+          <FormControl component='fieldset'>
+            <RadioGroup aria-label='partners' name='partners'>
+              {mockData.partners.map((itm, i) => (
+                <FormControlLabel
+                  key={itm.id}
+                  checked={index === i}
+                  control={<Radio color='primary' />}
+                  onChange={() => {
+                    setIndex(i);
+                    setTimeout(() => {
+                      setOpen(false);
+                    }, 250);
+                  }}
+                  value={0}
+                  label={itm.name}
+                  labelPlacement='end'
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        </Fragment>
+      </Modal>
+    </Fragment>
+  );
+  return (
+    <SectionLayout
+      isMobile={isMobile}
+      headerTxt={headerTxt}
+      bodyTxt={bodyTxt}
+      headerColor='white'
+      backgroundColor={theme.palette.primary.dark}
+      art={
+        <Box
+          height='28vw'
+          width='28vw'
+          borderRadius='28vw'
+          style={{
+            backgroundColor: 'white'
+          }}
+        ></Box>
+      }
+      artMobile={
+        <Box
+          height='80vw'
+          width='80vw'
+          borderRadius='70vw'
+          flexShrink={0}
+          style={{
+            margin: '0 auto 50px',
+            backgroundColor: 'white'
+          }}
+        ></Box>
+      }
+    />
+  );
+}
+
 export async function getServerSideProps(context) {
   console.log(context.req.headers['user-agent']);
   const isMobile = Boolean(
@@ -804,6 +963,7 @@ export default function Home({ data, isMobile }) {
       <ClinicalPerformance isMobile={isMobile} />
       <Testimonials isMobile={isMobile} />
       <News isMobile={isMobile} />
+      <Partners isMobile={isMobile} />
     </Fragment>
   );
 }
