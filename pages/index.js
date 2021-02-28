@@ -50,22 +50,6 @@ function Right({ children, sectionAlignment }) {
   );
 }
 
-function Center({ children, style }) {
-  return (
-    <Box
-      width={1}
-      pt={6}
-      pb={6}
-      display='flex'
-      flexDirection='column'
-      style={style}
-      // borderBottom='1px solid red'
-    >
-      {children}
-    </Box>
-  );
-}
-
 function HeroLeft() {
   const theme = useTheme();
   return (
@@ -190,7 +174,6 @@ function Inovation({ isMobile }) {
     'MIMS is a rapid & minimal procedure at the forefront of Interventional Glaucoma treatments. Fewer complications and less reliance on medications allows for effective IOP management.';
   return (
     <SectionLayout
-      scrollRange={[435, 686]}
       isMobile={isMobile}
       headerTxt={headerTxt}
       bodyTxt={<Typography>{bodyTxt}</Typography>}
@@ -227,7 +210,6 @@ function MinimalIntervention({ isMobile }) {
     'As the leading cause of blindness, Glaucoma is not yet curable. However, progression can be slowed with a proactive approach. Intervening early & quickly can reduce risky complications.';
   return (
     <SectionLayout
-      scrollRange={[1547, 1957]}
       isMobile={isMobile}
       lessPaddingTop
       headerTxt={headerTxt}
@@ -296,7 +278,6 @@ function ClinicalPerformance({ isMobile }) {
   );
   return (
     <SectionLayout
-      scrollRange={[0, 50]}
       isMobile={isMobile}
       lessPaddingTop
       headerTxt={headerTxt}
@@ -343,7 +324,6 @@ function HowItWorks({ isMobile }) {
   remain open & contentiously drain, effectively reducing IOP buildup.`;
   return (
     <SectionLayout
-      scrollRange={[948, 1381]}
       isMobile={isMobile}
       lessPaddingTop
       headerTxt={headerTxt}
@@ -353,7 +333,12 @@ function HowItWorks({ isMobile }) {
           <HowItWorksVideo />
         </Box>
       }
-      topMobile={<HowItWorksVideo />}
+      topMobile={
+        <Fragment>
+          <HowItWorksVideo />
+          <Box mb='50px' />
+        </Fragment>
+      }
     />
   );
 }
@@ -400,18 +385,43 @@ function Testimonials({ isMobile }) {
   const itemsInRow = Math.ceil(Math.sqrt(mockData.testimonials.length));
   const itemSize = `calc(${28 / itemsInRow}vw)`;
 
-  return !isPortrait ? (
-    <Box
-      width={1}
-      pt={18}
-      pb={18}
-      display='flex'
-      flexDirection='row'
-      style={{
-        background: theme.palette.primary.main
-      }}
-    >
-      <Left>
+  const headerTxt = 'MIMS® Testimonials';
+  const bodyTxt = (
+    <Fragment>
+      <Box maxWidth={isPortrait ? '100%' : '40vw'}>
+        <Box height={theme.spacing(isPortrait ? 17 : 22)}>
+          <Typography
+            style={{ fontSize: isPortrait ? '18px' : '28px', color: 'white' }}
+          >
+            &#34;{mockData.testimonials[item].testimonial}&#34;
+          </Typography>
+        </Box>
+        <Typography
+          style={{
+            color: 'white'
+          }}
+        >
+          {mockData.testimonials[item].name}
+        </Typography>
+        <Typography
+          style={{
+            color: 'white'
+          }}
+        >
+          {mockData.testimonials[item].title}
+        </Typography>
+      </Box>
+    </Fragment>
+  );
+  return (
+    <SectionLayout
+      isMobile={isMobile}
+      lessPaddingTop
+      headerTxt={headerTxt}
+      bodyTxt={bodyTxt}
+      backgroundColor={theme.palette.primary.main}
+      headerColor='white'
+      left={
         <Box
           display='flex'
           width='28vw'
@@ -465,130 +475,60 @@ function Testimonials({ isMobile }) {
             </Box>
           ))}
         </Box>
-      </Left>
-      <Right>
-        <Typography
-          variant='h2'
+      }
+      topMobile={
+        <Box
+          {...handlers}
+          ref={refPassthrough}
+          display='flex'
+          alignItems='center'
+          width={1}
+          pt={7}
+          pb={7}
           style={{
-            maxWidth: 500,
-            color: 'white'
+            overflow: 'hidden'
           }}
         >
-          MIMS® Testimonials
-        </Typography>
-        <Box mb={5} />
-        <Box maxWidth='40vw'>
-          <Box height={theme.spacing(22)}>
-            <Typography style={{ fontSize: '28px', color: 'white' }}>
-              &#34;{mockData.testimonials[item].testimonial}&#34;
-            </Typography>
-          </Box>
-          <Typography
-            style={{
-              color: 'white'
-            }}
-          >
-            {mockData.testimonials[item].name}
-          </Typography>
-          <Typography
-            style={{
-              color: 'white'
-            }}
-          >
-            {mockData.testimonials[item].title}
-          </Typography>
-        </Box>
-      </Right>
-    </Box>
-  ) : (
-    <Center
-      style={{
-        background: theme.palette.primary.main
-      }}
-    >
-      <Typography
-        variant='h2'
-        style={{
-          padding: `0 ${theme.mobileGutter}`,
-          color: 'white'
-        }}
-      >
-        MIMS® Testimonials
-      </Typography>
-      <Box mb={4} />
-      <Box
-        {...handlers}
-        ref={refPassthrough}
-        display='flex'
-        alignItems='center'
-        width={1}
-        pt={7}
-        pb={7}
-        style={{
-          overflow: 'hidden'
-        }}
-      >
-        {mockData.testimonials.map((itm, i) => (
-          <Box
-            key={itm.id}
-            height='200px'
-            width='200px'
-            borderRadius='180px'
-            border={`4px solid rgba(255, 255, 255, ${item === i ? 1 : 0.5})`}
-            boxShadow={`0 0 ${item === i ? 5 : 0}px rgba(0, 0, 0, 0.2)`}
-            flexShrink={0}
-            zIndex={item === i ? 1 : 0}
-            p={0}
-            style={{
-              overflow: 'hidden',
-              background:
-                item === i ? 'transparent' : theme.palette.primary.main,
-              opacity: item === i ? 1 : 0.75,
-              transition: theme.fastTransition,
-              transform: `translateX(calc(${item * -100 + 50}%)) ${
-                item === i ? 'scale(1.5)' : 'scale(1)'
-              }`
-            }}
-            onClick={() => setItem(i)}
-          >
-            <img
-              src={itm.pic}
-              alt='profile image'
+          {mockData.testimonials.map((itm, i) => (
+            <Box
+              key={itm.id}
+              height='40vw'
+              width='40vw'
+              borderRadius='50vw'
+              border={`4px solid rgba(255, 255, 255, ${item === i ? 1 : 0.5})`}
+              boxShadow={`0 0 ${item === i ? 5 : 0}px rgba(0, 0, 0, 0.2)`}
+              flexShrink={0}
+              zIndex={item === i ? 1 : 0}
+              p={0}
               style={{
-                height: '100%',
-                width: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-                mixBlendMode: 'multiply',
-                filter: item === i ? 'none' : 'grayscale(1)'
+                overflow: 'hidden',
+                background:
+                  item === i ? 'transparent' : theme.palette.primary.main,
+                opacity: item === i ? 1 : 0.75,
+                transition: theme.fastTransition,
+                transform: `translateX(calc(${item * -100}% + 30vw)) ${
+                  item === i ? 'scale(1.5)' : 'scale(1)'
+                }`
               }}
-            />
-          </Box>
-        ))}
-      </Box>
-      <Box mb={3} />
-      <Box pl={theme.mobileGutter} pr={theme.mobileGutter}>
-        <Box height={theme.spacing(26)}>
-          <Typography style={{ fontSize: '24px', color: 'white' }}>
-            &#34;{mockData.testimonials[item].testimonial}&#34;
-          </Typography>
+              onClick={() => setItem(i)}
+            >
+              <img
+                src={itm.pic}
+                alt='profile image'
+                style={{
+                  height: '100%',
+                  width: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  mixBlendMode: 'multiply',
+                  filter: item === i ? 'none' : 'grayscale(1)'
+                }}
+              />
+            </Box>
+          ))}
         </Box>
-        <Typography
-          style={{
-            color: 'white'
-          }}
-        >
-          {mockData.testimonials[item].name}
-        </Typography>
-        <Typography
-          style={{
-            color: 'white'
-          }}
-        >
-          {mockData.testimonials[item].title}
-        </Typography>
-      </Box>
-    </Center>
+      }
+    />
   );
 }
 
@@ -694,7 +634,6 @@ function News({ isMobile }) {
   );
   return (
     <SectionLayout
-      scrollRange={[0, 50]}
       isMobile={isMobile}
       headerTxt={headerTxt}
       bodyTxt={bodyTxt}
@@ -848,7 +787,6 @@ function Partners({ isMobile }) {
   );
   return (
     <SectionLayout
-      scrollRange={[0, 50]}
       isMobile={isMobile}
       headerTxt={headerTxt}
       bodyTxt={bodyTxt}
@@ -896,7 +834,6 @@ function Contact({ isMobile }) {
   );
   return (
     <SectionLayout
-      scrollRange={[0, 50]}
       isMobile={isMobile}
       headerTxt={headerTxt}
       bodyTxt={bodyTxt}

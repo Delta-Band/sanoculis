@@ -1,13 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import {
-  useViewportScroll,
-  motion,
-  useTransform,
-  useMotionValue
-} from 'framer-motion';
+import { useViewportScroll, motion, useTransform } from 'framer-motion';
 
 function Left({ children, sectionAlignment }) {
   return (
@@ -38,12 +33,13 @@ function Right({ children, sectionAlignment }) {
   );
 }
 
-function Center({ children, style }) {
+function Center({ children, style, forwardRef }) {
   return (
     <Box
+      ref={forwardRef}
       width={1}
-      pt={6}
-      pb={6}
+      pt={7}
+      pb={7}
       display='flex'
       flexDirection='column'
       style={style}
@@ -63,35 +59,38 @@ function SectionLayout({
   headerColor,
   lessPaddingTop,
   isMobile,
-  sectionAlignment,
-  scrollRange
+  sectionAlignment
 }) {
   const isPortrait = isMobile || useMediaQuery('(max-width:1355px)');
   const theme = useTheme();
   const { scrollY } = useViewportScroll();
-  console.log(scrollY);
+  const [scrollRange, setScrollRange] = useState([0, 0]);
+  const ref = useRef();
+  useEffect(() => {
+    // const rectHeight = ref.current.getBoundingClientRect().height;
+    setScrollRange([
+      ref.current.offsetTop - (isPortrait ? 300 : 700),
+      ref.current.offsetTop - (isPortrait ? 0 : 300)
+    ]);
+  }, []);
   const y1 = useTransform(scrollY, scrollRange, [100, 0]);
   const y2 = useTransform(scrollY, scrollRange, [200, 0]);
   const opacity = useTransform(scrollY, scrollRange, [0, 1]);
-  // const [ref, inView, entry] = useInView({
-  //   /* Optional options */
-  //   threshold: 0.5,
-  //   triggerOnce: false
-  // });
   return !isPortrait ? (
     <Box
       width={1}
-      pt={lessPaddingTop ? 9 : 18}
-      pb={18}
+      pt={9}
+      pb={9}
       display='flex'
       flexDirection='row'
+      ref={ref}
       style={{
         backgroundColor: backgroundColor
       }}
     >
       <Left sectionAlignment={sectionAlignment}>{left}</Left>
       <Right sectionAlignment={sectionAlignment}>
-        <motion.div style={{ y: y1, opacity: opacity }}>
+        <motion.div style={{ x: y1, opacity: opacity }}>
           <Typography
             variant='h2'
             style={{
@@ -103,37 +102,37 @@ function SectionLayout({
           </Typography>
         </motion.div>
         <Box mb={5} />
-        <motion.div style={{ y: y2, opacity: opacity }}>
+        <motion.div style={{ x: y2, opacity: opacity }}>
           <Box maxWidth='40vw'>{bodyTxt}</Box>
         </motion.div>
       </Right>
     </Box>
   ) : (
     <Center
+      forwardRef={ref}
       lessPaddingTop={lessPaddingTop}
       style={{
         backgroundColor: backgroundColor
       }}
     >
       {topMobile}
-      <Box mb={4} />
-      <Typography
-        variant='h2'
-        style={{
-          padding: `0 ${theme.mobileGutter}`,
-          color: headerColor
-        }}
-      >
-        {headerTxt}
-      </Typography>
+      <motion.div style={{ y: y1, opacity: opacity }}>
+        <Typography
+          variant='h2'
+          style={{
+            padding: `0 ${theme.mobileGutter}`,
+            color: headerColor
+          }}
+        >
+          {headerTxt}
+        </Typography>
+      </motion.div>
       <Box mb={3} />
-      <div
-        style={{
-          padding: `0 ${theme.mobileGutter}`
-        }}
+      <motion.div
+        style={{ y: y2, opacity: opacity, padding: `0 ${theme.mobileGutter}` }}
       >
         {bodyTxt}
-      </div>
+      </motion.div>
     </Center>
   );
 }
