@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(10, 4, 3),
     maxHeight: '70vh',
+    maxWidth: '90vw',
     overflowX: 'hidden',
     overflowY: 'auto'
   }

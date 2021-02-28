@@ -19,15 +19,15 @@ import { RightArrow } from '@styled-icons/boxicons-solid/RightArrow';
 import { DownArrow } from '@styled-icons/boxicons-solid/DownArrow';
 import Head from 'next/head';
 import mockData from '../mock_data';
-import { Modal } from '../shared';
+import { Modal, SectionLayout, ContactForm } from '../shared';
 
-function Left({ children }) {
+function Left({ children, sectionAlignment }) {
   return (
     <Box
       width='45%'
       display='flex'
       justifyContent='flex-end'
-      alignItems='center'
+      alignItems={sectionAlignment || 'center'}
       pr='5vw'
       position='relative'
     >
@@ -36,12 +36,12 @@ function Left({ children }) {
   );
 }
 
-function Right({ children }) {
+function Right({ children, sectionAlignment }) {
   return (
     <Box
       width='55%'
       display='flex'
-      alignItems='flex-start'
+      alignItems={sectionAlignment || 'flex-start'}
       flexDirection='column'
       justifyContent='center'
     >
@@ -79,74 +79,6 @@ function HeroLeft() {
         }}
       ></Box>
     </Left>
-  );
-}
-
-function SectionLayout({
-  headerTxt,
-  bodyTxt,
-  art,
-  artMobile,
-  backgroundColor,
-  headerColor,
-  lessPaddingTop,
-  isMobile
-}) {
-  const isPortrait = isMobile || useMediaQuery('(max-width:1355px)');
-  const theme = useTheme();
-  return !isPortrait ? (
-    <Box
-      width={1}
-      pt={lessPaddingTop ? 9 : 18}
-      pb={18}
-      display='flex'
-      flexDirection='row'
-      style={{
-        backgroundColor: backgroundColor
-      }}
-    >
-      <Left>{art}</Left>
-      <Right>
-        <Typography
-          variant='h2'
-          style={{
-            maxWidth: 600,
-            color: headerColor
-          }}
-        >
-          {headerTxt}
-        </Typography>
-        <Box mb={5} />
-        <Box maxWidth='40vw'>{bodyTxt}</Box>
-      </Right>
-    </Box>
-  ) : (
-    <Center
-      lessPaddingTop={lessPaddingTop}
-      style={{
-        backgroundColor: backgroundColor
-      }}
-    >
-      {artMobile}
-      <Box mb={4} />
-      <Typography
-        variant='h2'
-        style={{
-          padding: `0 ${theme.mobileGutter}`,
-          color: headerColor
-        }}
-      >
-        {headerTxt}
-      </Typography>
-      <Box mb={3} />
-      <div
-        style={{
-          padding: `0 ${theme.mobileGutter}`
-        }}
-      >
-        {bodyTxt}
-      </div>
-    </Center>
   );
 }
 
@@ -261,7 +193,7 @@ function Inovation({ isMobile }) {
       isMobile={isMobile}
       headerTxt={headerTxt}
       bodyTxt={<Typography>{bodyTxt}</Typography>}
-      art={
+      left={
         <Box
           height='28vw'
           width='28vw'
@@ -271,7 +203,7 @@ function Inovation({ isMobile }) {
           }}
         ></Box>
       }
-      artMobile={
+      topMobile={
         <Box
           height='80vw'
           width='80vw'
@@ -298,7 +230,7 @@ function MinimalIntervention({ isMobile }) {
       lessPaddingTop
       headerTxt={headerTxt}
       bodyTxt={<Typography>{bodyTxt}</Typography>}
-      art={
+      left={
         <Box
           height='28vw'
           width='28vw'
@@ -308,7 +240,7 @@ function MinimalIntervention({ isMobile }) {
           }}
         ></Box>
       }
-      artMobile={
+      topMobile={
         <Box
           height='80vw'
           width='80vw'
@@ -366,7 +298,7 @@ function ClinicalPerformance({ isMobile }) {
       lessPaddingTop
       headerTxt={headerTxt}
       bodyTxt={bodyTxt}
-      art={
+      left={
         <Box
           height='28vw'
           width='28vw'
@@ -376,7 +308,7 @@ function ClinicalPerformance({ isMobile }) {
           }}
         ></Box>
       }
-      artMobile={
+      topMobile={
         <Box
           height='80vw'
           width='80vw'
@@ -412,12 +344,12 @@ function HowItWorks({ isMobile }) {
       lessPaddingTop
       headerTxt={headerTxt}
       bodyTxt={<Typography>{bodyTxt}</Typography>}
-      art={
+      left={
         <Box width='28vw' height={`${0.56 * 28}vw`}>
           <HowItWorksVideo />
         </Box>
       }
-      artMobile={<HowItWorksVideo />}
+      topMobile={<HowItWorksVideo />}
     />
   );
 }
@@ -763,7 +695,7 @@ function News({ isMobile }) {
       bodyTxt={bodyTxt}
       headerColor='white'
       backgroundColor={theme.palette.primary.dark}
-      art={
+      left={
         <Box
           height='28vw'
           width='28vw'
@@ -773,7 +705,7 @@ function News({ isMobile }) {
           }}
         ></Box>
       }
-      artMobile={
+      topMobile={
         <Box
           height='80vw'
           width='80vw'
@@ -860,6 +792,7 @@ function Partners({ isMobile }) {
       <Box mb={6} />
       <Button
         variant='contained'
+        size='large'
         color='primary'
         style={{
           borderRadius: 40,
@@ -878,7 +811,14 @@ function Partners({ isMobile }) {
       >
         <Fragment>
           <FormControl component='fieldset'>
-            <RadioGroup aria-label='partners' name='partners'>
+            <RadioGroup
+              aria-label='partners'
+              name='partners'
+              style={{
+                width: 400,
+                maxWidth: '100%'
+              }}
+            >
               {mockData.partners.map((itm, i) => (
                 <FormControlLabel
                   key={itm.id}
@@ -891,7 +831,7 @@ function Partners({ isMobile }) {
                     }, 250);
                   }}
                   value={0}
-                  label={itm.name}
+                  label={itm.contryRegion}
                   labelPlacement='end'
                 />
               ))}
@@ -908,7 +848,7 @@ function Partners({ isMobile }) {
       bodyTxt={bodyTxt}
       headerColor='white'
       backgroundColor={theme.palette.primary.dark}
-      art={
+      left={
         <Box
           height='28vw'
           width='28vw'
@@ -918,7 +858,7 @@ function Partners({ isMobile }) {
           }}
         ></Box>
       }
-      artMobile={
+      topMobile={
         <Box
           height='80vw'
           width='80vw'
@@ -930,6 +870,35 @@ function Partners({ isMobile }) {
           }}
         ></Box>
       }
+    />
+  );
+}
+
+function Contact({ isMobile }) {
+  // const theme = useTheme();
+  const headerTxt = 'Contact Us';
+  const bodyTxt = <ContactForm isMobile={isMobile} />;
+  const info = (
+    <Box maxWidth='100%' width={470} pl={4} pr={4}>
+      <Typography variant='h2'>Sanoculis</Typography>
+      <Box mb={5} />
+      <Typography>Office@sanoculis.com</Typography>
+      <Typography>+972 3 555 4666</Typography>
+      <Typography>Begin st.154, Tel Aviv, Israel</Typography>
+      <Box mb={6} />
+      <Typography>
+        MIMS® is a registered Trademark All rights reserved Sanoculis LTD. 2020
+      </Typography>
+    </Box>
+  );
+  return (
+    <SectionLayout
+      isMobile={isMobile}
+      headerTxt={headerTxt}
+      bodyTxt={bodyTxt}
+      sectionAlignment='start'
+      left={info}
+      topMobile={info}
     />
   );
 }
@@ -965,6 +934,7 @@ export default function Home({ data, isMobile }) {
       <Testimonials isMobile={isMobile} />
       <News isMobile={isMobile} />
       <Partners isMobile={isMobile} />
+      <Contact isMobile={isMobile} />
     </Fragment>
   );
 }

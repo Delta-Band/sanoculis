@@ -74,9 +74,14 @@ const theme = createMuiTheme({
       },
       containedPrimary: {
         '&:hover': {
-          backgroundColor: 'rgba(255, 255, 255, 0.5)'
+          backgroundColor: '#4452bf'
         }
       }
+      // contained: {
+      //   '&:hover': {
+      //     backgroundColor: 'rgba(86, 104, 255, 0.5)'
+      //   }
+      // }
     },
     MuiRadio: {
       root: {
@@ -89,6 +94,16 @@ const theme = createMuiTheme({
     MuiFormControlLabel: {
       label: {
         color: 'white'
+      }
+    },
+    MuiOutlinedInput: {
+      input: {
+        // backgroundColor: 'white'
+      }
+    },
+    MuiInputLabel: {
+      outlined: {
+        color: '#5668FF'
       }
     }
   },
