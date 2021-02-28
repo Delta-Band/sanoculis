@@ -795,6 +795,7 @@ function DropMenu({ partner, setOpen, open }) {
     <Box
       height={50}
       width={390}
+      maxWidth='100%'
       borderRadius={3}
       display='flex'
       justifyContent='space-between'
@@ -808,11 +809,11 @@ function DropMenu({ partner, setOpen, open }) {
         cursor: 'pointer'
       }}
     >
-      <Box pl={2}>
+      <Box pl={2} width={1}>
         <Typography
           noWrap
           style={{
-            maxWidth: 300,
+            maxWidth: '100%',
             overflow: 'hidden',
             textOverflow: 'elipsses'
           }}

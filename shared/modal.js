@@ -59,13 +59,6 @@ const Fade = React.forwardRef(function Fade(props, ref) {
   );
 });
 
-Fade.propTypes = {
-  children: PropTypes.element,
-  in: PropTypes.bool.isRequired,
-  onEnter: PropTypes.func,
-  onExited: PropTypes.func
-};
-
 export default function SpringModal({ isOpen, onClose, children, title }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -112,7 +105,8 @@ export default function SpringModal({ isOpen, onClose, children, title }) {
           style={{
             position: 'relative',
             borderRadius: 5,
-            overflow: 'hidden'
+            overflow: 'hidden',
+            outline: 'none'
           }}
         >
           <Fragment>
