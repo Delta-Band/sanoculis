@@ -2,6 +2,12 @@ import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import {
+  useViewportScroll,
+  motion,
+  useTransform,
+  useMotionValue
+} from 'framer-motion';
 
 function Left({ children, sectionAlignment }) {
   return (
@@ -25,7 +31,7 @@ function Right({ children, sectionAlignment }) {
       display='flex'
       alignItems={sectionAlignment || 'flex-start'}
       flexDirection='column'
-      justifyContent='center'
+      justifyContent={sectionAlignment || 'center'}
     >
       {children}
     </Box>
@@ -57,10 +63,21 @@ function SectionLayout({
   headerColor,
   lessPaddingTop,
   isMobile,
-  sectionAlignment
+  sectionAlignment,
+  scrollRange
 }) {
   const isPortrait = isMobile || useMediaQuery('(max-width:1355px)');
   const theme = useTheme();
+  const { scrollY } = useViewportScroll();
+  console.log(scrollY);
+  const y1 = useTransform(scrollY, scrollRange, [100, 0]);
+  const y2 = useTransform(scrollY, scrollRange, [200, 0]);
+  const opacity = useTransform(scrollY, scrollRange, [0, 1]);
+  // const [ref, inView, entry] = useInView({
+  //   /* Optional options */
+  //   threshold: 0.5,
+  //   triggerOnce: false
+  // });
   return !isPortrait ? (
     <Box
       width={1}
@@ -74,17 +91,21 @@ function SectionLayout({
     >
       <Left sectionAlignment={sectionAlignment}>{left}</Left>
       <Right sectionAlignment={sectionAlignment}>
-        <Typography
-          variant='h2'
-          style={{
-            maxWidth: 600,
-            color: headerColor
-          }}
-        >
-          {headerTxt}
-        </Typography>
+        <motion.div style={{ y: y1, opacity: opacity }}>
+          <Typography
+            variant='h2'
+            style={{
+              maxWidth: 600,
+              color: headerColor
+            }}
+          >
+            {headerTxt}
+          </Typography>
+        </motion.div>
         <Box mb={5} />
-        <Box maxWidth='40vw'>{bodyTxt}</Box>
+        <motion.div style={{ y: y2, opacity: opacity }}>
+          <Box maxWidth='40vw'>{bodyTxt}</Box>
+        </motion.div>
       </Right>
     </Box>
   ) : (

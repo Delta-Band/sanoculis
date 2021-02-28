@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Typography, Box } from '@material-ui/core';
 import { Bounce } from 'react-activity';
 import 'react-activity/dist/react-activity.css';
 import { useTheme } from '@material-ui/core/styles';
@@ -30,6 +30,8 @@ function Contact({ isMobile }) {
   }, [email]);
   return (
     <Fragment>
+      <Typography variant='h2'>Contact Us</Typography>
+      <Box mb={5} />
       <TextField
         style={{
           width: '100%',

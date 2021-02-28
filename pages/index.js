@@ -190,6 +190,7 @@ function Inovation({ isMobile }) {
     'MIMS is a rapid & minimal procedure at the forefront of Interventional Glaucoma treatments. Fewer complications and less reliance on medications allows for effective IOP management.';
   return (
     <SectionLayout
+      scrollRange={[435, 686]}
       isMobile={isMobile}
       headerTxt={headerTxt}
       bodyTxt={<Typography>{bodyTxt}</Typography>}
@@ -226,6 +227,7 @@ function MinimalIntervention({ isMobile }) {
     'As the leading cause of blindness, Glaucoma is not yet curable. However, progression can be slowed with a proactive approach. Intervening early & quickly can reduce risky complications.';
   return (
     <SectionLayout
+      scrollRange={[1547, 1957]}
       isMobile={isMobile}
       lessPaddingTop
       headerTxt={headerTxt}
@@ -294,6 +296,7 @@ function ClinicalPerformance({ isMobile }) {
   );
   return (
     <SectionLayout
+      scrollRange={[0, 50]}
       isMobile={isMobile}
       lessPaddingTop
       headerTxt={headerTxt}
@@ -340,6 +343,7 @@ function HowItWorks({ isMobile }) {
   remain open & contentiously drain, effectively reducing IOP buildup.`;
   return (
     <SectionLayout
+      scrollRange={[948, 1381]}
       isMobile={isMobile}
       lessPaddingTop
       headerTxt={headerTxt}
@@ -690,6 +694,7 @@ function News({ isMobile }) {
   );
   return (
     <SectionLayout
+      scrollRange={[0, 50]}
       isMobile={isMobile}
       headerTxt={headerTxt}
       bodyTxt={bodyTxt}
@@ -843,6 +848,7 @@ function Partners({ isMobile }) {
   );
   return (
     <SectionLayout
+      scrollRange={[0, 50]}
       isMobile={isMobile}
       headerTxt={headerTxt}
       bodyTxt={bodyTxt}
@@ -876,12 +882,9 @@ function Partners({ isMobile }) {
 
 function Contact({ isMobile }) {
   // const theme = useTheme();
-  const headerTxt = 'Contact Us';
-  const bodyTxt = <ContactForm isMobile={isMobile} />;
-  const info = (
-    <Box maxWidth='100%' width={470} pl={4} pr={4}>
-      <Typography variant='h2'>Sanoculis</Typography>
-      <Box mb={5} />
+  const headerTxt = 'Sanoculis';
+  const bodyTxt = (
+    <Fragment>
       <Typography>Office@sanoculis.com</Typography>
       <Typography>+972 3 555 4666</Typography>
       <Typography>Begin st.154, Tel Aviv, Israel</Typography>
@@ -889,16 +892,25 @@ function Contact({ isMobile }) {
       <Typography>
         MIMS® is a registered Trademark All rights reserved Sanoculis LTD. 2020
       </Typography>
-    </Box>
+    </Fragment>
   );
   return (
     <SectionLayout
+      scrollRange={[0, 50]}
       isMobile={isMobile}
       headerTxt={headerTxt}
       bodyTxt={bodyTxt}
       sectionAlignment='start'
-      left={info}
-      topMobile={info}
+      left={
+        <Box maxWidth='100%' width={470} pl={4} pr={4}>
+          <ContactForm isMobile={isMobile} />
+        </Box>
+      }
+      topMobile={
+        <Box width={1} pl={3} pr={3}>
+          <ContactForm isMobile={isMobile} />
+        </Box>
+      }
     />
   );
 }
