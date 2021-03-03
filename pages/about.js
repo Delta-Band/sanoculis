@@ -6,7 +6,7 @@ export default function About() {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Sanoculis About</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <li>

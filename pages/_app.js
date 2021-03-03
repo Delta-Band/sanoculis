@@ -1,137 +1,33 @@
-import React, { useEffect, useState, Fragment } from 'react';
-import { Box, Button } from '@material-ui/core';
+import React, { Fragment } from 'react';
+import { Box, Button, ButtonGroup } from '@material-ui/core';
+import Link from 'next/link';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 // import { MenuAlt4 as Menu } from '@styled-icons/heroicons-outline/MenuAlt4';
 // import { CloseOutline as MenuClose } from '@styled-icons/evaicons-outline/CloseOutline';
-import {
-  createMuiTheme,
-  ThemeProvider,
-  useTheme
-} from '@material-ui/core/styles';
+import { ThemeProvider, useTheme } from '@material-ui/core/styles';
 import { SideMenu } from '../shared';
 import '../styles/globals.css';
-
-const defaultTheme = createMuiTheme();
-const {
-  breakpoints,
-  typography: { pxToRem }
-} = defaultTheme;
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#757ce8',
-      main: '#5668FF',
-      dark: '#07003C',
-      contrastText: '#fff'
-    },
-    secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: '#000'
-    }
-  },
-  typography: {
-    fontFamily: ['Rubik', 'Domaine'].join(','),
-    lineHeight: '1.8em',
-    allVariants: {
-      color: '#06003B'
-    },
-    body1: {
-      fontSize: 20,
-      [breakpoints.down('xs')]: {
-        fontSize: pxToRem(16)
-      }
-    },
-    p: {
-      padding: 0
-    },
-    h2: {
-      fontSize: '42px',
-      fontFamily: 'Domaine',
-      fontWeight: 'bold',
-      [breakpoints.down('xs')]: {
-        fontSize: '28px'
-      }
-    }
-  },
-  overrides: {
-    MuiCssBaseline: {
-      '@global': {
-        '@font-face': ['Rubik']
-      }
-    },
-    MuiLink: {
-      underlineHover: {
-        textDecoration: 'underline'
-      }
-    },
-    MuiButton: {
-      label: {
-        fontSize: 16,
-        transform: 'translateY(1px)'
-      },
-      containedPrimary: {
-        '&:hover': {
-          backgroundColor: '#4452bf'
-        }
-      }
-      // contained: {
-      //   '&:hover': {
-      //     backgroundColor: 'rgba(86, 104, 255, 0.5)'
-      //   }
-      // }
-    },
-    MuiRadio: {
-      root: {
-        color: 'white'
-      },
-      colorPrimary: {
-        color: 'white !important'
-      }
-    },
-    MuiFormControlLabel: {
-      label: {
-        color: 'white'
-      }
-    },
-    MuiOutlinedInput: {
-      input: {
-        // backgroundColor: 'white'
-      }
-    },
-    MuiInputLabel: {
-      outlined: {
-        color: '#5668FF'
-      }
-    }
-  },
-  transition: '1s cubic-bezier(.21,.47,.49,.92)',
-  mobileGutter: '6vw',
-  fastTransition: '0.4s cubic-bezier(.21,.47,.49,.92)'
-});
+import theme from '../theme';
 
 function NavBar() {
-  // State
-  const [fadeInItems, setFadeInItems] = useState(false);
-
   // Hooks
   const theme = useTheme();
   const isPortrait = useMediaQuery('(max-width:1355px)');
 
-  // Effects
-  useEffect(() => {
-    setTimeout(() => {
-      setFadeInItems(true);
-    }, 1000);
-  }, []);
-
-  const transitionDef = {
-    transition: theme.transition,
-    opacity: fadeInItems ? 1 : 0,
-    transform: `translateY(${fadeInItems ? 0 : '50%'})`
-  };
+  function NavBarLink({ children, href }) {
+    return (
+      <Link href={href}>
+        <a
+          style={{
+            width: '100%',
+            padding: '6px 1.5vw'
+          }}
+        >
+          {children}
+        </a>
+      </Link>
+    );
+  }
 
   return (
     <Box
@@ -153,42 +49,48 @@ function NavBar() {
           <SideMenu />
         </Fragment>
       ) : (
-        <Box display='flex'>
+        <ButtonGroup
+          disableElevation
+          orientation='vertical'
+          color='primary'
+          aria-label='text primary button group'
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            backdropFilter: 'blur(2px)',
+            position: 'fixed',
+            top: theme.spacing(3),
+            right: theme.spacing(4)
+          }}
+        >
           <Button
             style={{
-              ...transitionDef
+              padding: 0
             }}
           >
-            About
+            <NavBarLink href='/about'>About</NavBarLink>
           </Button>
-          <Box ml='2vw' />
           <Button
             style={{
-              ...transitionDef,
-              transitionDuration: '1.5s'
+              padding: 0
             }}
           >
-            Clinical
+            <NavBarLink href='/clinical'>Clinical</NavBarLink>
           </Button>
-          <Box ml='2vw' />
           <Button
             style={{
-              ...transitionDef,
-              transitionDuration: '2s'
+              padding: 0
             }}
           >
-            Distributors
+            <NavBarLink href='/distributors'>Distributors</NavBarLink>
           </Button>
-          <Box ml='2vw' />
           <Button
             style={{
-              ...transitionDef,
-              transitionDuration: '2.5s'
+              padding: 0
             }}
           >
-            CONTACT
+            <NavBarLink href='/contact'>CONTACT</NavBarLink>
           </Button>
-        </Box>
+        </ButtonGroup>
       )}
     </Box>
   );

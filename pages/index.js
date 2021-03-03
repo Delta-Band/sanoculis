@@ -874,6 +874,12 @@ export default function Home({ data, isMobile }) {
         <title>Sanoculis</title>
         <link rel='icon' href='/favicon.ico' />
         <link rel='preload' href='/fonts/Rubik.ttf' as='font' crossOrigin='' />
+        <link
+          rel='preload'
+          href='/fonts/Domaine-Bold.ttf'
+          as='font'
+          crossOrigin=''
+        />
       </Head>
       <Hero isMobile={isMobile} />
       <Inovation isMobile={isMobile} />
