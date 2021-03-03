@@ -69,8 +69,8 @@ function SectionLayout({
   useEffect(() => {
     // const rectHeight = ref.current.getBoundingClientRect().height;
     setScrollRange([
-      ref.current.offsetTop - (isPortrait ? 300 : 700),
-      ref.current.offsetTop - (isPortrait ? 0 : 300)
+      ref.current.offsetTop - (isPortrait ? 300 : 600),
+      ref.current.offsetTop - (isPortrait ? 0 : 200)
     ]);
   }, []);
   const y1 = useTransform(scrollY, scrollRange, [100, 0]);
@@ -90,7 +90,7 @@ function SectionLayout({
     >
       <Left sectionAlignment={sectionAlignment}>{left}</Left>
       <Right sectionAlignment={sectionAlignment}>
-        <motion.div style={{ x: y1, opacity: opacity }}>
+        <motion.div style={{ y: y1, opacity: opacity }}>
           <Typography
             variant='h2'
             style={{
@@ -102,7 +102,7 @@ function SectionLayout({
           </Typography>
         </motion.div>
         <Box mb={5} />
-        <motion.div style={{ x: y2, opacity: opacity }}>
+        <motion.div style={{ y: y2, opacity: opacity }}>
           <Box maxWidth='40vw'>{bodyTxt}</Box>
         </motion.div>
       </Right>

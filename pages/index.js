@@ -839,7 +839,7 @@ function Contact({ isMobile }) {
       bodyTxt={bodyTxt}
       sectionAlignment='start'
       left={
-        <Box maxWidth='100%' width={470} pl={4} pr={4}>
+        <Box maxWidth='100%' width={470} pl={4} pr={4} pb={14}>
           <ContactForm isMobile={isMobile} />
         </Box>
       }
