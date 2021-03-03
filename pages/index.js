@@ -17,7 +17,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { LeftArrow } from '@styled-icons/boxicons-solid/LeftArrow';
 import { RightArrow } from '@styled-icons/boxicons-solid/RightArrow';
 import { DownArrow } from '@styled-icons/boxicons-solid/DownArrow';
-import Head from 'next/head';
+import Head from '../head';
 import mockData from '../mock_data';
 import { Modal, SectionLayout, ContactForm } from '../shared';
 
@@ -870,17 +870,7 @@ export async function getServerSideProps(context) {
 export default function Home({ data, isMobile }) {
   return (
     <Fragment>
-      <Head>
-        <title>Sanoculis</title>
-        <link rel='icon' href='/favicon.ico' />
-        <link rel='preload' href='/fonts/Rubik.ttf' as='font' crossOrigin='' />
-        <link
-          rel='preload'
-          href='/fonts/Domaine-Bold.ttf'
-          as='font'
-          crossOrigin=''
-        />
-      </Head>
+      <Head title='MIMS Story' />
       <Hero isMobile={isMobile} />
       <Inovation isMobile={isMobile} />
       <HowItWorks isMobile={isMobile} />

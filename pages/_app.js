@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Box, Button, ButtonGroup } from '@material-ui/core';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 // import { MenuAlt4 as Menu } from '@styled-icons/heroicons-outline/MenuAlt4';
@@ -12,6 +13,7 @@ import theme from '../theme';
 function NavBar() {
   // Hooks
   const theme = useTheme();
+  const router = useRouter();
   const isPortrait = useMediaQuery('(max-width:1355px)');
 
   function NavBarLink({ children, href }) {
@@ -42,7 +44,11 @@ function NavBar() {
       alignItems='center'
       zIndex={10}
     >
-      <img src='/sanoculis_logo.svg' />
+      <Link href='/'>
+        <a>
+          <img src='/sanoculis_logo.svg' />
+        </a>
+      </Link>
       {isPortrait ? (
         <Fragment>
           <Box ml={4} />
@@ -63,6 +69,7 @@ function NavBar() {
           }}
         >
           <Button
+            variant={router.pathname === '/about' ? 'contained' : 'outlined'}
             style={{
               padding: 0
             }}
@@ -70,6 +77,7 @@ function NavBar() {
             <NavBarLink href='/about'>About</NavBarLink>
           </Button>
           <Button
+            variant={router.pathname === '/clinical' ? 'contained' : 'outlined'}
             style={{
               padding: 0
             }}
@@ -77,6 +85,9 @@ function NavBar() {
             <NavBarLink href='/clinical'>Clinical</NavBarLink>
           </Button>
           <Button
+            variant={
+              router.pathname === '/distributors' ? 'contained' : 'outlined'
+            }
             style={{
               padding: 0
             }}
@@ -84,6 +95,7 @@ function NavBar() {
             <NavBarLink href='/distributors'>Distributors</NavBarLink>
           </Button>
           <Button
+            variant={router.pathname === '/contact' ? 'contained' : 'outlined'}
             style={{
               padding: 0
             }}

@@ -1,19 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 
 export default function About() {
   return (
-    <div>
+    <Fragment>
       <Head>
-        <title>Sanoculis About</title>
+        <title>About MIMS</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <li>
-        <Link href='/'>
-          <a>Home</a>
-        </Link>
-      </li>
-    </div>
+    </Fragment>
   );
 }
