@@ -35,7 +35,7 @@ function NavBar() {
     <Box
       position='fixed'
       width='100vw'
-      p={isPortrait ? 3 : 6}
+      p={isPortrait ? 5 : 6}
       pb={0}
       pt={isPortrait ? 3 : 4}
       display='flex'

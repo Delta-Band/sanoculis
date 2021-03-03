@@ -30,18 +30,19 @@ const theme = createMuiTheme({
     body1: {
       fontSize: 20,
       [breakpoints.down('xs')]: {
-        fontSize: pxToRem(16)
+        fontSize: pxToRem(16),
+        lineHeight: pxToRem(24)
       }
     },
     p: {
       padding: 0
     },
     h2: {
-      fontSize: '42px',
+      fontSize: pxToRem(42),
       fontFamily: 'Domaine',
       fontWeight: 'bold',
       [breakpoints.down('xs')]: {
-        fontSize: '28px'
+        fontSize: pxToRem(28)
       }
     }
   },
@@ -96,7 +97,7 @@ const theme = createMuiTheme({
     }
   },
   transition: '1s cubic-bezier(.21,.47,.49,.92)',
-  mobileGutter: '6vw',
+  mobileGutter: '40px',
   fastTransition: '0.4s cubic-bezier(.21,.47,.49,.92)'
 });
 
