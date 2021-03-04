@@ -1,18 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useViewportScroll, motion, useTransform } from 'framer-motion';
+import { useTheme } from '@material-ui/core/styles';
 
 function ImageParallax({
   src,
   height,
   width,
   borderRadius = 0,
-  windowRange = [0, 0.7]
+  windowRange = [0, 0.7],
+  imgStyle = {},
+  blendColor = 'white'
 }) {
   // State
   const [scrollRange, setScrollRange] = useState([0, 0]);
   const [imgOverflow, setImgOverflow] = useState(100);
 
   // Hooks
+  const theme = useTheme();
   const containerRef = useRef();
   const imgRef = useRef();
   const { scrollY } = useViewportScroll();
@@ -49,8 +53,23 @@ function ImageParallax({
         transform: 'translateZ(0)'
       }}
     >
-      <motion.div style={{ width: '100%', y: y }}>
-        <img ref={imgRef} src={src} style={{ width: '100%' }} />
+      <motion.div
+        style={{
+          width: '100%',
+          y: y,
+          transition: theme.fastTransition,
+          background: blendColor
+        }}
+      >
+        <img
+          ref={imgRef}
+          src={src}
+          style={{
+            width: '100%',
+            transition: theme.fastTransition,
+            ...imgStyle
+          }}
+        />
       </motion.div>
     </div>
   );

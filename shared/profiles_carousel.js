@@ -100,7 +100,8 @@ function ProfileCarousel({ isPortrait, profiles }) {
                 setIndex(i);
               }}
               animate={{
-                scale: i === index ? 1 : 0.8
+                scale: i === index ? 1 : 0.8,
+                opacity: i === index ? 1 : 0.8
               }}
               style={{
                 transformOrigin: '25vw 40vw'
@@ -114,6 +115,11 @@ function ProfileCarousel({ isPortrait, profiles }) {
                   width='50vw'
                   borderRadius='50vw'
                   windowRange={[0, 2]}
+                  imgStyle={{
+                    mixBlendMode: 'multiply',
+                    filter: index === i ? 'none' : 'grayscale(1)'
+                  }}
+                  blendColor={index !== i ? theme.palette.primary.main : '#FFF'}
                 />
                 <motion.div
                   transition={{
