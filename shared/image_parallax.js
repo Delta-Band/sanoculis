@@ -39,7 +39,8 @@ function ImageParallax({
         width: width,
         height: height,
         overflow: 'hidden',
-        borderRadius: borderRadius
+        borderRadius: borderRadius,
+        transform: 'translateZ(0)'
       }}
     >
       <motion.div style={{ width: '100%', y: y }}>
