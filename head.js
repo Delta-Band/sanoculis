@@ -9,7 +9,7 @@ function Head({ title }) {
       <link rel='preload' href='/fonts/Rubik.ttf' as='font' crossOrigin='' />
       <link
         rel='preload'
-        href='/fonts/Domaine-Bold.ttf'
+        href='/fonts/Domaine-Bold.otf'
         as='font'
         crossOrigin=''
       />
