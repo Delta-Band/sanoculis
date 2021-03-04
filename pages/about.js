@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Grid, Typography, Box } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import { ProfileCarousel } from '../shared';
+import { ProfileCarousel, ScrollCarousel } from '../shared';
 import Head from 'next/head';
 
 export async function getServerSideProps(context) {
@@ -113,7 +113,41 @@ export default function About({ isMobile, leadership }) {
           <ProfileCarousel isMobile={isMobile} profiles={leadership} />
           <Box mb={10} />
         </Grid>
+        <GridItem>
+          <Typography variant='h2'>Medical Institutional Partners</Typography>
+        </GridItem>
+        <Grid item xs={12}>
+          <ScrollCarousel
+            windowRange={[0.1, 0.5]}
+            items={leadership}
+            itemBuilder={(item) => (
+              <Box
+                width='50vw'
+                height='25vw'
+                style={{ backgroundColor: theme.palette.primary.dark }}
+                ml={1}
+                mr={1}
+              />
+            )}
+          />
+          <Box mb={2} />
+          <ScrollCarousel
+            windowRange={[0.1, 0.5]}
+            items={leadership}
+            itemBuilder={(item) => (
+              <Box
+                width='50vw'
+                height='25vw'
+                style={{ backgroundColor: theme.palette.primary.dark }}
+                ml={1}
+                mr={1}
+              />
+            )}
+          />
+          <Box mb={10} />
+        </Grid>
       </Grid>
+      <Box mb={50} />
     </Fragment>
   );
 }

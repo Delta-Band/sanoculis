@@ -8,11 +8,17 @@ function ImageParallax({
   borderRadius = 0,
   windowRange = [0, 0.7]
 }) {
+  // State
   const [scrollRange, setScrollRange] = useState([0, 0]);
   const [imgOverflow, setImgOverflow] = useState(100);
+
+  // Hooks
   const containerRef = useRef();
   const imgRef = useRef();
   const { scrollY } = useViewportScroll();
+  const y = useTransform(scrollY, scrollRange, [0, imgOverflow]);
+
+  // Effects
   useEffect(() => {
     setTimeout(() => {
       const containerRect = containerRef.current.getBoundingClientRect();
@@ -30,8 +36,8 @@ function ImageParallax({
       ]);
     }, 1000);
   }, []);
-  const y = useTransform(scrollY, scrollRange, [0, imgOverflow]);
 
+  // Render
   return (
     <div
       ref={containerRef}
