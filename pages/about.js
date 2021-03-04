@@ -104,7 +104,14 @@ export default function About({ isMobile, leadership }) {
         </GridItem>
         <Grid item xs={12}>
           <ProfileCarousel isMobile={isMobile} profiles={leadership} />
-          <Box mb={40} />
+          <Box mb={10} />
+        </Grid>
+        <GridItem>
+          <Typography variant='h2'>Medical Advisory Board</Typography>
+        </GridItem>
+        <Grid item xs={12}>
+          <ProfileCarousel isMobile={isMobile} profiles={leadership} />
+          <Box mb={10} />
         </Grid>
       </Grid>
     </Fragment>
