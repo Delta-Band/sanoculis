@@ -3,6 +3,7 @@ import { Box, Typography } from '@material-ui/core';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useTheme } from '@material-ui/core/styles';
+import { useSwipeable } from 'react-swipeable';
 import ImageParallax from './image_parallax';
 
 function ProfileCarousel({ isPortrait, profiles }) {
@@ -12,10 +13,19 @@ function ProfileCarousel({ isPortrait, profiles }) {
 
   // Hooks
   const timeoutRef = useRef(null);
+  const myRef = React.useRef();
   const { ref, inView } = useInView({
     threshold: 1
   });
   const theme = useTheme();
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      setIndex(Math.min(profiles.length - 1, index + 1));
+    },
+    onSwipedRight: () => {
+      setIndex(Math.max(0, index - 1));
+    }
+  });
 
   // Methods
   function incrementIndex() {
@@ -51,6 +61,11 @@ function ProfileCarousel({ isPortrait, profiles }) {
     damping: 12
   };
 
+  const refPassthrough = (el) => {
+    handlers.ref(el);
+    myRef.current = el;
+  };
+
   // Render
   return (
     <Box w={1} ref={ref}>
@@ -61,6 +76,8 @@ function ProfileCarousel({ isPortrait, profiles }) {
         }}
       >
         <motion.div
+          {...handlers}
+          ref={refPassthrough}
           animate={{
             x: `${25 - index * 50}vw`
           }}
