@@ -144,6 +144,20 @@ export default function About({ isMobile, leadership }) {
               />
             )}
           />
+          <Box mb={2} />
+          <ScrollCarousel
+            windowRange={[0.1, 0.5]}
+            items={leadership}
+            itemBuilder={(item) => (
+              <Box
+                width='50vw'
+                height='25vw'
+                style={{ backgroundColor: theme.palette.primary.dark }}
+                ml={1}
+                mr={1}
+              />
+            )}
+          />
           <Box mb={10} />
         </Grid>
       </Grid>
