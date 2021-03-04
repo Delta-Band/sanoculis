@@ -51,7 +51,6 @@ const Fade = React.forwardRef(function Fade(props, ref) {
         type: 'spring',
         stiffness: 175,
         damping: 20
-        // opacity: { duration: 0.2 }
       }}
     >
       {children}

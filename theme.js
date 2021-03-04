@@ -97,7 +97,7 @@ const theme = createMuiTheme({
     }
   },
   transition: '1s cubic-bezier(.21,.47,.49,.92)',
-  mobileGutter: '40px',
+  mobileGutter: defaultTheme.spacing(5),
   fastTransition: '0.4s cubic-bezier(.21,.47,.49,.92)'
 });
 

@@ -93,5 +93,34 @@ export default {
       email: 'Email@gmail.com',
       contryRegion: 'Mexico'
     }
+  ],
+  leadership: [
+    {
+      id: 1,
+      name: 'Samuel The Giant',
+      title: 'Keeper of the Garden',
+      pic: 'https://upload.wikimedia.org/wikipedia/he/a/a1/Gentlegiantcover.jpg'
+    },
+    {
+      id: 2,
+      name: 'Henry Hienberg',
+      title: 'Inovation Specialist',
+      pic:
+        'https://i.pinimg.com/736x/e9/a8/60/e9a86090b5f6c7672418210e7b51ebec.jpg'
+    },
+    {
+      id: 3,
+      name: 'Pikatch',
+      title: 'Test Anminal',
+      pic:
+        'https://ae01.alicdn.com/kf/H0796eedf43804726819970bb8de51be5Q/4PCS-LOT-Pokemon-Pikachu-Classic-Toys-Sticker-Fashion-Personality-Cartoon-Laptop-Body-Background-Decoration-Sticker.jpg'
+    },
+    {
+      id: 4,
+      name: 'Grandma',
+      title: 'Snacks Manager',
+      pic:
+        'https://previews.123rf.com/images/stockakia/stockakia1708/stockakia170800015/84749048-grandma-cooking.jpg'
+    }
   ]
 };
