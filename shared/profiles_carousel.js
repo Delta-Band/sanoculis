@@ -96,6 +96,9 @@ function ProfileCarousel({ isPortrait, profiles }) {
               className='porfile'
               key={profile.id}
               transition={spring}
+              onClick={() => {
+                setIndex(i);
+              }}
               animate={{
                 scale: i === index ? 1 : 0.8
               }}
