@@ -67,19 +67,34 @@ export default function About({ isMobile, leadership, partners }) {
   const _isMobile = isMobile || matches;
 
   // Sub-Components
-  function GridItem({ children }) {
+  function GridItem({ children, fullWidth }) {
     return (
       <Grid
         item
         xs={12}
         style={{
-          paddingBottom: theme.mobileGutter,
-          paddingLeft: _isMobile ? theme.mobileGutter : 0,
-          paddingRight: _isMobile ? theme.mobileGutter : 0
+          paddingLeft: _isMobile && !fullWidth ? theme.mobileGutter : 0,
+          paddingRight: _isMobile && !fullWidth ? theme.mobileGutter : 0
         }}
       >
         {children}
       </Grid>
+    );
+  }
+
+  function Section({ title, children, fullWidth }) {
+    return (
+      <Fragment>
+        <GridItem>
+          <Typography variant='h2' style={{ marginBottom: theme.spacing(5) }}>
+            {title}
+          </Typography>
+        </GridItem>
+        <GridItem fullWidth={fullWidth}>
+          {children}
+          <Box mb={_isMobile ? 10 : 15} />
+        </GridItem>
+      </Fragment>
     );
   }
 
@@ -169,10 +184,7 @@ export default function About({ isMobile, leadership, partners }) {
           margin: '0 auto'
         }}
       >
-        <GridItem>
-          <Typography variant='h2'>Our Vision</Typography>
-        </GridItem>
-        <GridItem>
+        <Section title='Our Vision'>
           <Typography>
             Sanoculis LTD. develops innovative medical devices and solutions in
             Glaucoma treatment. We provide a safe, effective and simple way to
@@ -181,42 +193,29 @@ export default function About({ isMobile, leadership, partners }) {
             established in 2012 and is backed by private and institutional
             investors.
           </Typography>
-          <Box mb={5} />
-        </GridItem>
-        <GridItem>
-          <Typography variant='h2'>Sanoculis Leadership Team</Typography>
-        </GridItem>
-        <Grid item xs={12}>
-          {_isMobile ? (
-            <ProfileCarousel isMobile={_isMobile} profiles={leadership} />
-          ) : (
-            <ProfilesGrid profiles={leadership} />
-          )}
+        </Section>
 
-          <Box mb={10} />
-        </Grid>
-        <GridItem>
-          <Typography variant='h2'>Medical Advisory Board</Typography>
-        </GridItem>
-        <Grid item xs={12}>
+        <Section title='Sanoculis Leadership Team' fullWidth>
           {_isMobile ? (
             <ProfileCarousel isMobile={_isMobile} profiles={leadership} />
           ) : (
             <ProfilesGrid profiles={leadership} />
           )}
-          <Box mb={10} />
-        </Grid>
-        <GridItem>
-          <Typography variant='h2'>Medical Institutional Partners</Typography>
-        </GridItem>
-        <Grid item xs={12}>
+        </Section>
+
+        <Section title='Medical Advisory Board' fullWidth>
+          {_isMobile ? (
+            <ProfileCarousel isMobile={_isMobile} profiles={leadership} />
+          ) : (
+            <ProfilesGrid profiles={leadership} />
+          )}
+        </Section>
+
+        <Section title='Medical Institutional Partners' fullWidth>
           <Partners itemsInRow={_isMobile ? 8 : 12} />
-          <Box mb={10} />
-        </Grid>
-        <GridItem>
-          <Typography variant='h2'>Glaucoma</Typography>
-        </GridItem>
-        <GridItem>
+        </Section>
+
+        <Section title='Glaucoma'>
           <Typography>
             Glaucoma is the leading cause of blindness in the world. It affects
             78M people every year - expected to grow to 111M by 2040. More than
@@ -226,12 +225,9 @@ export default function About({ isMobile, leadership, partners }) {
             substantially slowed through proper treatment. It&apos;s very
             important to act early because lost vision cannot be regained.
           </Typography>
-          <Box mb={5} />
-        </GridItem>
-        <GridItem>
-          <Typography variant='h2'>Treatment</Typography>
-        </GridItem>
-        <GridItem>
+        </Section>
+
+        <Section title='Treatment'>
           <Typography>
             Most patients are initially treated with topical medication, but
             often this option is insufficient to reach the appropriate IOP, or
@@ -241,12 +237,9 @@ export default function About({ isMobile, leadership, partners }) {
             medications is a serious problem in Glaucoma. Thus frequently,
             surgery becomes necessary.
           </Typography>
-          <Box mb={5} />
-        </GridItem>
-        <GridItem>
-          <Typography variant='h2'>Methods</Typography>
-        </GridItem>
-        <GridItem>
+        </Section>
+
+        <Section title='Methods'>
           <Typography>
             The most common surgical procedure used in open-angle glaucoma is a
             trabeculectomy (also known as filtration surgery). This procedure is
@@ -254,24 +247,9 @@ export default function About({ isMobile, leadership, partners }) {
             with relatively high complication and failure rates as well as
             prolonged visual instability.
           </Typography>
-          <Box mb={5} />
-        </GridItem>
-        <GridItem>
-          <Typography variant='h2'>Challenges</Typography>
-        </GridItem>
-        <GridItem>
-          <Typography>
-            Healing and scarring are the main obstacles for long term IOP
-            control after filtration surgery. Antimetabolites such as
-            5-Fluorouracil (5-FU) and Mitomycin C (MMC) are frequently used to
-            reduce scarring and improve drainage. The use of these substances is
-            potentially hazardous and requires high expertise to prevent
-            overfiltration and hypotony. Therefore there is a need to widen the
-            existing surgical options for Glaucoma.
-          </Typography>
-          <Box mb={5} />
-        </GridItem>
-        <GridItem>
+        </Section>
+
+        <Section title='Challenges'>
           <Typography>
             The most common surgical procedure used in open-angle glaucoma is a
             trabeculectomy (also known as filtration surgery). This procedure is
@@ -279,20 +257,16 @@ export default function About({ isMobile, leadership, partners }) {
             with relatively high complication and failure rates as well as
             prolonged visual instability.
           </Typography>
-          <Box mb={5} />
-        </GridItem>
-        <GridItem>
-          <Typography variant='h2'>Mims® Regulatory statement</Typography>
-        </GridItem>
-        <GridItem>
+        </Section>
+
+        <Section title='Mims® Regulatory statement'>
           <Typography>
             MIMS® is a registered Trademark with CE Certification. All rights
             reserved Sanoculis LTD. 2020
           </Typography>
           <Box mb={5} />
           <img src='/ce_logo.svg' />
-          {/* <Box mb={5} /> */}
-        </GridItem>
+        </Section>
       </Grid>
     </Fragment>
   );
