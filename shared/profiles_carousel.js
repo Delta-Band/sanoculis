@@ -110,7 +110,6 @@ function ProfileCarousel({ isPortrait, profiles }) {
               <Box display='flex' flexDirection='column' alignItems='center'>
                 <ImageParallax
                   src={profile.pic}
-                  isPortrait={isPortrait}
                   height='50vw'
                   width='50vw'
                   borderRadius='50vw'

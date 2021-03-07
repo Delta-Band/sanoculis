@@ -25,6 +25,7 @@ function ImageParallax({
 
   // Methods
   function init() {
+    if (!containerRef.current) return;
     const containerRect = containerRef.current.getBoundingClientRect();
     const imageRect = imgRef.current.getBoundingClientRect();
     const docRelativeYlocation =

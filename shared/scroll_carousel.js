@@ -10,6 +10,7 @@ function ScrollCarousel({ itemBuilder, items, windowRange = [0, 1] }) {
 
   // Methods
   function init() {
+    if (!containerRef.current) return;
     const containerRect = containerRef.current.getBoundingClientRect();
     const contentRect = contentRef.current.getBoundingClientRect();
     const docRelativeYlocation =
