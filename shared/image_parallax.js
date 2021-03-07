@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useViewportScroll, motion, useTransform } from 'framer-motion';
+import { debounce } from 'lodash';
 import { useTheme } from '@material-ui/core/styles';
 
 function ImageParallax({
@@ -22,23 +23,32 @@ function ImageParallax({
   const { scrollY } = useViewportScroll();
   const y = useTransform(scrollY, scrollRange, [0, imgOverflow]);
 
+  // Methods
+  function init() {
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const imageRect = imgRef.current.getBoundingClientRect();
+    const docRelativeYlocation =
+      containerRect.top + window.pageYOffset - window.innerHeight;
+    setImgOverflow(0 - (imageRect.height - containerRect.height));
+    setScrollRange([
+      docRelativeYlocation +
+        containerRect.height +
+        window.innerHeight * windowRange[0],
+      docRelativeYlocation +
+        containerRect.height +
+        window.innerHeight * windowRange[1]
+    ]);
+  }
+
+  const initDB = debounce(init, 250);
+
   // Effects
   useEffect(() => {
-    setTimeout(() => {
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const imageRect = imgRef.current.getBoundingClientRect();
-      const docRelativeYlocation =
-        containerRect.top + window.pageYOffset - window.innerHeight;
-      setImgOverflow(0 - (imageRect.height - containerRect.height));
-      setScrollRange([
-        docRelativeYlocation +
-          containerRect.height +
-          window.innerHeight * windowRange[0],
-        docRelativeYlocation +
-          containerRect.height +
-          window.innerHeight * windowRange[1]
-      ]);
-    }, 1000);
+    setTimeout(init, 1000);
+    window.addEventListener('resize', initDB);
+    return () => {
+      window.removeEventListener('resize', initDB);
+    };
   }, []);
 
   // Render

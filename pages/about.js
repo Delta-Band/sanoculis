@@ -56,7 +56,7 @@ function GridItem({ children }) {
       item
       xs={12}
       style={{
-        marginBottom: theme.mobileGutter,
+        paddingBottom: theme.mobileGutter,
         paddingLeft: theme.mobileGutter,
         paddingRight: theme.mobileGutter
       }}
@@ -161,7 +161,85 @@ export default function About({ isMobile, leadership }) {
           <Box mb={10} />
         </Grid>
       </Grid>
-      <Box mb={50} />
+      <GridItem>
+        <Typography variant='h2'>Glaucoma</Typography>
+      </GridItem>
+      <GridItem>
+        <Typography>
+          Glaucoma is the leading cause of blindness in the world. It affects
+          78M people every year - expected to grow to 111M by 2040. More than 11
+          million people will be blinded due to glaucoma this year (13% of all
+          glaucoma patients). There is no cure yet - there are only treatments
+          to relieve symptoms. Advance of the disease can be substantially
+          slowed through proper treatment. It&apos;s very important to act early
+          because lost vision cannot be regained.
+        </Typography>
+        <Box mb={5} />
+      </GridItem>
+      <GridItem>
+        <Typography variant='h2'>Treatment</Typography>
+      </GridItem>
+      <GridItem>
+        <Typography>
+          Most patients are initially treated with topical medication, but often
+          this option is insufficient to reach the appropriate IOP, or is not
+          tolerated due to side effects. Furthermore, in many third world
+          countries medications are too costly and a one-time intervention is
+          necessary. Also, low patient compliance with medications is a serious
+          problem in Glaucoma. Thus frequently, surgery becomes necessary.
+        </Typography>
+        <Box mb={5} />
+      </GridItem>
+      <GridItem>
+        <Typography variant='h2'>Methods</Typography>
+      </GridItem>
+      <GridItem>
+        <Typography>
+          The most common surgical procedure used in open-angle glaucoma is a
+          trabeculectomy (also known as filtration surgery). This procedure is
+          invasive, requires years of surgical experience and is associated with
+          relatively high complication and failure rates as well as prolonged
+          visual instability.
+        </Typography>
+        <Box mb={5} />
+      </GridItem>
+      <GridItem>
+        <Typography variant='h2'>Challenges</Typography>
+      </GridItem>
+      <GridItem>
+        <Typography>
+          Healing and scarring are the main obstacles for long term IOP control
+          after filtration surgery. Antimetabolites such as 5-Fluorouracil
+          (5-FU) and Mitomycin C (MMC) are frequently used to reduce scarring
+          and improve drainage. The use of these substances is potentially
+          hazardous and requires high expertise to prevent overfiltration and
+          hypotony. Therefore there is a need to widen the existing surgical
+          options for Glaucoma.
+        </Typography>
+        <Box mb={5} />
+      </GridItem>
+      <GridItem>
+        <Typography>
+          The most common surgical procedure used in open-angle glaucoma is a
+          trabeculectomy (also known as filtration surgery). This procedure is
+          invasive, requires years of surgical experience and is associated with
+          relatively high complication and failure rates as well as prolonged
+          visual instability.
+        </Typography>
+        <Box mb={5} />
+      </GridItem>
+      <GridItem>
+        <Typography variant='h2'>Mims® Regulatory statement</Typography>
+      </GridItem>
+      <GridItem>
+        <Typography>
+          MIMS® is a registered Trademark with CE Certification. All rights
+          reserved Sanoculis LTD. 2020
+        </Typography>
+        <Box mb={5} />
+        <img src='/ce_logo.svg' />
+        {/* <Box mb={5} /> */}
+      </GridItem>
     </Fragment>
   );
 }
