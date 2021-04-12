@@ -1,7 +1,10 @@
 export { default as SideMenu } from './side_menu';
 export { default as Modal } from './modal';
 export { default as SectionLayout } from './section_layout';
+export { default as SectionLayoutNew } from './section_layout_new';
 export { default as ContactForm } from './contact_form';
-export { default as ProfileCarousel } from './profiles_carousel';
+export { default as DeltaCarousel } from './delta_carousel';
 export { default as ScrollCarousel } from './scroll_carousel';
+export { default as DeltaProfile } from './delta_profile';
 export { default as ImageParallax } from './image_parallax';
+export { default as Footer } from './footer';

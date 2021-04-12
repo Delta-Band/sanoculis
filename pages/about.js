@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Grid, Typography, Box } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { ProfileCarousel, ScrollCarousel, ImageParallax } from '../shared';
+import { DeltaCarousel, DeltaProfile, ScrollCarousel } from '../shared';
 import Head from 'next/head';
 
 export async function getServerSideProps(context) {
@@ -62,6 +62,7 @@ export async function getServerSideProps(context) {
 export default function About({ isMobile, leadership, partners }) {
   // Hooks
   const theme = useTheme();
+  const upSm = useMediaQuery(theme.breakpoints.up('sm'));
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   const _isMobile = isMobile || matches;
@@ -142,30 +143,45 @@ export default function About({ isMobile, leadership, partners }) {
 
   function ProfilesGrid({ profiles }) {
     return (
-      <Grid container spacing={1}>
+      <Grid
+        container
+        spacing={4}
+        style={{
+          paddingLeft: theme.mobileGutter,
+          paddingRight: theme.mobileGutter
+        }}
+      >
         {profiles.map((itm) => (
           <Grid item lg={2} key={itm.id}>
-            <Box display='flex' flexDirection='column' alignItems='center'>
-              <ImageParallax
-                src={itm.pic}
-                height={theme.spacing(16)}
-                width={theme.spacing(16)}
-                borderRadius={theme.spacing(16)}
-                windowRange={[0, 0.8]}
-              />
-              <Typography
-                variant='subtitle2'
-                style={{
-                  marginTop: theme.spacing(2)
-                }}
-              >
-                {itm.name}
-              </Typography>
-              <Typography variant='subtitle2'>{itm.title}</Typography>
-            </Box>
+            <DeltaProfile
+              pic={itm.pic}
+              name={itm.name}
+              title={itm.title}
+              size={upSm ? theme.spacing(16) : '50vw'}
+            />
           </Grid>
         ))}
       </Grid>
+    );
+  }
+
+  function ProfileCarousel({ profiles }) {
+    return (
+      <DeltaCarousel
+        isMobile={_isMobile}
+        items={profiles}
+        itemWidth={upSm ? theme.spacing(16) : '50vw'}
+        autoPlay={true}
+        itemBuilder={(profile, i, index) => (
+          <DeltaProfile
+            size={upSm ? theme.spacing(16) : '50vw'}
+            pic={profile.pic}
+            name={profile.name}
+            title={profile.title}
+            blur={i !== index}
+          />
+        )}
+      />
     );
   }
 
@@ -196,16 +212,16 @@ export default function About({ isMobile, leadership, partners }) {
         </Section>
 
         <Section title='Sanoculis Leadership Team' fullWidth>
-          {_isMobile ? (
-            <ProfileCarousel isMobile={_isMobile} profiles={leadership} />
+          {!upSm ? (
+            <ProfileCarousel profiles={leadership} />
           ) : (
             <ProfilesGrid profiles={leadership} />
           )}
         </Section>
 
         <Section title='Medical Advisory Board' fullWidth>
-          {_isMobile ? (
-            <ProfileCarousel isMobile={_isMobile} profiles={leadership} />
+          {!upSm ? (
+            <ProfileCarousel profiles={leadership} />
           ) : (
             <ProfilesGrid profiles={leadership} />
           )}

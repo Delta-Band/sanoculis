@@ -10,7 +10,7 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       light: '#757ce8',
-      main: '#5668FF',
+      main: '#5667FF',
       dark: '#07003C',
       contrastText: '#fff'
     },
@@ -36,6 +36,10 @@ const theme = createMuiTheme({
     },
     p: {
       padding: 0
+    },
+    h1: {
+      fontSize: pxToRem(42),
+      fontFamily: 'Rubik'
     },
     h2: {
       fontSize: pxToRem(42),

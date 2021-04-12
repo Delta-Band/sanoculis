@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "esw ./pages",
@@ -14,6 +14,7 @@
   ],
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "firebase": "^8.3.3",
     "framer": "^1.2.25",
     "framer-motion": "^3.6.2",
     "gsap": "^3.6.0",
@@ -27,7 +28,8 @@
     "react-moment": "^1.1.1",
     "react-swipeable": "^6.0.1",
     "styled-components": "^5.2.1",
-    "styled-icons": "^10.28.0"
+    "styled-icons": "^10.28.0",
+    "ua-parser-js": "^0.7.28"
   },
   "devDependencies": {
     "eslint": "^7.20.0",

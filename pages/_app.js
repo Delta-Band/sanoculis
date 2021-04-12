@@ -112,13 +112,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
-      <div
-        style={{
-          background: 'rgba(241,245,248,1)'
-        }}
-      >
-        <Component {...pageProps} />
-      </div>
+      <Component {...pageProps} />
     </ThemeProvider>
   );
 }

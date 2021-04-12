@@ -19,188 +19,134 @@ import { RightArrow } from '@styled-icons/boxicons-solid/RightArrow';
 import { DownArrow } from '@styled-icons/boxicons-solid/DownArrow';
 import Head from '../head';
 import mockData from '../mock_data';
-import { Modal, SectionLayout, ContactForm } from '../shared';
-
-function Left({ children, sectionAlignment }) {
-  return (
-    <Box
-      width='45%'
-      display='flex'
-      justifyContent='flex-end'
-      alignItems={sectionAlignment || 'center'}
-      pr='5vw'
-      position='relative'
-    >
-      {children}
-    </Box>
-  );
-}
-
-function Right({ children, sectionAlignment }) {
-  return (
-    <Box
-      width='55%'
-      display='flex'
-      alignItems={sectionAlignment || 'flex-start'}
-      flexDirection='column'
-      justifyContent='center'
-    >
-      {children}
-    </Box>
-  );
-}
-
-function HeroLeft() {
-  const theme = useTheme();
-  return (
-    <Left>
-      <Box
-        height='28vw'
-        width='28vw'
-        borderRadius='28vw'
-        style={{
-          backgroundColor: theme.palette.primary.dark
-        }}
-      ></Box>
-    </Left>
-  );
-}
-
-function HeroRight() {
-  return (
-    <Right>
-      <img
-        src='/mims_for_hero.svg'
-        style={{
-          width: '32vw',
-          minWidth: 393
-        }}
-      />
-      <Box mb={5} />
-      <Typography
-        style={{
-          lineHeight: '1em',
-          fontSize: 42
-        }}
-      >
-        LEAVE NO THING BEHIND
-      </Typography>
-      <Box mb={4} />
-      <Typography
-        style={{
-          lineHeight: '2em'
-        }}
-      >
-        Minimally Invasive Micro Sclerostomy is a Stentless,
-        <br />
-        Simple & Fast Glaucoma treatment to effectively lower
-        <br />
-        IOP without invasive surgery or medication.
-      </Typography>
-    </Right>
-  );
-}
-
-function HeroMobile() {
-  const theme = useTheme();
-  return (
-    <Box width={1} pt={18} pb={4} display='flex' flexDirection='column'>
-      <Box
-        height='80vw'
-        width='80vw'
-        borderRadius='70vw'
-        flexShrink={0}
-        style={{
-          margin: '0 auto 50px',
-          backgroundColor: theme.palette.primary.dark
-        }}
-      ></Box>
-      <img
-        src='/mims_for_hero.svg'
-        style={{
-          width: `calc(100vw - ${theme.mobileGutter} - ${theme.mobileGutter})`,
-          margin: '0 auto'
-        }}
-      />
-      <Box mb={2} />
-      <Typography
-        style={{
-          lineHeight: '1em',
-          fontSize: 24,
-          padding: `0 ${theme.mobileGutter}`
-        }}
-      >
-        LEAVE NO THING BEHIND
-      </Typography>
-      <Box mb={4} />
-      <Typography
-        style={{
-          padding: `0 ${theme.mobileGutter}`
-        }}
-      >
-        Minimally Invasive Micro Sclerostomy is a Stentless, Simple & Fast
-        Glaucoma treatment to effectively lower IOP without invasive surgery or
-        medication.
-      </Typography>
-      <Box mb={4} />
-    </Box>
-  );
-}
+import { Modal, SectionLayout, SectionLayoutNew, Footer } from '../shared';
 
 function Hero({ isMobile }) {
-  const isPortrait = isMobile || useMediaQuery('(max-width:1355px)');
+  const theme = useTheme();
   return (
     <Box
       width={1}
-      height={isPortrait ? 'auto' : '54vw'}
-      display='flex'
       style={{
         backgroundImage: 'url(/hero_bg.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center center'
       }}
     >
-      {!isPortrait && <HeroLeft />}
-      {!isPortrait && <HeroRight />}
-      {isPortrait && <HeroMobile />}
+      <SectionLayoutNew
+        isMobile={isMobile}
+        style={{
+          paddingTop: theme.spacing(isMobile ? 20 : 25),
+          paddingBottom: theme.spacing(isMobile ? 8 : 14)
+        }}
+        left={
+          <Box
+            width={isMobile ? '80vw' : '28vw'}
+            height={isMobile ? '80vw' : '28vw'}
+            borderRadius={theme.spacing(57)}
+            style={{
+              backgroundColor: theme.palette.primary.dark
+            }}
+          ></Box>
+        }
+        right={
+          <Fragment>
+            <img
+              src='/mims_for_hero.svg'
+              style={{
+                width: isMobile ? '100%' : '32vw',
+                minWidth: isMobile ? 'initial' : 393
+              }}
+            />
+            <Box mb={5} />
+            <Typography
+              style={{
+                lineHeight: '1em',
+                fontSize: 42
+              }}
+            >
+              LEAVE NO THING BEHIND
+            </Typography>
+            <Box mb={4} />
+            <Typography
+              style={{
+                lineHeight: '2em'
+              }}
+            >
+              Minimally Invasive Micro Sclerostomy is a Stentless,
+              <br />
+              Simple & Fast Glaucoma treatment to effectively lower
+              <br />
+              IOP without invasive surgery or medication.
+            </Typography>
+          </Fragment>
+        }
+      />
     </Box>
   );
 }
 
 function Inovation({ isMobile }) {
   const theme = useTheme();
-  const headerTxt = 'A Simple & Stent-less Treatment Innovation';
-  const bodyTxt =
-    'MIMS is a rapid & minimal procedure at the forefront of Interventional Glaucoma treatments. Fewer complications and less reliance on medications allows for effective IOP management.';
+  // const headerTxt = 'A Simple & Stent-less Treatment Innovation';
+  // const bodyTxt =
+  //   'MIMS is a rapid & minimal procedure at the forefront of Interventional Glaucoma treatments. Fewer complications and less reliance on medications allows for effective IOP management.';
+
   return (
-    <SectionLayout
-      isMobile={isMobile}
-      headerTxt={headerTxt}
-      bodyTxt={<Typography>{bodyTxt}</Typography>}
+    <SectionLayoutNew
       left={
         <Box
-          height='28vw'
-          width='28vw'
-          borderRadius='28vw'
+          width={isMobile ? '80vw' : '28vw'}
+          height={isMobile ? '80vw' : '28vw'}
+          borderRadius={theme.spacing(57)}
           style={{
             backgroundColor: theme.palette.primary.dark
           }}
         ></Box>
       }
-      topMobile={
-        <Box
-          height='80vw'
-          width='80vw'
-          borderRadius='70vw'
-          flexShrink={0}
-          style={{
-            margin: '0 auto 50px',
-            backgroundColor: theme.palette.primary.dark
-          }}
-        ></Box>
+      right={
+        <Fragment>
+          <Typography variant='h2' style={{ marginBottom: theme.spacing(5) }}>
+            A Simple & Stent-less Treatment Innovation
+          </Typography>
+          <Typography>
+            MIMS is a rapid & minimal procedure at the forefront of
+            Interventional Glaucoma treatments. Fewer complications and less
+            reliance on medications allows for effective IOP management.
+          </Typography>
+        </Fragment>
       }
+      isMobile={isMobile}
     />
   );
+  // return (
+  //   <SectionLayout
+  //     isMobile={isMobile}
+  //     headerTxt={headerTxt}
+  //     bodyTxt={<Typography>{bodyTxt}</Typography>}
+  //     left={
+  //       <Box
+  //         height='28vw'
+  //         width='28vw'
+  //         borderRadius='28vw'
+  //         style={{
+  //           backgroundColor: theme.palette.primary.dark
+  //         }}
+  //       ></Box>
+  //     }
+  //     topMobile={
+  //       <Box
+  //         height='80vw'
+  //         width='80vw'
+  //         borderRadius='70vw'
+  //         flexShrink={0}
+  //         style={{
+  //           margin: '0 auto 50px',
+  //           backgroundColor: theme.palette.primary.dark
+  //         }}
+  //       ></Box>
+  //     }
+  //   />
+  // );
 }
 
 function MinimalIntervention({ isMobile }) {
@@ -818,40 +764,6 @@ function Partners({ isMobile }) {
   );
 }
 
-function Contact({ isMobile }) {
-  // const theme = useTheme();
-  const headerTxt = 'Sanoculis';
-  const bodyTxt = (
-    <Fragment>
-      <Typography>Office@sanoculis.com</Typography>
-      <Typography>+972 3 555 4666</Typography>
-      <Typography>Begin st.154, Tel Aviv, Israel</Typography>
-      <Box mb={6} />
-      <Typography>
-        MIMS® is a registered Trademark All rights reserved Sanoculis LTD. 2020
-      </Typography>
-    </Fragment>
-  );
-  return (
-    <SectionLayout
-      isMobile={isMobile}
-      headerTxt={headerTxt}
-      bodyTxt={bodyTxt}
-      sectionAlignment='start'
-      left={
-        <Box maxWidth='100%' width={470} pl={4} pr={4} pb={14}>
-          <ContactForm isMobile={isMobile} />
-        </Box>
-      }
-      topMobile={
-        <Box width={1} pl={3} pr={3}>
-          <ContactForm isMobile={isMobile} />
-        </Box>
-      }
-    />
-  );
-}
-
 export async function getServerSideProps(context) {
   console.log(context.req.headers['user-agent']);
   const isMobile = Boolean(
@@ -868,18 +780,21 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home({ data, isMobile }) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const _isMobile = isMobile || matches;
   return (
     <Fragment>
       <Head title='MIMS Story' />
-      <Hero isMobile={isMobile} />
-      <Inovation isMobile={isMobile} />
+      <Hero isMobile={_isMobile} />
+      <Inovation isMobile={_isMobile} />
       <HowItWorks isMobile={isMobile} />
       <MinimalIntervention isMobile={isMobile} />
       <ClinicalPerformance isMobile={isMobile} />
       <Testimonials isMobile={isMobile} />
       <News isMobile={isMobile} />
       <Partners isMobile={isMobile} />
-      <Contact isMobile={isMobile} />
+      <Footer />
     </Fragment>
   );
 }

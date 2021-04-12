@@ -1,0 +1,187 @@
+import React, { useState, Fragment } from 'react';
+import parser from 'ua-parser-js';
+import { useTheme, makeStyles, createStyles } from '@material-ui/core/styles';
+import { Box, Paper, Typography, Grid } from '@material-ui/core';
+import { motion } from 'framer-motion';
+import reactor from '../reactor';
+import { DeltaCarousel, DeltaProfile } from '../shared';
+import Head from '../head';
+
+const useStyles = makeStyles((theme) => {
+  const {
+    // breakpoints,
+    typography: { pxToRem }
+  } = theme;
+
+  return createStyles({
+    title: {
+      fontSize: pxToRem(16),
+      opacity: 0.5
+    },
+    data: {
+      fontSize: pxToRem(20),
+      fontWeight: 'bold'
+    }
+  });
+});
+
+export async function getServerSideProps(context) {
+  const deviceType =
+    parser(context.req.headers['user-agent']).device.type || 'desktop';
+  reactor.init();
+  const clinical = await reactor.getCollection('PZQcOJtjfdrWfGJ7DsbR');
+  return {
+    props: {
+      deviceType,
+      clinical
+    }
+  };
+}
+
+export default function ClinicalData({ clinical }) {
+  const theme = useTheme();
+  const [tab, setTab] = useState(0);
+  const classes = useStyles();
+
+  function Tab({ index, text }) {
+    return (
+      <motion.div
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        style={{
+          color: tab === index ? '#000' : '#FFF',
+          opacity: tab === index ? 1 : 0.3,
+          textTransform: 'uppercase',
+          cursor: 'pointer'
+        }}
+      >
+        <Typography
+          onClick={() => setTab(index)}
+          style={{
+            color: 'inherit'
+          }}
+        >
+          {text}
+        </Typography>
+      </motion.div>
+    );
+  }
+
+  function Tabs() {
+    return (
+      <Box display='flex' mt={2}>
+        <Tab text='Europe interm results' index={0} />
+        <Box mr={4} />
+        <Tab text='INDIA interm results' index={1} />
+      </Box>
+    );
+  }
+
+  function PageHeader() {
+    return (
+      <Typography variant='h1' style={{ color: '#FFF' }}>
+        CLINICAL TRIAL DATA
+      </Typography>
+    );
+  }
+
+  return (
+    <Fragment>
+      <Head title='MIMS Story' />
+      <Box
+        display='flex'
+        flexDirection='column'
+        justifyContent='center'
+        width={1}
+        height={1}
+        position='fixed'
+        style={{
+          background: theme.palette.primary.main
+        }}
+      >
+        <Box display='flex' flexDirection='column' pl={17}>
+          <PageHeader />
+          <Tabs />
+        </Box>
+        <Box mt={4} />
+        <DeltaCarousel
+          items={clinical}
+          itemWidth={400}
+          paddingLeft={theme.spacing(17)}
+          itemBuilder={(item) => (
+            <Paper style={{ width: '100%', borderRadius: '28px' }}>
+              <Box pl={4.5} pr={4.5} pt={3} pb={3}>
+                <Grid container>
+                  <Grid item xs={8}>
+                    <Typography className={classes.title}>Follow Up</Typography>
+                    <Typography className={classes.data}>
+                      {item.followUp} MONTHS
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography className={classes.title}>Size</Typography>
+                    <Typography className={classes.data}>
+                      N = {item.size}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography className={classes.title}>Duration</Typography>
+                    <Typography className={classes.data}>
+                      {item.durationBase}±{item.durationVar} MINS
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography className={classes.title}>
+                      Standalone / Combined
+                    </Typography>
+                    <Typography className={classes.data}>
+                      100 ALONE / 20 CATARACT
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography className={classes.title}>
+                      Performing Surgeons
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} container>
+                    <Grid item xs={6}>
+                      <DeltaProfile
+                        row
+                        size={40}
+                        pic={item.surgeon1Pic}
+                        name={item.surgeon1Name}
+                        title={`${item.surgeon1Patients} Patients`}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      Surgeon 2
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12} container>
+                    <Grid item xs={12}>
+                      <Typography className={classes.title}>
+                        Final Results
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={9}>
+                      IOP REDUCTION
+                    </Grid>
+                    <Grid item xs={3}>
+                      46%
+                    </Grid>
+                    <Grid item xs={9}>
+                      MEDS REDUCTION
+                    </Grid>
+                    <Grid item xs={3}>
+                      93%
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Paper>
+          )}
+        />
+      </Box>
+    </Fragment>
+  );
+}
