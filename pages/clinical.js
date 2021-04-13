@@ -33,16 +33,18 @@ export async function getServerSideProps(context) {
   const deviceType =
     parser(context.req.headers['user-agent']).device.type || 'desktop';
   reactor.init();
-  const clinical = await reactor.getCollection('PZQcOJtjfdrWfGJ7DsbR');
+  const europe = await reactor.getCollection('PZQcOJtjfdrWfGJ7DsbR');
+  const india = await reactor.getCollection('T0QN1PiIk1GXQPXWNcia');
   return {
     props: {
       deviceType,
-      clinical
+      europe,
+      india
     }
   };
 }
 
-export default function ClinicalData({ clinical }) {
+export default function ClinicalData({ europe, india }) {
   const theme = useTheme();
   const [tab, setTab] = useState(0);
   const classes = useStyles();
@@ -109,7 +111,7 @@ export default function ClinicalData({ clinical }) {
         </Box>
         <Box mt={4} />
         <DeltaCarousel
-          items={clinical}
+          items={tab === 0 ? europe : india}
           itemWidth={400}
           paddingLeft={theme.spacing(17)}
           itemBuilder={(item) => (

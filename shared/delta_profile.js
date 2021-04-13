@@ -38,7 +38,7 @@ export default function DeltaProfile({
       </Grid>
       <Grid
         item
-        xs={row ? 7 : 12}
+        xs={row ? 8 : 12}
         container
         direction={row ? 'row' : 'column'}
         justify='center'
