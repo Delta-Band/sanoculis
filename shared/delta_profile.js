@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Typography, Box } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import ImageParallax from './image_parallax';
 
@@ -14,59 +14,91 @@ export default function DeltaProfile({
 }) {
   const theme = useTheme();
   return (
-    <Box
+    <Grid
+      container
       display='flex'
-      flexDirection={row ? 'row' : 'column'}
+      direction='row'
+      justify={row ? 'start' : 'center'}
       alignItems='center'
-      justifyContent='center'
+      spacing={1}
     >
-      <ImageParallax
-        src={pic}
-        height={size}
-        width={size}
-        borderRadius='50vw'
-        windowRange={[0, 2]}
-        imgStyle={{
-          mixBlendMode: 'multiply',
-          filter: !blur ? 'none' : 'grayscale(1)'
-        }}
-        blendColor={blur ? theme.palette.primary.main : '#FFF'}
-      />
-      <motion.div
-        transition={{
-          type: 'spring',
-          delay: 0.2,
-          mass: 1,
-          damping: 20
-        }}
-        animate={{
-          opacity: !blur ? 1 : 0,
-          y: !blur ? 0 : 10
-        }}
-      >
-        <Typography
-          variant='subtitle2'
-          style={{
-            marginTop: theme.spacing(row ? 0 : 2)
+      <Grid item>
+        <ImageParallax
+          src={pic}
+          height={size}
+          width={size}
+          borderRadius='50vw'
+          windowRange={[0, 2]}
+          imgStyle={{
+            mixBlendMode: 'multiply',
+            filter: !blur ? 'none' : 'grayscale(1)'
           }}
-        >
-          {name}
-        </Typography>
-      </motion.div>
-      <motion.div
-        transition={{
-          type: 'spring',
-          delay: 0.3,
-          mass: 1,
-          damping: 20
-        }}
-        animate={{
-          opacity: !blur ? 1 : 0,
-          y: !blur ? 0 : 15
-        }}
+          blendColor={blur ? theme.palette.primary.main : '#FFF'}
+        />
+      </Grid>
+      <Grid
+        item
+        xs={row ? 7 : 12}
+        container
+        direction={row ? 'row' : 'column'}
+        justify='center'
+        alignItems='center'
       >
-        <Typography variant='subtitle2'>{title}</Typography>
-      </motion.div>
-    </Box>
+        <Grid item xs={12}>
+          <motion.div
+            transition={{
+              type: 'spring',
+              delay: 0.2,
+              mass: 1,
+              damping: 20
+            }}
+            animate={{
+              opacity: !blur ? 1 : 0,
+              y: !blur ? 0 : 10
+            }}
+            style={{
+              display: row ? 'block' : 'inline-block'
+            }}
+          >
+            <Typography
+              variant='subtitle2'
+              style={{
+                marginTop: theme.spacing(row ? 0 : 2),
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+                overflow: 'hidden'
+              }}
+            >
+              {name}
+            </Typography>
+          </motion.div>
+        </Grid>
+        <Grid item xs={12}>
+          <motion.div
+            transition={{
+              type: 'spring',
+              delay: 0.3,
+              mass: 1,
+              damping: 20
+            }}
+            animate={{
+              opacity: !blur ? 1 : 0,
+              y: !blur ? 0 : 15
+            }}
+          >
+            <Typography
+              variant='subtitle2'
+              style={{
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+                overflow: 'hidden'
+              }}
+            >
+              {title}
+            </Typography>
+          </motion.div>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }

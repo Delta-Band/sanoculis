@@ -3,7 +3,7 @@ import { Grid, Typography, Box } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { DeltaCarousel, DeltaProfile, ScrollCarousel } from '../shared';
-import Head from 'next/head';
+import Head from '../head';
 
 export async function getServerSideProps(context) {
   console.log(context.req.headers['user-agent']);
@@ -187,10 +187,7 @@ export default function About({ isMobile, leadership, partners }) {
 
   return (
     <Fragment>
-      <Head>
-        <title>About MIMS</title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
+      <Head title='MIMS Story' />
       <Grid
         container
         spacing={0}

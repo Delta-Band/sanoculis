@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) => {
     data: {
       fontSize: pxToRem(20),
       fontWeight: 'bold'
+    },
+    finals: {
+      fontSize: pxToRem(28),
+      color: theme.palette.primary.main
     }
   });
 });
@@ -99,7 +103,7 @@ export default function ClinicalData({ clinical }) {
           background: theme.palette.primary.main
         }}
       >
-        <Box display='flex' flexDirection='column' pl={17}>
+        <Box display='flex' flexDirection='column' pl={17} pt={4}>
           <PageHeader />
           <Tabs />
         </Box>
@@ -109,9 +113,16 @@ export default function ClinicalData({ clinical }) {
           itemWidth={400}
           paddingLeft={theme.spacing(17)}
           itemBuilder={(item) => (
-            <Paper style={{ width: '100%', borderRadius: '28px' }}>
+            <Paper
+              style={{
+                width: '100%',
+                borderRadius: '28px',
+                marginBottom: theme.spacing(2)
+              }}
+              elevation={5}
+            >
               <Box pl={4.5} pr={4.5} pt={3} pb={3}>
-                <Grid container>
+                <Grid container spacing={3}>
                   <Grid item xs={8}>
                     <Typography className={classes.title}>Follow Up</Typography>
                     <Typography className={classes.data}>
@@ -138,12 +149,20 @@ export default function ClinicalData({ clinical }) {
                       100 ALONE / 20 CATARACT
                     </Typography>
                   </Grid>
-                  <Grid item xs={12}>
-                    <Typography className={classes.title}>
-                      Performing Surgeons
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} container>
+                  <Grid
+                    item
+                    xs={12}
+                    container
+                    spacing={1}
+                    direction='row'
+                    justify='space-between'
+                    alignItems='center'
+                  >
+                    <Grid item xs={12}>
+                      <Typography className={classes.title}>
+                        Performing Surgeons
+                      </Typography>
+                    </Grid>
                     <Grid item xs={6}>
                       <DeltaProfile
                         row
@@ -154,26 +173,40 @@ export default function ClinicalData({ clinical }) {
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      Surgeon 2
+                      <DeltaProfile
+                        row
+                        size={40}
+                        pic={item.surgeon2Pic}
+                        name={item.surgeon2Name}
+                        title={`${item.surgeon2Patients} Patients`}
+                      />
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} container>
+                  <Grid item xs={12} container justify='space-between'>
                     <Grid item xs={12}>
                       <Typography className={classes.title}>
                         Final Results
                       </Typography>
                     </Grid>
                     <Grid item xs={9}>
-                      IOP REDUCTION
+                      <Typography className={classes.finals}>
+                        IOP REDUCTION
+                      </Typography>
                     </Grid>
-                    <Grid item xs={3}>
-                      46%
+                    <Grid item xs={2}>
+                      <Typography className={classes.finals}>
+                        {item.iop}%
+                      </Typography>
                     </Grid>
                     <Grid item xs={9}>
-                      MEDS REDUCTION
+                      <Typography className={classes.finals}>
+                        MEDS REDUCTION
+                      </Typography>
                     </Grid>
-                    <Grid item xs={3}>
-                      93%
+                    <Grid item xs={2}>
+                      <Typography className={classes.finals}>
+                        {item.meds}%
+                      </Typography>
                     </Grid>
                   </Grid>
                 </Grid>

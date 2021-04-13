@@ -25,7 +25,8 @@ const theme = createMuiTheme({
     fontFamily: ['Rubik', 'Domaine'].join(','),
     lineHeight: '1.8em',
     allVariants: {
-      color: '#06003B'
+      color: '#06003B',
+      fontFamily: 'Rubik'
     },
     body1: {
       fontSize: 20,
@@ -35,7 +36,8 @@ const theme = createMuiTheme({
       }
     },
     p: {
-      padding: 0
+      padding: 0,
+      fontFamily: 'Rubik'
     },
     h1: {
       fontSize: pxToRem(42),
