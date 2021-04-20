@@ -31,6 +31,10 @@ function DeltaCarousel({
     }
   });
 
+  useEffect(() => {
+    setIndex(0);
+  }, [items]);
+
   // Methods
   function incrementIndex() {
     if (timeoutRef.current !== null) {

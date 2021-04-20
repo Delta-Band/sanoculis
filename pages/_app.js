@@ -115,7 +115,14 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <ReadyProvider>
         <AppBar
-          menuItems={['Clinical', 'About', 'Distributers']}
+          menuItems={[
+            { label: 'Home', linkTo: '' },
+            { label: 'Our Vision', linkTo: 'vision' },
+            { label: 'Interventional Glaucoma', linkTo: 'about' },
+            { label: 'Clinical Trial Data', linkTo: 'clinical' },
+            { label: 'Technical Specifications', linkTo: 'specs' },
+            { label: 'Distributors Login', linkTo: 'login' }
+          ]}
           logo='/sanoculis_logo.svg'
         />
         <Component {...pageProps} />

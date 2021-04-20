@@ -13,10 +13,17 @@ const useStyles = makeStyles((theme) => ({
   menuItem: {
     color: '#FFF',
     cursor: 'pointer',
-    padding: theme.spacing(1)
+    padding: theme.spacing(2)
   },
   menuItemTxt: {
-    color: 'inherit'
+    color: 'inherit',
+    fontWeight: '900',
+    fontStyle: 'italic',
+    fontSize: '25pt'
+  },
+  linkWrap: {
+    overflow: 'hidden',
+    display: 'block'
   }
 }));
 
@@ -30,6 +37,52 @@ function AppBar({ menuItems, logo }) {
   const ref = useRef();
   const isReady = useReadyState();
   const classes = useStyles();
+
+  const bar = {
+    collapse: {
+      height: upMd ? '65px' : '56px',
+      transition: {
+        delay: 0.5,
+        bounce: 0
+      }
+    },
+    expand: {
+      height: '100%',
+      y: '0%',
+      transition: {
+        bounce: 0
+      }
+    }
+  };
+
+  const container = {
+    hidden: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+        delayChildren: 0,
+        bounce: 0,
+        staggerDirection: -1
+      }
+    },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.25,
+        bounce: 0
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: '100%', transition: { bounce: 0 } },
+    show: {
+      opacity: 1,
+      y: '0%',
+      transition: { bounce: 0 }
+    }
+  };
 
   // Effect
   useEffect(() => {
@@ -58,22 +111,16 @@ function AppBar({ menuItems, logo }) {
       style={{
         position: 'fixed',
         width: '100vw',
-        height: upMd ? 65 : 56,
         background: theme.palette.primary.dark,
         borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
         overflow: 'hidden',
         zIndex: 3,
         color: '#FFF',
-        backdropFilter: 'blur(10px)',
-        y: '-100%'
+        backdropFilter: 'blur(10px)'
       }}
-      transition={{
-        duration: 0.35
-      }}
-      animate={{
-        height: isOpen ? '100%' : upMd ? 65 : 56,
-        y: hide ? '-100%' : '0%'
-      }}
+      variants={bar}
+      initial='hidden'
+      animate={isOpen ? 'expand' : 'collapse'}
     >
       <Grid
         container
@@ -88,53 +135,66 @@ function AppBar({ menuItems, logo }) {
           xs={6}
           container
           direction='row'
-          alignItems='stretch'
+          // alignItems='stretch'
           style={{ padding: theme.spacing(0.75) }}
         >
           <Grid item xs={12}>
             <Link href='/'>
               <a>
-                <motion.div
+                {/* <motion.div
                   transition={{ delay: isOpen ? 0.1 : 0, duration: 0.25 }}
                   animate={{
-                    x: isOpen ? theme.spacing(30) : 0,
-                    y: isOpen ? theme.spacing(13) : 0,
-                    scale: isOpen ? 1.5 : 1
+                    x: isOpen ? '27vw' : 0,
+                    y: isOpen ? '17vh' : 0,
+                    scale: isOpen ? 2 : 1
                   }}
-                >
-                  <img
-                    onClick={() => setIsOpen(false)}
-                    style={{
-                      width: upMd ? '160px' : '90px',
-                      padding: '12px 0',
-                      marginLeft: theme.spacing(2)
-                    }}
-                    src={logo}
-                  />
-                </motion.div>
+                > */}
+                <img
+                  onClick={() => setIsOpen(false)}
+                  style={{
+                    width: upMd ? '160px' : '90px',
+                    padding: '12px 0',
+                    marginLeft: theme.spacing(2)
+                  }}
+                  src={logo}
+                />
+                {/* </motion.div> */}
               </a>
             </Link>
           </Grid>
-          <Grid item>
-            <Box p={6}>
-              {menuItems.map((itm) => (
-                <Link href={`/${itm.toLowerCase()}`} key={itm}>
-                  <a>
-                    <motion.div
-                      style={{ color: '#FFF' }}
-                      onClick={() => setIsOpen(false)}
-                      whileHover={{ color: '#FF4F26' }}
-                      transition={{ duration: 0.25, delay: isOpen ? 0.1 : 0 }}
-                      className={classes.menuItem}
-                      animate={{ opacity: isOpen ? 1 : 0 }}
-                    >
-                      <Typography variant='h1' className={classes.menuItemTxt}>
-                        {itm}
-                      </Typography>
-                    </motion.div>
-                  </a>
-                </Link>
-              ))}
+          <Grid item xs={12} style={{ transform: 'translateY(-100px)' }}>
+            <Box style={{ paddingLeft: '5vw', paddingTop: '0vh' }}>
+              <motion.div
+                variants={container}
+                initial='hidden'
+                animate={isOpen ? 'show' : 'hidden'}
+              >
+                {menuItems.map((itm) => (
+                  <motion.div
+                    key={itm.linkTo}
+                    style={{ color: '#FFF' }}
+                    onClick={() => setIsOpen(false)}
+                    whileHover={{ color: '#FF4F26' }}
+                    className={classes.menuItem}
+                    variants={item}
+                    // animate={{
+                    //   opacity: isOpen ? 1 : 0,
+                    //   y: isOpen ? 0 : 50
+                    // }}
+                  >
+                    <Link href={`/${itm.linkTo}`}>
+                      <a className={classes.linkWrap}>
+                        <Typography
+                          variant='h1'
+                          className={classes.menuItemTxt}
+                        >
+                          {itm.label}
+                        </Typography>
+                      </a>
+                    </Link>
+                  </motion.div>
+                ))}
+              </motion.div>
             </Box>
           </Grid>
         </Grid>
@@ -145,6 +205,9 @@ function AppBar({ menuItems, logo }) {
             }}
             animate={{
               backgroundColor: isOpen ? '#FFDACE' : theme.palette.primary.dark
+            }}
+            transition={{
+              delay: isOpen ? 0 : 0.5
             }}
           >
             <Grid container style={{ padding: theme.spacing(0.75) }}>
