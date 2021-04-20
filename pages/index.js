@@ -20,8 +20,8 @@ import { DownArrow } from '@styled-icons/boxicons-solid/DownArrow';
 import reactor from '../reactor';
 import Head from '../head';
 import mockData from '../mock_data';
-import { Modal, SectionLayout, SectionLayoutNew, Footer } from '../shared';
-import { Hero } from '../components';
+import { Modal, SectionLayout, Footer } from '../shared';
+import { Hero, Inovation } from '../components';
 
 export async function getServerSideProps(context) {
   console.log(context.req.headers['user-agent']);
@@ -40,133 +40,69 @@ export async function getServerSideProps(context) {
   };
 }
 
-// function Hero({ isMobile }) {
+// function Inovation({ isMobile }) {
 //   const theme = useTheme();
+//   // const headerTxt = 'A Simple & Stent-less Treatment Innovation';
+//   // const bodyTxt =
+//   //   'MIMS is a rapid & minimal procedure at the forefront of Interventional Glaucoma treatments. Fewer complications and less reliance on medications allows for effective IOP management.';
+
 //   return (
-//     <Box
-//       width={1}
-//       style={{
-//         backgroundImage: 'url(/hero_bg.png)',
-//         backgroundSize: 'cover',
-//         backgroundPosition: 'center center'
-//       }}
-//     >
-//       <SectionLayoutNew
-//         isMobile={isMobile}
-//         style={{
-//           paddingTop: theme.spacing(isMobile ? 20 : 25),
-//           paddingBottom: theme.spacing(isMobile ? 8 : 14)
-//         }}
-//         left={
-//           <Box
-//             width={isMobile ? '80vw' : '28vw'}
-//             height={isMobile ? '80vw' : '28vw'}
-//             borderRadius={theme.spacing(57)}
-//             style={{
-//               backgroundColor: theme.palette.primary.dark
-//             }}
-//           ></Box>
-//         }
-//         right={
-//           <Fragment>
-//             <img
-//               src='/mims_for_hero.svg'
-//               style={{
-//                 width: isMobile ? '100%' : '32vw',
-//                 minWidth: isMobile ? 'initial' : 393
-//               }}
-//             />
-//             <Box mb={5} />
-//             <Typography
-//               style={{
-//                 lineHeight: '1em',
-//                 fontSize: 42
-//               }}
-//             >
-//               LEAVE NO THING BEHIND
-//             </Typography>
-//             <Box mb={4} />
-//             <Typography
-//               style={{
-//                 lineHeight: '2em'
-//               }}
-//             >
-//               Minimally Invasive Micro Sclerostomy is a Stentless,
-//               <br />
-//               Simple & Fast Glaucoma treatment to effectively lower
-//               <br />
-//               IOP without invasive surgery or medication.
-//             </Typography>
-//           </Fragment>
-//         }
-//       />
-//     </Box>
+//     <SectionLayoutNew
+//       left={
+//         <Box
+//           width={isMobile ? '80vw' : '28vw'}
+//           height={isMobile ? '80vw' : '28vw'}
+//           borderRadius={theme.spacing(57)}
+//           style={{
+//             backgroundColor: theme.palette.primary.dark
+//           }}
+//         ></Box>
+//       }
+//       right={
+//         <Fragment>
+//           <Typography variant='h2' style={{ marginBottom: theme.spacing(5) }}>
+//             A Simple & Stent-less Treatment Innovation
+//           </Typography>
+//           <Typography>
+//             MIMS is a rapid & minimal procedure at the forefront of
+//             Interventional Glaucoma treatments. Fewer complications and less
+//             reliance on medications allows for effective IOP management.
+//           </Typography>
+//         </Fragment>
+//       }
+//       isMobile={isMobile}
+//     />
 //   );
+//   // return (
+//   //   <SectionLayout
+//   //     isMobile={isMobile}
+//   //     headerTxt={headerTxt}
+//   //     bodyTxt={<Typography>{bodyTxt}</Typography>}
+//   //     left={
+//   //       <Box
+//   //         height='28vw'
+//   //         width='28vw'
+//   //         borderRadius='28vw'
+//   //         style={{
+//   //           backgroundColor: theme.palette.primary.dark
+//   //         }}
+//   //       ></Box>
+//   //     }
+//   //     topMobile={
+//   //       <Box
+//   //         height='80vw'
+//   //         width='80vw'
+//   //         borderRadius='70vw'
+//   //         flexShrink={0}
+//   //         style={{
+//   //           margin: '0 auto 50px',
+//   //           backgroundColor: theme.palette.primary.dark
+//   //         }}
+//   //       ></Box>
+//   //     }
+//   //   />
+//   // );
 // }
-
-function Inovation({ isMobile }) {
-  const theme = useTheme();
-  // const headerTxt = 'A Simple & Stent-less Treatment Innovation';
-  // const bodyTxt =
-  //   'MIMS is a rapid & minimal procedure at the forefront of Interventional Glaucoma treatments. Fewer complications and less reliance on medications allows for effective IOP management.';
-
-  return (
-    <SectionLayoutNew
-      left={
-        <Box
-          width={isMobile ? '80vw' : '28vw'}
-          height={isMobile ? '80vw' : '28vw'}
-          borderRadius={theme.spacing(57)}
-          style={{
-            backgroundColor: theme.palette.primary.dark
-          }}
-        ></Box>
-      }
-      right={
-        <Fragment>
-          <Typography variant='h2' style={{ marginBottom: theme.spacing(5) }}>
-            A Simple & Stent-less Treatment Innovation
-          </Typography>
-          <Typography>
-            MIMS is a rapid & minimal procedure at the forefront of
-            Interventional Glaucoma treatments. Fewer complications and less
-            reliance on medications allows for effective IOP management.
-          </Typography>
-        </Fragment>
-      }
-      isMobile={isMobile}
-    />
-  );
-  // return (
-  //   <SectionLayout
-  //     isMobile={isMobile}
-  //     headerTxt={headerTxt}
-  //     bodyTxt={<Typography>{bodyTxt}</Typography>}
-  //     left={
-  //       <Box
-  //         height='28vw'
-  //         width='28vw'
-  //         borderRadius='28vw'
-  //         style={{
-  //           backgroundColor: theme.palette.primary.dark
-  //         }}
-  //       ></Box>
-  //     }
-  //     topMobile={
-  //       <Box
-  //         height='80vw'
-  //         width='80vw'
-  //         borderRadius='70vw'
-  //         flexShrink={0}
-  //         style={{
-  //           margin: '0 auto 50px',
-  //           backgroundColor: theme.palette.primary.dark
-  //         }}
-  //       ></Box>
-  //     }
-  //   />
-  // );
-}
 
 function MinimalIntervention({ isMobile }) {
   const theme = useTheme();
