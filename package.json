@@ -14,7 +14,7 @@
   ],
   "dependencies": {
     "@material-ui/core": "^4.11.3",
-    "firebase": "^8.3.3",
+    "firebase": "^8.4.1",
     "framer": "^1.2.25",
     "framer-motion": "^3.6.2",
     "gsap": "^3.6.0",

@@ -17,10 +17,28 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { LeftArrow } from '@styled-icons/boxicons-solid/LeftArrow';
 import { RightArrow } from '@styled-icons/boxicons-solid/RightArrow';
 import { DownArrow } from '@styled-icons/boxicons-solid/DownArrow';
+import reactor from '../reactor';
 import Head from '../head';
 import mockData from '../mock_data';
 import { Modal, SectionLayout, SectionLayoutNew, Footer } from '../shared';
 import { Hero } from '../components';
+
+export async function getServerSideProps(context) {
+  console.log(context.req.headers['user-agent']);
+  const isMobile = Boolean(
+    context.req.headers['user-agent'].match(
+      /iPhone|Android|webOS|iPad|iPod|BlackBerry|Windows Phone/i
+    )
+  );
+  reactor.init();
+  const homePage = await reactor.getDoc('unwyUBZmIqLoM5SDnwxo');
+  return {
+    props: {
+      homePage,
+      isMobile
+    } // will be passed to the page component as props
+  };
+}
 
 // function Hero({ isMobile }) {
 //   const theme = useTheme();
@@ -765,29 +783,14 @@ function Partners({ isMobile }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  console.log(context.req.headers['user-agent']);
-  const isMobile = Boolean(
-    context.req.headers['user-agent'].match(
-      /iPhone|Android|webOS|iPad|iPod|BlackBerry|Windows Phone/i
-    )
-  );
-  return {
-    props: {
-      isMobile,
-      data: 'my data'
-    } // will be passed to the page component as props
-  };
-}
-
-export default function Home({ data, isMobile }) {
+export default function Home({ homePage, isMobile }) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const _isMobile = isMobile || matches;
   return (
     <Fragment>
       <Head title='MIMS Story' />
-      <Hero />
+      <Hero tagline={homePage.tagline} description={homePage.description} />
       <Inovation isMobile={_isMobile} />
       <HowItWorks isMobile={isMobile} />
       <MinimalIntervention isMobile={isMobile} />

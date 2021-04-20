@@ -29,7 +29,8 @@ const theme = createMuiTheme({
       fontFamily: 'Rubik'
     },
     body1: {
-      fontSize: 20,
+      fontSize: pxToRem(16),
+      lineHeight: pxToRem(28),
       [breakpoints.down('xs')]: {
         fontSize: pxToRem(16),
         lineHeight: pxToRem(24)
