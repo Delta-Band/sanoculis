@@ -18,7 +18,7 @@ export default function DeltaProfile({
       container
       display='flex'
       direction='row'
-      justify={row ? 'start' : 'center'}
+      justify={row ? 'flex-start' : 'center'}
       alignItems='center'
       spacing={1}
     >

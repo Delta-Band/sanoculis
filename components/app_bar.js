@@ -1,12 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { motion } from 'framer-motion';
 import { Grid, Box, Typography } from '@material-ui/core';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import { useScrollYPosition } from 'react-use-scroll-position';
 import { Rotate as Hamburger } from 'hamburger-react';
+import Link from 'next/link';
 import { useReadyState } from '../context/ready.context';
+
+const useStyles = makeStyles((theme) => ({
+  menuItem: {
+    color: '#FFF',
+    cursor: 'pointer',
+    padding: theme.spacing(1)
+  },
+  menuItemTxt: {
+    color: 'inherit'
+  }
+}));
 
 function AppBar({ menuItems, logo }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +29,7 @@ function AppBar({ menuItems, logo }) {
   const scrollY = useScrollYPosition();
   const ref = useRef();
   const isReady = useReadyState();
+  const classes = useStyles();
 
   // Effect
   useEffect(() => {
@@ -37,35 +50,6 @@ function AppBar({ menuItems, logo }) {
       setHide(false);
     }
   }, [isReady]);
-
-  // Motion variants
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemSpring = {
-    type: 'spring',
-    duration: 1,
-    bounce: 0.25,
-    delay: 0.5
-  };
-
-  const menuItemStyle = {
-    padding: upMd ? 22 : 14,
-    cursor: 'pointer',
-    display: 'inline-block'
-  };
-
-  // Methods
-  function scrollToRef(ref) {
-    ref.current.scrollIntoView({ behavior: 'smooth' });
-  }
 
   return (
     <motion.div
@@ -99,16 +83,59 @@ function AppBar({ menuItems, logo }) {
           height: '100%'
         }}
       >
-        <Grid item xs={6} container style={{ padding: theme.spacing(0.75) }}>
+        <Grid
+          item
+          xs={6}
+          container
+          direction='row'
+          alignItems='stretch'
+          style={{ padding: theme.spacing(0.75) }}
+        >
           <Grid item xs={12}>
-            <img
-              style={{
-                width: upMd ? '160px' : '90px',
-                padding: '12px 0',
-                marginLeft: theme.spacing(2)
-              }}
-              src={logo}
-            />
+            <Link href='/'>
+              <a>
+                <motion.div
+                  transition={{ delay: isOpen ? 0.1 : 0, duration: 0.25 }}
+                  animate={{
+                    x: isOpen ? theme.spacing(30) : 0,
+                    y: isOpen ? theme.spacing(13) : 0,
+                    scale: isOpen ? 1.5 : 1
+                  }}
+                >
+                  <img
+                    onClick={() => setIsOpen(false)}
+                    style={{
+                      width: upMd ? '160px' : '90px',
+                      padding: '12px 0',
+                      marginLeft: theme.spacing(2)
+                    }}
+                    src={logo}
+                  />
+                </motion.div>
+              </a>
+            </Link>
+          </Grid>
+          <Grid item>
+            <Box p={6}>
+              {menuItems.map((itm) => (
+                <Link href={`/${itm.toLowerCase()}`} key={itm}>
+                  <a>
+                    <motion.div
+                      style={{ color: '#FFF' }}
+                      onClick={() => setIsOpen(false)}
+                      whileHover={{ color: '#FF4F26' }}
+                      transition={{ duration: 0.25, delay: isOpen ? 0.1 : 0 }}
+                      className={classes.menuItem}
+                      animate={{ opacity: isOpen ? 1 : 0 }}
+                    >
+                      <Typography variant='h1' className={classes.menuItemTxt}>
+                        {itm}
+                      </Typography>
+                    </motion.div>
+                  </a>
+                </Link>
+              ))}
+            </Box>
           </Grid>
         </Grid>
         <Grid item xs={6}>
@@ -117,17 +144,19 @@ function AppBar({ menuItems, logo }) {
               height: '100%'
             }}
             animate={{
-              backgroundColor: isOpen ? '#000' : theme.palette.primary.dark
+              backgroundColor: isOpen ? '#FFDACE' : theme.palette.primary.dark
             }}
           >
             <Grid container style={{ padding: theme.spacing(0.75) }}>
               <Grid item xs={11}></Grid>
               <Grid item xs={1}>
-                <Hamburger
-                  toggled={isOpen}
-                  toggle={setIsOpen}
-                  size={upMd ? 36 : 26}
-                />
+                <motion.div animate={{ color: isOpen ? '#000' : '#FFF' }}>
+                  <Hamburger
+                    toggled={isOpen}
+                    toggle={setIsOpen}
+                    size={upMd ? 36 : 26}
+                  />
+                </motion.div>
               </Grid>
             </Grid>
           </motion.div>

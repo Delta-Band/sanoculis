@@ -114,7 +114,10 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <ReadyProvider>
-        <AppBar menuItems={[]} logo='/sanoculis_logo.svg' />
+        <AppBar
+          menuItems={['Clinical', 'About', 'Distributers']}
+          logo='/sanoculis_logo.svg'
+        />
         <Component {...pageProps} />
       </ReadyProvider>
     </ThemeProvider>
