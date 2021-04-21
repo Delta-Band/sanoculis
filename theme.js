@@ -16,16 +16,16 @@ const theme = createMuiTheme({
     },
     secondary: {
       light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: '#000'
+      main: '#FFF',
+      dark: '#FFDACE',
+      contrastText: '#07003C'
     }
   },
   typography: {
     fontFamily: ['Rubik', 'Domaine'].join(','),
     lineHeight: '1.8em',
     allVariants: {
-      color: '#06003B',
+      color: '#07003C',
       fontFamily: 'Rubik'
     },
     body1: {
@@ -68,7 +68,8 @@ const theme = createMuiTheme({
       label: {
         fontSize: 16
       },
-      containedPrimary: {
+      contained: {
+        borderRadius: 25,
         '&:hover': {
           backgroundColor: '#4452bf'
         }
