@@ -9,3 +9,5 @@ export { default as DeltaCarousel } from './delta/delta_carousel';
 export { default as DeltaProfile } from './delta/delta_profile';
 export { default as DeltaModal } from './delta/delta_modal';
 export { default as DeltaMouseTip } from './delta/delta_mouse_tip';
+export { default as DeltaTestimonials } from './delta/delta_testimonials';
+export { default as Delta2ColLayout } from './delta/delta_2_col_layout';

@@ -51,6 +51,15 @@ const theme = createMuiTheme({
       [breakpoints.down('xs')]: {
         fontSize: pxToRem(28)
       }
+    },
+    h3: {
+      fontSize: pxToRem(34),
+      lineHeight: pxToRem(48),
+      fontFamily: 'Rubik',
+      fontWeight: 500
+      // [breakpoints.down('xs')]: {
+      //   fontSize: pxToRem(28)
+      // }
     }
   },
   overrides: {
@@ -73,6 +82,10 @@ const theme = createMuiTheme({
         '&:hover': {
           backgroundColor: '#4452bf'
         }
+      },
+      containedSizeLarge: {
+        paddingLeft: 50,
+        paddingRight: 50
       }
       // contained: {
       //   '&:hover': {

@@ -9,10 +9,11 @@ function DeltaCarousel({
   itemBuilder,
   itemWidth,
   autoPlay = false,
+  focus = 0,
   paddingLeft = 0
 }) {
   // State
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(focus);
   const [autoAnimate, setAutoAnimate] = useState(false);
 
   // Hooks
@@ -34,6 +35,10 @@ function DeltaCarousel({
   useEffect(() => {
     setIndex(0);
   }, [items]);
+
+  useEffect(() => {
+    setIndex(focus);
+  }, [focus]);
 
   // Methods
   function incrementIndex() {

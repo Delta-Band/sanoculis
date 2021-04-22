@@ -1,13 +1,15 @@
 import React from 'react';
 import { Grid, Box, Typography } from '@material-ui/core';
 
-function HomeSectionLayout({
+function Delta2ColLayout({
   title,
   content,
   art,
   extendTopWith,
   background,
   titleColor,
+  paddingTop = 0,
+  paddingBottom = 0,
   isMobile
 }) {
   // const headerTxt = 'A Simple & Stent-less Treatment Innovation';
@@ -17,12 +19,14 @@ function HomeSectionLayout({
   return (
     <Box>
       {extendTopWith}
-      <Box pt={10} pb={10} style={{ background: background || 'transparent' }}>
+      <Box
+        pt={10 + paddingTop}
+        pb={10 + paddingBottom}
+        style={{ background: background || 'transparent' }}
+      >
         <Grid container alignItems='center'>
           <Grid item xs={6} style={{ textAlign: 'right' }}>
-            <Box mr={10} style={{ background: 'transparent' }}>
-              {art}
-            </Box>
+            {art}
           </Grid>
           <Grid item xs={6}>
             <Box maxWidth={540}>
@@ -42,4 +46,4 @@ function HomeSectionLayout({
   );
 }
 
-export default HomeSectionLayout;
+export default Delta2ColLayout;
