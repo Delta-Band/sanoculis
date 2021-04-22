@@ -70,7 +70,11 @@ export default function DeltaTestimonials({ testimonials, title }) {
             focus={index}
             itemBuilder={(item, i) => (
               <motion.div animate={{ opacity: i === index ? 1 : 0 }}>
-                <Typography variant='h3' classes={{ root: classes.whiteText }}>
+                <Typography
+                  variant='h3'
+                  classes={{ root: classes.whiteText }}
+                  style={{ fontWeight: 400 }}
+                >
                   &#34;{item.testimony}&#34;
                 </Typography>
               </motion.div>
