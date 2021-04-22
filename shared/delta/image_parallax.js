@@ -10,6 +10,7 @@ function ImageParallax({
   borderRadius = 0,
   windowRange = [0, 0.7],
   imgStyle = {},
+  itemStyle = () => {},
   blendColor = 'white'
 }) {
   // State
@@ -54,7 +55,7 @@ function ImageParallax({
 
   // Render
   return (
-    <div
+    <motion.div
       ref={containerRef}
       style={{
         width: width,
@@ -62,7 +63,8 @@ function ImageParallax({
         overflow: 'hidden',
         borderRadius: borderRadius,
         transform: 'translateZ(0)',
-        flexShrink: 0
+        flexShrink: 0,
+        ...itemStyle
       }}
     >
       <motion.div
@@ -83,7 +85,7 @@ function ImageParallax({
           }}
         />
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
 

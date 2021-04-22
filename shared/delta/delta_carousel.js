@@ -10,7 +10,8 @@ function DeltaCarousel({
   itemWidth,
   autoPlay = false,
   focus = 0,
-  paddingLeft = 0
+  paddingLeft = 0,
+  itemStyle = {}
 }) {
   // State
   const [index, setIndex] = useState(focus);

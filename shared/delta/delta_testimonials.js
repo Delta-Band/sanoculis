@@ -4,7 +4,7 @@ import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { Grid, Box, Typography } from '@material-ui/core';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import Delta2ColLayout from './delta_2_col_layout';
-import ImageParallax from './image_parallax';
+import DeltaProfile from './delta_profile';
 import DeltaCarousel from './delta_carousel';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,24 +46,16 @@ export default function DeltaTestimonials({ testimonials, title }) {
                   zIndex: index === i ? 1 : 0
                 }}
               >
-                <motion.div
+                <DeltaProfile
+                  pic={item.pic}
+                  size={229}
+                  border={`2px solid ${i === index ? '#FFF' : 'transparent'}`}
+                  applyFilter={index !== i}
+                  scale={index === i ? 1.2 : 1}
                   onClick={() => {
                     setIndex(i);
                   }}
-                  style={{ cursor: 'pointer' }}
-                  transition={{ scale: { type: 'spring', bounce: 0.5 } }}
-                  animate={{
-                    filter: `grayscale(${index === i ? 0 : 100}%)`,
-                    scale: index === i ? 1.2 : 1
-                  }}
-                >
-                  <ImageParallax
-                    height={229}
-                    width={229}
-                    src={item.pic}
-                    borderRadius={200}
-                  />
-                </motion.div>
+                />
               </Grid>
             ))}
           </Grid>
