@@ -567,7 +567,13 @@ export default function Home({ homePage, testimonials, isMobile }) {
       <Testimonials isMobile={isMobile} />
       <News isMobile={isMobile} />
       <Partners isMobile={isMobile} /> */}
-      <DeltaModal show={openVideo} onClose={() => setOpenVideo(false)}>
+      <DeltaModal
+        show={openVideo}
+        onClose={function () {
+          videoRef.current.pause();
+          setOpenVideo(false);
+        }}
+      >
         <video
           controls
           style={{ height: '70vh', marginBottom: '-4px' }}
