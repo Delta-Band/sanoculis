@@ -30,10 +30,10 @@ const theme = createMuiTheme({
     },
     body1: {
       fontSize: pxToRem(16),
-      lineHeight: pxToRem(28),
-      [breakpoints.down('xs')]: {
-        fontSize: pxToRem(16),
-        lineHeight: pxToRem(24)
+      lineHeight: pxToRem(24),
+      [breakpoints.up('sm')]: {
+        fontSize: pxToRem(17),
+        lineHeight: pxToRem(26)
       }
     },
     p: {
@@ -53,13 +53,14 @@ const theme = createMuiTheme({
       }
     },
     h3: {
-      fontSize: pxToRem(34),
-      lineHeight: pxToRem(48),
+      fontSize: '30px',
+      lineHeight: '44px',
       fontFamily: 'Rubik',
-      fontWeight: 500
-      // [breakpoints.down('xs')]: {
-      //   fontSize: pxToRem(28)
-      // }
+      fontWeight: 500,
+      [breakpoints.up('sm')]: {
+        fontSize: '34px',
+        lineHeight: '48px'
+      }
     }
   },
   overrides: {
@@ -75,7 +76,11 @@ const theme = createMuiTheme({
     },
     MuiButton: {
       label: {
-        fontSize: 16
+        fontSize: 14,
+        fontWeight: 400,
+        [breakpoints.up('sm')]: {
+          fontSize: 16
+        }
       },
       contained: {
         borderRadius: 25,
@@ -84,8 +89,10 @@ const theme = createMuiTheme({
         }
       },
       containedSizeLarge: {
-        paddingLeft: 50,
-        paddingRight: 50
+        [breakpoints.up('sm')]: {
+          paddingLeft: 50,
+          paddingRight: 50
+        }
       }
       // contained: {
       //   '&:hover': {

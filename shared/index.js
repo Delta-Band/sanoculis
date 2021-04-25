@@ -1,4 +1,3 @@
-export { default as SideMenu } from './side_menu';
 export { default as SectionLayout } from './section_layout';
 export { default as SectionLayoutNew } from './section_layout_new';
 export { default as ContactForm } from './contact_form';

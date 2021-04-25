@@ -13,7 +13,6 @@ export default function DeltaProfile({
   size = 40,
   border,
   applyFilter = false,
-  filter = 'grayscale(1)',
   mixBlendMode,
   scale = 1,
   onClick
@@ -36,7 +35,6 @@ export default function DeltaProfile({
         <motion.div
           transition={{ scale: { type: 'spring', bounce: 0.5 } }}
           animate={{
-            filter: !applyFilter ? 'none' : filter,
             scale: scale
           }}
         >
@@ -51,7 +49,7 @@ export default function DeltaProfile({
             windowRange={[0, 2]}
             imgStyle={{
               mixBlendMode: mixBlendMode,
-              filter: !applyFilter ? 'none' : filter
+              filter: !applyFilter ? 'grayscale(0)' : 'grayscale(1)'
             }}
             blendColor={applyFilter ? theme.palette.primary.main : '#FFF'}
           />

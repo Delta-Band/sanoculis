@@ -3,6 +3,7 @@ import React, { Fragment, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 // eslint-disable-next-line no-unused-vars
 import { useSwipeable } from 'react-swipeable';
+import screenfull from 'screenfull';
 import {
   Box,
   Typography,
@@ -23,6 +24,7 @@ import { useTheme, makeStyles } from '@material-ui/core/styles';
 // import { DownArrow } from '@styled-icons/boxicons-solid/DownArrow';
 import { PlayCircleFill as PlayIcon } from '@styled-icons/bootstrap/PlayCircleFill';
 import { Download as DownloadIcon } from '@styled-icons/octicons/Download';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import reactor from '../reactor';
 import Head from '../head';
 // import mockData from '../mock_data';
@@ -347,26 +349,51 @@ const useStyles = makeStyles((theme) => ({
   },
   whiteText: {
     color: '#FFF'
+  },
+  art: {
+    margin: '0 0 20px 0',
+    [theme.breakpoints.up('md')]: {
+      margin: '0 2.5vw 0 0'
+    },
+    '& > img': {
+      width: '100%',
+      [theme.breakpoints.up('md')]: {
+        width: '40vw'
+      }
+    }
   }
 }));
 
 export default function Home({ homePage, testimonials, isMobile }) {
   const theme = useTheme();
   const classes = useStyles();
-  // const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const upSM = useMediaQuery(theme.breakpoints.up('sm'));
+  const upMD = useMediaQuery(theme.breakpoints.up('md'));
   // const _isMobile = isMobile || matches;
   const [openVideo, setOpenVideo] = useState(false);
+  const videoRef = useRef();
+
+  function playFullScreen() {
+    if (screenfull.isEnabled) {
+      screenfull.request();
+    }
+    // videoRef.current.play();
+  }
+
+  function ImageContainer({ src }) {
+    return (
+      <Box className={classes.art}>
+        <img src={src} />
+      </Box>
+    );
+  }
 
   return (
     <Fragment>
       <Head title='MIMS Story' />
       <Hero tagline={homePage.tagline} description={homePage.description} />
       <Delta2ColLayout
-        art={
-          <Box mr={10}>
-            <img src='section1.png' />
-          </Box>
-        }
+        art={<ImageContainer src='section1.png' />}
         title={homePage.section1Title}
         content={[
           <Typography key={1}>{homePage.section1Description}</Typography>
@@ -375,13 +402,7 @@ export default function Home({ homePage, testimonials, isMobile }) {
       <Delta2ColLayout
         art={
           <DeltaMouseTip tip='PLAY'>
-            <Box mr={10}>
-              <img
-                src='how_it_works.png'
-                onClick={() => setOpenVideo(true)}
-                style={{ cursor: 'pointer' }}
-              />
-            </Box>
+            <ImageContainer src='how_it_works.png' />
           </DeltaMouseTip>
         }
         title={homePage.section2Title}
@@ -394,22 +415,19 @@ export default function Home({ homePage, testimonials, isMobile }) {
             color='primary'
             size='large'
             onClick={function () {
-              setOpenVideo(true);
+              videoRef.current.play();
+              upMD ? setOpenVideo(true) : playFullScreen();
             }}
           >
             {homePage.section2BtnTxt}
-            <Box ml={2}>
-              <PlayIcon size={22} />
+            <Box ml={2} mt='-2px'>
+              <PlayIcon size={upSM ? 22 : 20} />
             </Box>
           </Button>
         ]}
       />
       <Delta2ColLayout
-        art={
-          <Box mr={10}>
-            <img src='simple.png' />
-          </Box>
-        }
+        art={<ImageContainer src='simple.png' />}
         title={homePage.section3Title}
         content={[
           <Typography key={1}>{homePage.section3Description}</Typography>
@@ -419,13 +437,19 @@ export default function Home({ homePage, testimonials, isMobile }) {
         extendTopWith={
           <img
             src='wave_spec.svg'
-            style={{ width: '100vw', marginBottom: '-90px' }}
+            style={{ width: '100vw', marginBottom: '-10px' }}
           />
         }
         background={theme.palette.primary.main}
         art={
           <Box mr={10} mt='-90px' mb='-90px' width={1} textAlign='left'>
-            <img src='spec.png' />
+            <img
+              src='spec.png'
+              style={{
+                width: '100%',
+                objectFit: 'cover'
+              }}
+            />
           </Box>
         }
         title={homePage.specTitle}
@@ -463,11 +487,7 @@ export default function Home({ homePage, testimonials, isMobile }) {
         titleColor='#FFF'
         paddingTop={10}
         paddingBottom={5}
-        art={
-          <Box mr={18}>
-            <img src='performance.svg' />
-          </Box>
-        }
+        art={<ImageContainer src='performance.svg' />}
         title={homePage.performanceTitle}
         content={[
           <Grid container key={1} spacing={4}>
@@ -536,10 +556,15 @@ export default function Home({ homePage, testimonials, isMobile }) {
       <News isMobile={isMobile} />
       <Partners isMobile={isMobile} /> */}
       <DeltaModal show={openVideo} onClose={() => setOpenVideo(false)}>
-        <video controls style={{ height: '70vh', marginBottom: '-4px' }}>
+        <video
+          controls
+          style={{ height: '70vh', marginBottom: '-4px' }}
+          ref={videoRef}
+        >
           <source src='/how_mims_works.mp4' type='video/mp4' />
         </video>
       </DeltaModal>
+      <Box>Spme more content</Box>
       {/* <Footer /> */}
     </Fragment>
   );

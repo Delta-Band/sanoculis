@@ -32,6 +32,7 @@ function AppBar({ menuItems, logo }) {
   const [hide, setHide] = useState(true);
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
+  const upSM = useMediaQuery(theme.breakpoints.up('sm'));
   const { isScrollingUp, isScrollingDown } = useScrollDirection();
   const scrollY = useScrollYPosition();
   const ref = useRef();
@@ -152,7 +153,7 @@ function AppBar({ menuItems, logo }) {
                 <img
                   onClick={() => setIsOpen(false)}
                   style={{
-                    width: upMd ? '160px' : '90px',
+                    width: upMd ? '190px' : '140px',
                     padding: '12px 0',
                     marginLeft: theme.spacing(2)
                   }}
@@ -210,14 +211,14 @@ function AppBar({ menuItems, logo }) {
               delay: isOpen ? 0 : 0.5
             }}
           >
-            <Grid container style={{ padding: theme.spacing(0.75) }}>
-              <Grid item xs={11}></Grid>
-              <Grid item xs={1}>
+            <Grid container justify='space-between'>
+              <Grid item></Grid>
+              <Grid item style={{ transform: 'translate(-25%, 10%)' }}>
                 <motion.div animate={{ color: isOpen ? '#000' : '#FFF' }}>
                   <Hamburger
                     toggled={isOpen}
                     toggle={setIsOpen}
-                    size={upMd ? 36 : 26}
+                    size={upSM ? 36 : 26}
                   />
                 </motion.div>
               </Grid>

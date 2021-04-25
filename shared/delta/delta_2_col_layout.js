@@ -1,5 +1,22 @@
 import React from 'react';
 import { Grid, Box, Typography } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+const useStyles = makeStyles((theme) => ({
+  layoutWrapper: {
+    marginTop: '-1px'
+  },
+  contentWrapper: {
+    width: '80vw',
+    margin: '0 auto',
+    [theme.breakpoints.up('md')]: {
+      width: '40vw',
+      // maxWidth: '500px',
+      margin: 0
+    }
+  }
+}));
 
 function Delta2ColLayout({
   title,
@@ -15,21 +32,29 @@ function Delta2ColLayout({
   // const headerTxt = 'A Simple & Stent-less Treatment Innovation';
   // const bodyTxt =
   //   'MIMS is a rapid & minimal procedure at the forefront of Interventional Glaucoma treatments. Fewer complications and less reliance on medications allows for effective IOP management.';
-
+  const theme = useTheme();
+  const upSM = useMediaQuery(theme.breakpoints.up('sm'));
+  const upMD = useMediaQuery(theme.breakpoints.up('md'));
+  const classes = useStyles();
   return (
-    <Box>
+    <Box className={classes.layoutWrapper}>
       {extendTopWith}
       <Box
         pt={10 + paddingTop}
         pb={10 + paddingBottom}
         style={{ background: background || 'transparent' }}
       >
-        <Grid container alignItems='center'>
-          <Grid item xs={6} style={{ textAlign: 'right' }}>
+        <Grid container alignItems='center' direction={upSM ? 'row' : 'column'}>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            style={{ textAlign: upMD ? 'right' : 'center' }}
+          >
             {art}
           </Grid>
-          <Grid item xs={6}>
-            <Box maxWidth={540}>
+          <Grid item xs={12} md={6}>
+            <Box className={classes.contentWrapper}>
               <Typography variant='h2' style={{ color: titleColor }}>
                 {title}
               </Typography>

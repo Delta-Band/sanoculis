@@ -7,10 +7,10 @@ import { useSwipeable } from 'react-swipeable';
 function DeltaCarousel({
   items,
   itemBuilder,
-  itemWidth,
   autoPlay = false,
   focus = 0,
   paddingLeft = 0,
+  onChange = function () {},
   itemStyle = {}
 }) {
   // State
@@ -69,10 +69,13 @@ function DeltaCarousel({
     }
   }, [inView]);
 
+  useEffect(() => {
+    onChange(index);
+  }, [index]);
+
   const spring = {
     type: 'spring',
-    mass: 1,
-    damping: 12
+    stiffness: 50
   };
 
   const refPassthrough = (el) => {
@@ -93,12 +96,11 @@ function DeltaCarousel({
           {...handlers}
           ref={refPassthrough}
           animate={{
-            x: `-${index * itemWidth}px`
+            x: `-${index * 100}%`
           }}
           transition={{
             type: 'spring',
-            mass: 1,
-            damping: 12
+            stiffness: 50
           }}
           style={{
             display: 'flex',
@@ -115,10 +117,10 @@ function DeltaCarousel({
               }}
               animate={{
                 scale: i === index ? 1 : 0.8,
-                opacity: i === index ? 1 : 0.8
+                opacity: i === index ? 1 : 0
               }}
               style={{
-                width: itemWidth,
+                width: '100%',
                 flexShrink: 0,
                 cursor: 'pointer'
               }}
