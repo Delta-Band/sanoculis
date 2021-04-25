@@ -388,6 +388,18 @@ export default function Home({ homePage, testimonials, isMobile }) {
     );
   }
 
+  function closeVideo(e) {
+    if (e.key === 'Escape') {
+      videoRef.current.pause();
+      setOpenVideo(false);
+    }
+  }
+
+  useEffect(function () {
+    document.addEventListener('keyup', closeVideo);
+    return window.removeEventListener('keyup', closeVideo);
+  }, []);
+
   return (
     <Fragment>
       <Head title='MIMS Story' />
