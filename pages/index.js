@@ -397,7 +397,7 @@ export default function Home({ homePage, testimonials, isMobile }) {
 
   useEffect(function () {
     document.addEventListener('keyup', closeVideo);
-    return window.removeEventListener('keyup', closeVideo);
+    return document.removeEventListener('keyup', closeVideo);
   }, []);
 
   return (
