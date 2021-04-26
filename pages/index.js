@@ -107,7 +107,7 @@ export default function Home({ homePage, testimonials, news }) {
   const theme = useTheme();
   const classes = useStyles();
   const upSM = useMediaQuery(theme.breakpoints.up('sm'));
-  const upMD = useMediaQuery(theme.breakpoints.up('md'));
+  // const upMD = useMediaQuery(theme.breakpoints.up('md'));
   // const _isMobile = isMobile || matches;
   const [openVideo, setOpenVideo] = useState(false);
   const videoRef = useRef();
@@ -136,7 +136,7 @@ export default function Home({ homePage, testimonials, news }) {
 
   function playVideo() {
     videoRef.current.play();
-    upMD ? setOpenVideo(true) : playFullScreen();
+    upSM ? setOpenVideo(true) : playFullScreen();
   }
 
   useEffect(function () {
@@ -336,8 +336,7 @@ export default function Home({ homePage, testimonials, news }) {
         <video
           controls
           style={{
-            height: '50vw',
-            width: '100%',
+            height: '70vh',
             objectFit: 'cover',
             marginBottom: '-4px'
           }}
