@@ -34,6 +34,10 @@ const theme = createMuiTheme({
       [breakpoints.up('sm')]: {
         fontSize: pxToRem(17),
         lineHeight: pxToRem(26)
+      },
+      [breakpoints.up('xl')]: {
+        fontSize: pxToRem(19),
+        lineHeight: pxToRem(28)
       }
     },
     p: {
@@ -89,6 +93,8 @@ const theme = createMuiTheme({
         }
       },
       containedSizeLarge: {
+        paddingLeft: 20,
+        paddingRight: 20,
         [breakpoints.up('sm')]: {
           paddingLeft: 50,
           paddingRight: 50

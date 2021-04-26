@@ -3,6 +3,7 @@ import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Moment from 'react-moment';
 import cx from 'classnames';
 import { motion } from 'framer-motion';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { ChevronBackCircle as GoLeftIcon } from '@styled-icons/ionicons-solid/ChevronBackCircle';
 import { ChevronForwardCircle as GoRightIcon } from '@styled-icons/ionicons-solid/ChevronForwardCircle';
 import { Delta2ColLayout, DeltaCarousel } from '../shared';
@@ -23,12 +24,13 @@ const useStyles = makeStyles((theme) => ({
     '& > img': {
       width: '100%',
       [theme.breakpoints.up('md')]: {
-        width: '40vw'
+        width: '100%'
       }
     }
   },
   newsLogo: {
     width: '100%',
+    maxWidth: 300,
     objectFit: 'contain'
   },
   newsVerticalSpacing: {
@@ -52,7 +54,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    color: '#FFF'
+    color: '#FFF',
+    [theme.breakpoints.up('sm')]: {
+      width: 125
+    }
   }
 }));
 
@@ -60,6 +65,7 @@ export default function News({ art, title, items }) {
   const theme = useTheme();
   const classes = useStyles();
   const [index, setIndex] = useState(0);
+  const upSM = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <Delta2ColLayout
@@ -126,7 +132,7 @@ export default function News({ art, title, items }) {
                   setIndex(Math.max(index - 1, 0));
                 }}
               >
-                <GoLeftIcon size={26} />
+                <GoLeftIcon size={upSM ? 40 : 26} />
                 Older
               </Button>
             </motion.div>
@@ -145,7 +151,7 @@ export default function News({ art, title, items }) {
                 }}
               >
                 NEWER
-                <GoRightIcon size={26} />
+                <GoRightIcon size={upSM ? 40 : 26} />
               </Button>
             </motion.div>
           </Grid>

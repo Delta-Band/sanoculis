@@ -1,14 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { motion } from 'framer-motion';
 import _throttle from 'lodash/throttle';
 
-const MouseTip = ({ children, tip }) => {
+const MouseTip = ({ children, tip, style = {}, onClick }) => {
   const ref = useRef(null);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [show, setShow] = useState(false);
   const theme = useTheme();
+  const upMD = useMediaQuery(theme.breakpoints.up('md'));
 
   function onMouseMove(e) {
     const x = e.x - ref.current.getBoundingClientRect().x;
@@ -17,7 +19,9 @@ const MouseTip = ({ children, tip }) => {
   }
 
   function showTip() {
-    setShow(true);
+    if (upMD) {
+      setShow(true);
+    }
   }
 
   function hideTip() {
@@ -40,11 +44,13 @@ const MouseTip = ({ children, tip }) => {
   }, [mouse.x]);
 
   return (
-    // You must provide the ref to the element you're tracking the
-    // mouse position of
-    <div ref={ref} style={{ position: 'relative', display: 'inline-block' }}>
+    <div
+      ref={ref}
+      style={{ position: 'relative', display: 'inline-block', ...style }}
+    >
       {children}
       <motion.div
+        onClick={onClick}
         style={{
           position: 'absolute',
           left: 0,
@@ -65,8 +71,8 @@ const MouseTip = ({ children, tip }) => {
         animate={{
           x: mouse.x,
           y: mouse.y,
-          opacity: show ? 1 : 0,
-          scale: show ? 1 : 0
+          opacity: show && upMD ? 1 : 0,
+          scale: show && upMD ? 1 : 0
         }}
       >
         <Typography style={{ color: '#FFF' }}>{tip}</Typography>

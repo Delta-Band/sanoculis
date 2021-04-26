@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import disableScroll from 'disable-scroll';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { motion } from 'framer-motion';
 import { Grid, Box, Typography } from '@material-ui/core';
@@ -42,6 +43,7 @@ function AppBar({ menuItems, logo }) {
   const bar = {
     collapse: {
       height: upMd ? '65px' : '56px',
+      y: '0%',
       transition: {
         delay: 0.5,
         bounce: 0
@@ -50,6 +52,12 @@ function AppBar({ menuItems, logo }) {
     expand: {
       height: '100%',
       y: '0%',
+      transition: {
+        bounce: 0
+      }
+    },
+    hide: {
+      y: '-100%',
       transition: {
         bounce: 0
       }
@@ -89,6 +97,7 @@ function AppBar({ menuItems, logo }) {
   useEffect(() => {
     if (isScrollingDown && !hide && scrollY > 100) {
       setHide(true);
+      console.log('hide app bar');
       setIsOpen(false);
     }
   }, [isScrollingDown]);
@@ -96,6 +105,7 @@ function AppBar({ menuItems, logo }) {
   useEffect(() => {
     if (isScrollingUp && hide) {
       setHide(false);
+      console.log('show app bar');
     }
   }, [isScrollingUp]);
 
@@ -105,6 +115,14 @@ function AppBar({ menuItems, logo }) {
     }
   }, [isReady]);
 
+  useEffect(() => {
+    if (isOpen) {
+      disableScroll.on();
+    } else {
+      disableScroll.off();
+    }
+  }, [isOpen]);
+
   return (
     <motion.div
       ref={ref}
@@ -112,6 +130,7 @@ function AppBar({ menuItems, logo }) {
       style={{
         position: 'fixed',
         width: '100vw',
+        height: upMd ? '65px' : '56px',
         background: theme.palette.primary.dark,
         borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
         overflow: 'hidden',
@@ -121,7 +140,7 @@ function AppBar({ menuItems, logo }) {
       }}
       variants={bar}
       initial='hidden'
-      animate={isOpen ? 'expand' : 'collapse'}
+      animate={hide ? 'hide' : isOpen ? 'expand' : 'collapse'}
     >
       <Grid
         container

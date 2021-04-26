@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { Grid, Box, Typography } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-// import { useScrollPosition } from '@n8tb1t/use-scroll-position';
+import cx from 'classnames';
 import Delta2ColLayout from './delta_2_col_layout';
 import DeltaProfile from './delta_profile';
 import DeltaCarousel from './delta_carousel';
@@ -20,6 +20,13 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: 0,
       marginRight: '5vw'
     }
+  },
+  lineClamp: {
+    display: '-webkit-box',
+    '-webkit-line-clamp': 5,
+    '-webkit-box-orient': 'vertical',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden'
   }
 }));
 
@@ -96,7 +103,7 @@ export default function DeltaTestimonials({ testimonials, title }) {
               <Box>
                 <Typography
                   variant='h3'
-                  classes={{ root: classes.whiteText }}
+                  classes={{ root: cx(classes.whiteText, classes.lineClamp) }}
                   style={{ fontWeight: 400 }}
                 >
                   &#34;{item.testimony}&#34;

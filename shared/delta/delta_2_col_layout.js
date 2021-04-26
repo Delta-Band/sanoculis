@@ -5,13 +5,18 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles((theme) => ({
   layoutWrapper: {
-    marginTop: '-1px'
+    marginTop: '-1px',
+    position: 'relative'
+  },
+  innerWrapper: {
+    position: 'relative',
+    maxWidth: 1620
   },
   contentWrapper: {
     width: '80vw',
     margin: '0 auto',
     [theme.breakpoints.up('md')]: {
-      width: '40vw',
+      width: '85%',
       // maxWidth: '500px',
       margin: 0
     }
@@ -23,6 +28,7 @@ function Delta2ColLayout({
   content,
   art,
   extendTopWith,
+  extendBottomWith,
   background,
   titleColor,
   paddingTop = 0,
@@ -34,7 +40,6 @@ function Delta2ColLayout({
   //   'MIMS is a rapid & minimal procedure at the forefront of Interventional Glaucoma treatments. Fewer complications and less reliance on medications allows for effective IOP management.';
   const theme = useTheme();
   const upSM = useMediaQuery(theme.breakpoints.up('sm'));
-  const upMD = useMediaQuery(theme.breakpoints.up('md'));
   const classes = useStyles();
   return (
     <Box className={classes.layoutWrapper}>
@@ -43,14 +48,16 @@ function Delta2ColLayout({
         pt={10 + paddingTop}
         pb={10 + paddingBottom}
         style={{ background: background || 'transparent' }}
+        display='flex'
+        justifyContent='center'
       >
-        <Grid container alignItems='center' direction={upSM ? 'row' : 'column'}>
-          <Grid
-            item
-            xs={12}
-            md={6}
-            style={{ textAlign: upMD ? 'right' : 'center' }}
-          >
+        <Grid
+          container
+          alignItems='center'
+          direction={upSM ? 'row' : 'column'}
+          className={classes.innerWrapper}
+        >
+          <Grid item xs={12} md={6} style={{ textAlign: 'center' }}>
             {art}
           </Grid>
           <Grid item xs={12} md={6}>
@@ -67,6 +74,7 @@ function Delta2ColLayout({
           </Grid>
         </Grid>
       </Box>
+      {extendBottomWith}
     </Box>
   );
 }

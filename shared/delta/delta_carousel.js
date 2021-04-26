@@ -100,7 +100,7 @@ function DeltaCarousel({
           }}
           transition={{
             type: 'spring',
-            stiffness: 50
+            stiffness: 30
           }}
           style={{
             display: 'flex',

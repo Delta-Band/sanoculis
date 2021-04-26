@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   modal: {
     // backgroundColor: theme.palette.primary.dark,
     boxShadow: theme.shadows[15],
-    // padding: theme.spacing(5, 4),
+    maxWidth: '80%',
     borderRadius: 15,
     overflow: 'hidden'
   }

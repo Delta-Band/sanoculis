@@ -33,7 +33,7 @@ import {
   DeltaTestimonials,
   Delta2ColLayout
 } from '../shared';
-import { Hero, News } from '../components';
+import { Hero, News, LearnMore } from '../components';
 
 export async function getServerSideProps(context) {
   // console.log(context.req.headers['user-agent']);
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     '& > img': {
       width: '100%',
       [theme.breakpoints.up('md')]: {
-        width: '40vw'
+        width: '90%'
       }
     }
   },
@@ -134,6 +134,11 @@ export default function Home({ homePage, testimonials, news }) {
     }
   }
 
+  function playVideo() {
+    videoRef.current.play();
+    upMD ? setOpenVideo(true) : playFullScreen();
+  }
+
   useEffect(function () {
     document.addEventListener('keyup', closeVideo);
     return document.removeEventListener('keyup', closeVideo);
@@ -142,7 +147,15 @@ export default function Home({ homePage, testimonials, news }) {
   return (
     <Fragment>
       <Head title='MIMS Story' />
-      <Hero tagline={homePage.tagline} description={homePage.description} />
+      <Hero
+        tagline={homePage.tagline}
+        description={homePage.description}
+        art={
+          <Box className={classes.art}>
+            <video style={{ width: '100%' }} src='hero.mp4' autoPlay loop />
+          </Box>
+        }
+      />
       <Delta2ColLayout
         art={<ImageContainer src='section1.png' />}
         title={homePage.section1Title}
@@ -152,7 +165,11 @@ export default function Home({ homePage, testimonials, news }) {
       />
       <Delta2ColLayout
         art={
-          <DeltaMouseTip tip='PLAY'>
+          <DeltaMouseTip
+            tip='PLAY'
+            style={{ width: '100%' }}
+            onClick={playVideo}
+          >
             <ImageContainer src='how_it_works.png' />
           </DeltaMouseTip>
         }
@@ -165,10 +182,7 @@ export default function Home({ homePage, testimonials, news }) {
             disableElevation
             color='primary'
             size='large'
-            onClick={function () {
-              videoRef.current.play();
-              upMD ? setOpenVideo(true) : playFullScreen();
-            }}
+            onClick={playVideo}
           >
             {homePage.section2BtnTxt}
             <Box ml={2} mt='-2px'>
@@ -306,6 +320,7 @@ export default function Home({ homePage, testimonials, news }) {
         title={homePage.newsTitle}
         items={news}
       />
+      <LearnMore />
       {/* <MinimalIntervention isMobile={isMobile} />
       <ClinicalPerformance isMobile={isMobile} />
       <Testimonials isMobile={isMobile} />
@@ -320,7 +335,12 @@ export default function Home({ homePage, testimonials, news }) {
       >
         <video
           controls
-          style={{ height: '70vh', marginBottom: '-4px' }}
+          style={{
+            height: '50vw',
+            width: '100%',
+            objectFit: 'cover',
+            marginBottom: '-4px'
+          }}
           ref={videoRef}
         >
           <source src='/how_mims_works.mp4' type='video/mp4' />
