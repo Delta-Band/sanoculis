@@ -85,9 +85,10 @@ function DeltaCarousel({
 
   // Render
   return (
-    <Box w={1} ref={ref}>
+    <Box width={1} height={1} ref={ref}>
       <Box
         className='carousel'
+        height={1}
         style={{
           overflow: 'hidden'
         }}
@@ -104,19 +105,20 @@ function DeltaCarousel({
           }}
           style={{
             display: 'flex',
+            height: '100%',
             paddingLeft: paddingLeft
             // transform: translateX
           }}
         >
           {items.map((item, i) => (
             <motion.div
-              key={item.id}
+              key={item.id || item.key || item}
               transition={spring}
               onClick={() => {
                 setIndex(i);
               }}
               animate={{
-                scale: i === index ? 1 : 0.8,
+                // scale: i === index ? 1 : 0.8,
                 opacity: i === index ? 1 : 0
               }}
               style={{
