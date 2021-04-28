@@ -223,7 +223,7 @@ export default function Home({ homePage, testimonials, news }) {
           <Typography key={1} style={{ color: '#FFF' }}>
             {homePage.specDescription}
           </Typography>,
-          <img key={2} src='israel_ce_stamp.svg' />,
+          <img key={2} src='images/israel_ce_stamp.png' />,
           <MuiLink
             key={3}
             target='_blank'
