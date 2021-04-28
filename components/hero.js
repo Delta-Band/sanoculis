@@ -38,13 +38,13 @@ function Hero({ tagline, description, art }) {
       art={art}
       extendBottomWith={
         <img
-          src='wave_hero.svg'
+          src='images/white_wave.png'
           style={{
-            width: '100vw',
+            width: '100%',
             position: 'absolute',
             bottom: 0,
             left: 0,
-            transform: 'scaleY(-1) scaleX(-1) translateY(-50%)'
+            transform: 'translateY(50%)'
           }}
         />
       }

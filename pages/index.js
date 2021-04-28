@@ -201,8 +201,8 @@ export default function Home({ homePage, testimonials, news }) {
       <Delta2ColLayout
         extendTopWith={
           <img
-            src='wave_spec.svg'
-            style={{ width: '100vw', marginBottom: '-10px' }}
+            src='images/white_wave.png'
+            style={{ width: '100%', transform: 'translateY(50%) scaleY(-1)' }}
           />
         }
         background={theme.palette.primary.main}
@@ -321,11 +321,6 @@ export default function Home({ homePage, testimonials, news }) {
         items={news}
       />
       <LearnMore />
-      {/* <MinimalIntervention isMobile={isMobile} />
-      <ClinicalPerformance isMobile={isMobile} />
-      <Testimonials isMobile={isMobile} />
-      <News isMobile={isMobile} />
-      <Partners isMobile={isMobile} /> */}
       <DeltaModal
         show={openVideo}
         onClose={function () {
@@ -345,6 +340,9 @@ export default function Home({ homePage, testimonials, news }) {
           <source src='/how_mims_works.mp4' type='video/mp4' />
         </video>
       </DeltaModal>
+      <Box>Footer</Box>
+      <Box>Footer</Box>
+      <Box>Footer</Box>
       {/* <Footer /> */}
     </Fragment>
   );

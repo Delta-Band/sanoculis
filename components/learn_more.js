@@ -6,14 +6,22 @@ import { motion } from 'framer-motion';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  gridContainer: {
+  learnWrapper: {
+    position: 'relative',
+    width: '100%',
+    height: 550,
+    overflow: 'hidden',
+    background: theme.palette.primary.dark,
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: '-40px',
+    [theme.breakpoints.up('sm')]: {
+      height: 650,
+      marginBottom: '-48px'
+    },
     [theme.breakpoints.up('md')]: {
-      width: '107.5%'
-    }
-  },
-  section: {
-    height: '50vw',
-    [theme.breakpoints.up('md')]: {
+      marginBottom: 0,
+      flexDirection: 'row',
       height: 350
     },
     [theme.breakpoints.up('lg')]: {
@@ -21,14 +29,28 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up('lg')]: {
       height: 750
-    },
+    }
+  },
+  section: {
+    height: '50%',
+    width: '100%',
+    flexShrink: 0,
     position: 'relative',
     '&:nth-of-type(2)': {
-      marginTop: '-7vw',
+      marginTop: '-40px',
+      [theme.breakpoints.up('sm')]: {
+        marginTop: '-48px'
+      },
       [theme.breakpoints.up('md')]: {
         marginTop: 0,
-        marginLeft: '-7%'
+        left: '48.5%'
+        // marginLeft: '-7%'marginTop: '-7vw',
       }
+    },
+    [theme.breakpoints.up('md')]: {
+      height: '100%',
+      width: '57%',
+      position: 'absolute'
     }
   },
   img: {
@@ -111,13 +133,8 @@ export default function LearnMore() {
   }
 
   return (
-    <Grid
-      container
-      spacing={0}
-      style={{ background: theme.palette.primary.dark }}
-      className={classes.gridContainer}
-    >
-      <Grid item xs={12} md={6} className={classes.section}>
+    <div className={classes.learnWrapper}>
+      <div className={classes.section}>
         <ImageFilter colorize={colorize1}>
           <img
             src='images/vision.jpg'
@@ -152,8 +169,8 @@ export default function LearnMore() {
             </Button>
           </a>
         </Link>
-      </Grid>
-      <Grid item xs={12} md={6} className={classes.section}>
+      </div>
+      <div className={classes.section}>
         <ImageFilter colorize={colorize2}>
           <img
             src='images/about.jpg'
@@ -188,7 +205,7 @@ export default function LearnMore() {
             </Button>
           </a>
         </Link>
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 }
