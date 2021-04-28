@@ -48,8 +48,8 @@ function Delta2ColLayout({
         pt={10 + paddingTop}
         pb={10 + paddingBottom}
         style={{ background: background || 'transparent' }}
-        display='flex'
-        justifyContent='center'
+        // display='flex'
+        // justifyContent='center'
       >
         <Grid
           container
