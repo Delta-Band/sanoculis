@@ -8,8 +8,10 @@ function DeltaCarousel({
   items,
   itemBuilder,
   autoPlay = false,
+  disableClickOnItem = false,
   focus = 0,
   paddingLeft = 0,
+  noFade = false,
   onChange = function () {},
   itemStyle = {}
 }) {
@@ -70,6 +72,7 @@ function DeltaCarousel({
   }, [inView]);
 
   useEffect(() => {
+    console.log(`index changed to: ${index}`);
     onChange(index);
   }, [index]);
 
@@ -114,12 +117,16 @@ function DeltaCarousel({
             <motion.div
               key={item.id || item.key || item}
               transition={spring}
-              onClick={() => {
-                setIndex(i);
-              }}
+              onClick={
+                disableClickOnItem
+                  ? undefined
+                  : () => {
+                      setIndex(i);
+                    }
+              }
               animate={{
                 // scale: i === index ? 1 : 0.8,
-                opacity: i === index ? 1 : 0
+                opacity: i === index ? 1 : noFade ? 1 : 0
               }}
               style={{
                 width: '100%',

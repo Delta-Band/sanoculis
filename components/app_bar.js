@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import disableScroll from 'disable-scroll';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { motion } from 'framer-motion';
+import cx from 'classnames';
 import { Grid, Box, Typography } from '@material-ui/core';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import { useScrollYPosition } from 'react-use-scroll-position';
@@ -13,20 +14,22 @@ import { DeltaCarousel } from '../shared';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
+    userSelect: 'none',
     position: 'fixed',
     width: '100vw',
-    background: theme.palette.primary.dark,
     borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
-    overflow: 'hidden',
+    // overflow: 'hidden',
     zIndex: 3,
-    height: 'auto !important',
+    // height: 'auto !important',
     color: '#FFF'
   },
   topSection: {
     position: 'absolute',
+    zIndex: 1,
     top: 0,
     left: 0,
     width: '100%',
+    height: '64px',
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(2),
     paddingTop: theme.spacing(1),
@@ -34,10 +37,18 @@ const useStyles = makeStyles((theme) => ({
   },
   expandable: {
     overflow: 'hidden',
-    paddingTop: 64,
     boxSizing: 'border-box',
     display: 'flex',
     alignItems: 'center'
+  },
+  menuWrapper: {
+    height: '100%',
+    width: '100%'
+  },
+  menuWrapperInner: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%'
   },
   logo: {
     width: '42vw',
@@ -59,6 +70,50 @@ const useStyles = makeStyles((theme) => ({
   linkWrap: {
     overflow: 'hidden',
     display: 'block'
+  },
+  contactWrapper: {
+    paddingTop: 64,
+    paddingBottom: 64,
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: '#FFDACE'
+  },
+  blueBg: {
+    background: theme.palette.primary.dark,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    flexShrink: 0,
+    paddingTop: 64,
+    paddingBottom: 64,
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(2)
+  },
+  peachBg: {
+    background: '#FFDACE',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexShrink: 0,
+    paddingTop: 64,
+    paddingBottom: 64
+  },
+  circleBtn: {
+    background: '#FFF',
+    width: 80,
+    height: 80,
+    borderRadius: 80,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: `2px solid ${theme.palette.primary.dark}`
+  },
+  contactCircle: {
+    marginLeft: -64
   }
 }));
 
@@ -96,7 +151,7 @@ const bar = {
 
 const expandable = {
   collapse: {
-    height: '0',
+    height: '64px',
     transition: {
       bounce: 0,
       stiffness: 50,
@@ -142,39 +197,136 @@ const item = {
 };
 
 // SUB-COMPONENTS
-function Menu({ menuItems, expand, setExpand }) {
+function TopSection({ logo, setExpand, expand, upSM }) {
+  const classes = useStyles();
+  return (
+    <Grid
+      item
+      xs={12}
+      key={111}
+      container
+      className={classes.topSection}
+      direction='row'
+      justify='space-between'
+      alignItems='center'
+    >
+      <Grid item>
+        <Link href='/'>
+          <a>
+            <img
+              onClick={() => setExpand(false)}
+              className={classes.logo}
+              src={logo}
+            />
+          </a>
+        </Link>
+      </Grid>
+      <Grid item>
+        <Hamburger toggled={expand} toggle={setExpand} size={upSM ? 36 : 26} />
+      </Grid>
+    </Grid>
+  );
+}
+
+function ExpandableSection({
+  expand,
+  showContact,
+  menuItems,
+  setExpand,
+  setShowContact
+}) {
+  const classes = useStyles();
+  return (
+    <Grid item xs={12}>
+      <motion.div
+        className={classes.expandable}
+        variants={expandable}
+        initial='collapse'
+        animate={expand ? 'expand' : 'collapse'}
+      >
+        <DeltaCarousel
+          noFade
+          items={['menu', 'contact']}
+          focus={showContact ? 1 : 0}
+          disableClickOnItem
+          onChange={(index) => setShowContact(index)}
+          itemBuilder={(item, i, index) => {
+            return item === 'menu' ? (
+              <Menu
+                setShowContact={setShowContact}
+                menuItems={menuItems}
+                expand={expand}
+                setExpand={setExpand}
+              />
+            ) : (
+              <Contact />
+            );
+          }}
+        />
+      </motion.div>
+    </Grid>
+  );
+}
+
+function Menu({ menuItems, expand, setExpand, setShowContact }) {
   const classes = useStyles();
 
   return (
     <motion.div
       variants={container}
       initial='hidden'
+      className={classes.menuWrapper}
       animate={expand ? 'show' : 'hidden'}
     >
-      {menuItems.map((itm) => (
-        <motion.div
-          key={itm.linkTo}
-          style={{ color: '#FFF' }}
-          onClick={() => setExpand(false)}
-          whileHover={{ color: '#FF4F26' }}
-          className={classes.menuItem}
-          variants={item}
-        >
-          <Link href={`/${itm.linkTo}`}>
-            <a className={classes.linkWrap}>
-              <Typography variant='h1' className={classes.menuItemTxt}>
-                {itm.label}
-              </Typography>
-            </a>
-          </Link>
-        </motion.div>
-      ))}
+      <Grid
+        container
+        alignItems='stretch'
+        direction='row'
+        justify='flex-start'
+        className={classes.menuWrapperInner}
+      >
+        <Grid item xs={10} className={classes.blueBg}>
+          {menuItems.map((itm) => (
+            <motion.div
+              key={itm.linkTo}
+              style={{ color: '#FFF' }}
+              onClick={() => setExpand(false)}
+              whileHover={{ color: '#FF4F26' }}
+              className={classes.menuItem}
+              variants={item}
+            >
+              <Link href={`/${itm.linkTo}`}>
+                <a className={classes.linkWrap}>
+                  <Typography variant='h1' className={classes.menuItemTxt}>
+                    {itm.label}
+                  </Typography>
+                </a>
+              </Link>
+            </motion.div>
+          ))}
+        </Grid>
+        <Grid item xs={2} className={classes.peachBg}>
+          <motion.div
+            className={cx(classes.contactCircle, classes.circleBtn)}
+            onTouchStart={() => setShowContact(1)}
+            animate={{
+              scale: expand ? 1 : 0
+            }}
+            transition={{
+              delay: expand ? 1 : 0
+            }}
+          >
+            <Typography>Contact</Typography>
+          </motion.div>
+        </Grid>
+      </Grid>
     </motion.div>
   );
 }
 
 function Contact() {
-  return <Box>Contact</Box>;
+  const classes = useStyles();
+  return <Box className={classes.contactWrapper}>Contact</Box>;
 }
 
 function AppBar({ menuItems, logo }) {
@@ -230,150 +382,22 @@ function AppBar({ menuItems, logo }) {
       animate={hide ? 'hide' : 'show'}
     >
       <Grid container direction='row' spacing={0}>
-        <Grid
-          item
-          xs={12}
-          key={111}
-          container
-          className={classes.topSection}
-          direction='row'
-          justify='space-between'
-          alignItems='center'
-        >
-          <Grid item>
-            <Link href='/'>
-              <a>
-                <img
-                  onClick={() => setExpand(false)}
-                  className={classes.logo}
-                  src={logo}
-                />
-              </a>
-            </Link>
-          </Grid>
-          <Grid item>
-            <Hamburger
-              toggled={expand}
-              toggle={setExpand}
-              size={upSM ? 36 : 26}
-            />
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <motion.div
-            className={classes.expandable}
-            variants={expandable}
-            initial='collapse'
-            animate={expand ? 'expand' : 'collapse'}
-          >
-            <DeltaCarousel
-              items={['menu', 'contact']}
-              focus={showContact ? 1 : 0}
-              itemBuilder={(item, i, index) => {
-                return item === 'menu' ? (
-                  <Menu
-                    menuItems={menuItems}
-                    expand={expand}
-                    setExpand={setExpand}
-                  />
-                ) : (
-                  <Contact />
-                );
-              }}
-            />
-          </motion.div>
-        </Grid>
+        <TopSection
+          logo={logo}
+          setExpand={setExpand}
+          expand={expand}
+          upSM={upSM}
+        />
+        <ExpandableSection
+          setShowContact={setShowContact}
+          expand={expand}
+          showContact={showContact}
+          menuItems={menuItems}
+          setExpand={setExpand}
+        />
       </Grid>
     </motion.div>
   );
 }
 
 export default AppBar;
-
-{
-  /* <Grid
-          item
-          xs={6}
-          container
-          direction='row'
-          // alignItems='stretch'
-          style={{ padding: theme.spacing(0.75) }}
-        >
-          <Grid item xs={12}>
-            <Link href='/'>
-              <a>
-                <img
-                  onClick={() => setIsOpen(false)}
-                  style={{
-                    width: upMd ? '190px' : '140px',
-                    padding: '12px 0',
-                    marginLeft: theme.spacing(2)
-                  }}
-                  src={logo}
-                />
-              </a>
-            </Link>
-          </Grid>
-          <Grid item xs={12} style={{ transform: 'translateY(-100px)' }}>
-            <Box style={{ paddingLeft: '5vw', paddingTop: '0vh' }}>
-              <motion.div
-                variants={container}
-                initial='hidden'
-                animate={isOpen ? 'show' : 'hidden'}
-              >
-                {menuItems.map((itm) => (
-                  <motion.div
-                    key={itm.linkTo}
-                    style={{ color: '#FFF' }}
-                    onClick={() => setIsOpen(false)}
-                    whileHover={{ color: '#FF4F26' }}
-                    className={classes.menuItem}
-                    variants={item}
-                    // animate={{
-                    //   opacity: isOpen ? 1 : 0,
-                    //   y: isOpen ? 0 : 50
-                    // }}
-                  >
-                    <Link href={`/${itm.linkTo}`}>
-                      <a className={classes.linkWrap}>
-                        <Typography
-                          variant='h1'
-                          className={classes.menuItemTxt}
-                        >
-                          {itm.label}
-                        </Typography>
-                      </a>
-                    </Link>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </Box>
-          </Grid>
-        </Grid>
-        <Grid item xs={6}>
-          <motion.div
-            style={{
-              height: '100%'
-            }}
-            animate={{
-              backgroundColor: isOpen ? '#FFDACE' : theme.palette.primary.dark
-            }}
-            transition={{
-              delay: isOpen ? 0 : 0.5
-            }}
-          >
-            <Grid container justify='space-between'>
-              <Grid item></Grid>
-              <Grid item style={{ transform: 'translate(-25%, 10%)' }}>
-                <motion.div animate={{ color: isOpen ? '#000' : '#FFF' }}>
-                  <Hamburger
-                    toggled={isOpen}
-                    toggle={setIsOpen}
-                    size={upSM ? 36 : 26}
-                  />
-                </motion.div>
-              </Grid>
-            </Grid>
-          </motion.div>
-        </Grid> */
-}
