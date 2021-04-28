@@ -100,7 +100,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     flexShrink: 0,
     paddingTop: 64,
-    paddingBottom: 64
+    paddingBottom: 64,
+    position: 'relative'
   },
   circleBtn: {
     background: '#FFF',
@@ -110,10 +111,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    border: `2px solid ${theme.palette.primary.dark}`
+    border: `2px solid ${theme.palette.primary.dark}`,
+    position: 'absolute'
   },
   contactCircle: {
-    marginLeft: -64
+    left: 0
   }
 }));
 
@@ -309,6 +311,9 @@ function Menu({ menuItems, expand, setExpand, setShowContact }) {
           <motion.div
             className={cx(classes.contactCircle, classes.circleBtn)}
             onTouchStart={() => setShowContact(1)}
+            style={{
+              x: '-50%'
+            }}
             animate={{
               scale: expand ? 1 : 0
             }}
@@ -334,7 +339,7 @@ function AppBar({ menuItems, logo }) {
   const [hide, setHide] = useState(true);
   const [showContact, setShowContact] = useState(false);
   const theme = useTheme();
-  const upMd = useMediaQuery(theme.breakpoints.up('md'));
+  // const upMd = useMediaQuery(theme.breakpoints.up('md'));
   const upSM = useMediaQuery(theme.breakpoints.up('sm'));
   const { isScrollingUp, isScrollingDown } = useScrollDirection();
   const scrollY = useScrollYPosition();
