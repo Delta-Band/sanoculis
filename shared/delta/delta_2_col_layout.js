@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
     [theme.breakpoints.up('md')]: {
       width: '85%',
+      maxWidth: 600,
       // maxWidth: '500px',
       margin: 0
     }
@@ -48,8 +49,8 @@ function Delta2ColLayout({
         pt={10 + paddingTop}
         pb={10 + paddingBottom}
         style={{ background: background || 'transparent' }}
-        // display='flex'
-        // justifyContent='center'
+        display={upSM ? 'flex' : 'inline-block'}
+        justifyContent={upSM ? 'center' : undefined}
       >
         <Grid
           container

@@ -65,12 +65,12 @@ const useStyles = makeStyles((theme) => ({
   art: {
     margin: '0 0 20px 0',
     [theme.breakpoints.up('md')]: {
-      margin: '0 2.5vw 0 0'
+      // margin: '0 2.5vw 0 0'
     },
     '& > img': {
       width: '100%',
       [theme.breakpoints.up('md')]: {
-        width: '90%'
+        width: '80%'
       }
     }
   },
