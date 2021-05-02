@@ -28,10 +28,10 @@ import reactor from '../reactor';
 import Head from '../head';
 import {
   DeltaModal,
-  // Footer,
   DeltaMouseTip,
   DeltaTestimonials,
-  Delta2ColLayout
+  Delta2ColLayout,
+  Footer
 } from '../shared';
 import { Hero, News, LearnMore } from '../components';
 
@@ -46,11 +46,13 @@ export async function getServerSideProps(context) {
   const homePage = await reactor.getDoc('unwyUBZmIqLoM5SDnwxo');
   const testimonials = await reactor.getCollection('uZJDusr9qBPPkkxrxw6j');
   const news = await reactor.getCollection('wTe6w2bKS0b2mNdHCHYu');
+  const footer = await reactor.getDoc('0q0P18TgtXrfMIStLToh');
   return {
     props: {
       homePage,
       testimonials,
-      news
+      news,
+      footer
     }
   };
 }
@@ -103,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Home({ homePage, testimonials, news }) {
+export default function Home({ homePage, testimonials, news, footer }) {
   const theme = useTheme();
   const classes = useStyles();
   const upSM = useMediaQuery(theme.breakpoints.up('sm'));
@@ -326,6 +328,7 @@ export default function Home({ homePage, testimonials, news }) {
         items={news}
       />
       <LearnMore />
+      <Footer specPDF={homePage.specPdf} footerData={footer} />
       <DeltaModal
         show={openVideo}
         onClose={function () {
@@ -345,10 +348,6 @@ export default function Home({ homePage, testimonials, news }) {
           <source src='/how_mims_works.mp4' type='video/mp4' />
         </video>
       </DeltaModal>
-      <Box>Footer</Box>
-      <Box>Footer</Box>
-      <Box>Footer</Box>
-      {/* <Footer /> */}
     </Fragment>
   );
 }
