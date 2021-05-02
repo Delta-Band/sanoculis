@@ -109,6 +109,21 @@ const theme = createMuiTheme({
       //   }
       // }
     },
+    MuiFilledInput: {
+      root: {
+        backgroundColor: '#FFF',
+        borderRadius: 0,
+        '&:hover': {
+          backgroundColor: '#FFF !important'
+        }
+      }
+    },
+    MuiTextField: {
+      root: {
+        backgroundColor: '#FFF',
+        borderRadius: 0
+      }
+    },
     MuiRadio: {
       root: {
         color: 'white'
@@ -123,13 +138,13 @@ const theme = createMuiTheme({
       }
     },
     MuiOutlinedInput: {
-      input: {
-        // backgroundColor: 'white'
+      root: {
+        backgroundColor: '#FFF'
       }
     },
     MuiInputLabel: {
       outlined: {
-        color: '#5668FF'
+        // color: '#5668FF'
       }
     }
   },

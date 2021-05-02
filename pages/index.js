@@ -155,10 +155,11 @@ export default function Home({ homePage, testimonials, news, footer }) {
         art={
           <Box className={classes.art}>
             <video
+              playsInline
+              muted
               style={{ width: '100%' }}
               src={`videos/${upSM ? 'desktop' : 'mobile'}/hero.mp4`}
               autoPlay
-              loop
             />
           </Box>
         }

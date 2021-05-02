@@ -1,6 +1,5 @@
 export { default as SectionLayout } from './section_layout';
 export { default as SectionLayoutNew } from './section_layout_new';
-export { default as ContactForm } from './contact_form';
 export { default as ScrollCarousel } from './scroll_carousel';
 export { default as ImageParallax } from './delta/image_parallax';
 export { default as Footer } from './footer';
