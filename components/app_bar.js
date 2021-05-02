@@ -1,13 +1,16 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import disableScroll from 'disable-scroll';
+// import disableScroll from 'disable-scroll';
+import { ChevronRight } from '@styled-icons/boxicons-regular/ChevronRight';
+import { ChevronLeft } from '@styled-icons/boxicons-regular/ChevronLeft';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { motion } from 'framer-motion';
 import { Grid, Box, Typography, ButtonGroup, Button } from '@material-ui/core';
-import { useScrollDirection } from 'react-use-scroll-direction';
-import { useScrollYPosition } from 'react-use-scroll-position';
+// import { useScrollDirection } from 'react-use-scroll-direction';
+// import { useScrollYPosition } from 'react-use-scroll-position';
 import { Rotate as Hamburger } from 'hamburger-react';
 import Link from 'next/link';
+import cx from 'classnames';
 import { useReadyState } from '../context/ready.context';
 import { DeltaCarousel } from '../shared';
 import ContactForm from './contact_form';
@@ -51,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     paddingBottom: theme.spacing(5),
+    paddingLeft: theme.spacing(10),
     [theme.breakpoints.up('md')]: {
       width: '50%',
       paddingLeft: theme.spacing(10)
@@ -72,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '700',
     fontStyle: 'italic',
     fontSize: '22px',
-    textAlign: 'center',
+    // textAlign: 'center',
     [theme.breakpoints.up('md')]: {
       fontSize: '32px',
       textAlign: 'left'
@@ -132,6 +136,11 @@ const useStyles = makeStyles((theme) => ({
   },
   gridForDesktop: {
     height: '100%'
+  },
+  backToMenu: {
+    width: '100%',
+    paddingLeft: theme.spacing(5),
+    marginTop: theme.spacing(3)
   }
 }));
 
@@ -314,38 +323,6 @@ function TopSection({ logo, setExpand, expand, upSM, showContact }) {
   );
 }
 
-function ToggleSwitch({ setShowContact, expand }) {
-  const classes = useStyles();
-  return (
-    <motion.div
-      variants={toggleSwitch}
-      animate={expand ? 'show' : 'hide'}
-      className={classes.toggleSwitch}
-    >
-      <ButtonGroup
-        size='large'
-        color='primary'
-        disableElevation
-        variant='outlined'
-        aria-label='large outlined primary button group'
-      >
-        <Button
-          className={classes.toggleBtn}
-          onClick={() => setShowContact(false)}
-        >
-          Menu
-        </Button>
-        <Button
-          className={classes.toggleBtn}
-          onClick={() => setShowContact(true)}
-        >
-          Contact
-        </Button>
-      </ButtonGroup>
-    </motion.div>
-  );
-}
-
 function ExpandableSection({
   expand,
   showContact,
@@ -375,32 +352,29 @@ function ExpandableSection({
               />
             </Grid>
             <Grid xs={6} item>
-              <Contact expand={expand} />
+              <Contact expand={expand} setShowContact={setShowContact} />
             </Grid>
           </Grid>
         ) : (
-          <Fragment>
-            <DeltaCarousel
-              noFade
-              items={['menu', 'contact']}
-              focus={showContact ? 1 : 0}
-              disableClickOnItem
-              onChange={(index) => setShowContact(index)}
-              itemBuilder={(item, i, index) => {
-                return item === 'menu' ? (
-                  <Menu
-                    setShowContact={setShowContact}
-                    menuItems={menuItems}
-                    expand={expand}
-                    setExpand={setExpand}
-                  />
-                ) : (
-                  <Contact expand={expand} />
-                );
-              }}
-            />
-            <ToggleSwitch setShowContact={setShowContact} expand={expand} />
-          </Fragment>
+          <DeltaCarousel
+            noFade
+            items={['menu', 'contact']}
+            focus={showContact ? 1 : 0}
+            disableClickOnItem
+            onChange={(index) => setShowContact(index)}
+            itemBuilder={(item, i, index) => {
+              return item === 'menu' ? (
+                <Menu
+                  setShowContact={setShowContact}
+                  menuItems={menuItems}
+                  expand={expand}
+                  setExpand={setExpand}
+                />
+              ) : (
+                <Contact expand={expand} setShowContact={setShowContact} />
+              );
+            }}
+          />
         )}
       </motion.div>
     </Grid>
@@ -409,7 +383,8 @@ function ExpandableSection({
 
 function Menu({ menuItems, expand, setExpand, setShowContact }) {
   const classes = useStyles();
-
+  const theme = useTheme();
+  const upMD = useMediaQuery(theme.breakpoints.up('md'));
   return (
     <motion.div
       variants={container}
@@ -435,20 +410,34 @@ function Menu({ menuItems, expand, setExpand, setShowContact }) {
           </Link>
         </motion.div>
       ))}
+      {!upMD && (
+        <motion.div
+          style={{ color: '#FFF' }}
+          onClick={() => setShowContact(true)}
+          whileHover={{ color: '#FF4F26' }}
+          className={classes.menuItem}
+          variants={item}
+        >
+          <Typography variant='h1' className={cx(classes.menuItemTxt)}>
+            Contact <ChevronRight size={28} />
+          </Typography>
+        </motion.div>
+      )}
     </motion.div>
   );
 }
 
-function Contact({ expand }) {
+function Contact({ expand, setShowContact }) {
   const classes = useStyles();
   const theme = useTheme();
+  const upMD = useMediaQuery(theme.breakpoints.up('md'));
   return (
     <Box className={classes.contactWrapper}>
       <motion.div
         variants={contactWrapper}
         className={classes.contactWrapperInner}
-        initial='hide'
-        animate={expand ? 'show' : 'hide'}
+        initial={upMD ? 'hide' : 'show'}
+        animate={!upMD ? 'show' : expand ? 'show' : 'hide'}
       >
         <motion.div
           variants={contactForm}
@@ -468,6 +457,20 @@ function Contact({ expand }) {
           </Typography>
           <Box mb={5} />
           <ContactForm clear={!expand} />
+          {!upMD && (
+            <div
+              onClick={() => setShowContact(false)}
+              className={classes.backToMenu}
+            >
+              <Typography
+                variant='h1'
+                className={classes.menuItemTxt}
+                style={{ color: '#000' }}
+              >
+                <ChevronLeft size={28} /> Menu
+              </Typography>
+            </div>
+          )}
         </motion.div>
       </motion.div>
     </Box>
