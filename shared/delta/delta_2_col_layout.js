@@ -49,8 +49,8 @@ function Delta2ColLayout({
         pt={10 + paddingTop}
         pb={10 + paddingBottom}
         style={{ background: background || 'transparent' }}
-        display={upSM ? 'flex' : 'inline-block'}
-        justifyContent={upSM ? 'center' : undefined}
+        // display={upSM ? 'flex' : 'inline-block'}
+        // justifyContent={upSM ? 'center' : undefined}
       >
         <Grid
           container

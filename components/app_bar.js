@@ -336,7 +336,7 @@ function Contact() {
 
 function AppBar({ menuItems, logo }) {
   const [expand, setExpand] = useState(false);
-  const [hide, setHide] = useState(true);
+  const [hide, setHide] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const theme = useTheme();
   // const upMd = useMediaQuery(theme.breakpoints.up('md'));
@@ -351,7 +351,7 @@ function AppBar({ menuItems, logo }) {
 
   useEffect(() => {
     if (isScrollingDown && !hide && scrollY > 100) {
-      setHide(true);
+      // setHide(true);
       console.log('hide app bar');
       setExpand(false);
     }

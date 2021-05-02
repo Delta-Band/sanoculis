@@ -2,15 +2,31 @@ import React from 'react';
 import { Grid, Typography, Link as MuiLink } from '@material-ui/core';
 import Link from 'next/link';
 import cx from 'classnames';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { LinkedinWithCircle as LinkedInIcon } from '@styled-icons/entypo-social/LinkedinWithCircle';
-import { makeStyles } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import MadeByDelta from './delta/delta_made_by';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
     background: theme.palette.primary.dark,
-    padding: theme.spacing(5)
+    padding: theme.spacing(5),
+    paddingTop: theme.spacing(10),
+    paddingBottom: theme.spacing(10),
+    width: '100%'
+  },
+  innerWrapper: {
+    margin: '0 auto',
+    [theme.breakpoints.up('sm')]: {
+      width: 575
+    },
+    [theme.breakpoints.up('md')]: {
+      width: 900
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: 1100
+    }
   },
   whiteTxt: {
     color: '#FFF',
@@ -51,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline-block'
   },
   tradeMark: {
-    margin: '0 auto',
     [theme.breakpoints.up('sm')]: {
       textAlign: 'center'
     }
@@ -62,7 +77,13 @@ const useStyles = makeStyles((theme) => ({
 function Learn() {
   const classes = useStyles();
   return (
-    <Grid item xs={12} sm={6} md={4} className={classes.sectionSpacing}>
+    <Grid
+      item
+      // xs={12}
+      // sm={7}
+      // md={4}
+      className={classes.sectionSpacing}
+    >
       <Typography
         variant='h3'
         className={cx(classes.whiteTxt, classes.verticalSpacing)}
@@ -95,7 +116,7 @@ function Learn() {
 function Resources({ specPDF, privacyPolicy }) {
   const classes = useStyles();
   return (
-    <Grid item xs={12} sm={6} md={4} className={classes.sectionSpacing}>
+    <Grid item className={classes.sectionSpacing}>
       <Typography
         variant='h3'
         className={cx(classes.whiteTxt, classes.verticalSpacing)}
@@ -133,10 +154,15 @@ function Resources({ specPDF, privacyPolicy }) {
   );
 }
 
-function ContactInfo({ footerData }) {
+function Company({ footerData }) {
   const classes = useStyles();
   return (
-    <Grid item xs={12} md={4} className={classes.sectionSpacing}>
+    <Grid
+      item
+      // xs={12}
+      // md={4}
+      className={classes.sectionSpacing}
+    >
       {/* <img src='/sanoculis_logo.svg' className={cx(classes.logo)} /> */}
       <Typography
         variant='h3'
@@ -184,23 +210,32 @@ function ContactInfo({ footerData }) {
 
 function Footer({ specPDF, footerData }) {
   const classes = useStyles();
+  const theme = useTheme();
+  const upSM = useMediaQuery(theme.breakpoints.up('sm'));
   return (
-    <Grid container className={classes.root}>
-      <Learn />
-      <Resources specPDF={specPDF} privacyPolicy={footerData.privacyPolicy} />
-      <ContactInfo footerData={footerData} />
-      <Grid item xs={12}>
-        <Typography
-          className={cx(classes.whiteTxt, classes.tradeMark)}
-          style={{ opacity: 0.35 }}
-        >
-          {footerData.tradeMark}
-        </Typography>
+    <div className={classes.root}>
+      <Grid
+        container
+        className={classes.innerWrapper}
+        direction={upSM ? 'row' : 'column'}
+        justify={upSM ? 'space-between' : 'flex-start'}
+      >
+        <Learn />
+        <Resources specPDF={specPDF} privacyPolicy={footerData.privacyPolicy} />
+        <Company footerData={footerData} />
+        <Grid item xs={12}>
+          <Typography
+            className={cx(classes.whiteTxt, classes.tradeMark)}
+            style={{ opacity: 0.35 }}
+          >
+            {footerData.tradeMark}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <MadeByDelta />
+        </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <MadeByDelta />
-      </Grid>
-    </Grid>
+    </div>
   );
 }
 
