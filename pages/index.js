@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     '& > img': {
       width: '100%',
       [theme.breakpoints.up('md')]: {
-        width: '80%'
+        width: '90%'
       }
     }
   },
@@ -152,7 +152,12 @@ export default function Home({ homePage, testimonials, news }) {
         description={homePage.description}
         art={
           <Box className={classes.art}>
-            <video style={{ width: '100%' }} src='hero.mp4' autoPlay loop />
+            <video
+              style={{ width: '100%' }}
+              src={`videos/${upSM ? 'desktop' : 'mobile'}/hero.mp4`}
+              autoPlay
+              loop
+            />
           </Box>
         }
       />

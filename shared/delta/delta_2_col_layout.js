@@ -9,8 +9,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative'
   },
   innerWrapper: {
-    position: 'relative',
-    maxWidth: 1620
+    position: 'relative'
   },
   contentWrapper: {
     width: '80vw',
@@ -34,7 +33,8 @@ function Delta2ColLayout({
   titleColor,
   paddingTop = 0,
   paddingBottom = 0,
-  isMobile
+  isMobile,
+  fullWidth = false
 }) {
   // const headerTxt = 'A Simple & Stent-less Treatment Innovation';
   // const bodyTxt =
@@ -57,6 +57,10 @@ function Delta2ColLayout({
           alignItems='center'
           direction={upSM ? 'row' : 'column'}
           className={classes.innerWrapper}
+          style={{
+            maxWidth: fullWidth ? '100%' : 1620,
+            width: fullWidth ? '100%' : 'auto'
+          }}
         >
           <Grid item xs={12} md={6} style={{ textAlign: 'center' }}>
             {art}

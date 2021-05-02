@@ -1,12 +1,12 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import cx from 'classnames';
 import { Delta2ColLayout } from '../shared';
 import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  logo: { width: '100%' },
+  logo: { width: '100%', marginTop: -theme.spacing(5) },
   tagline: {
     fontSize: 32,
     lineHeight: '38px',
@@ -28,13 +28,14 @@ const useStyles = makeStyles((theme) => ({
 function Hero({ tagline, description, art }) {
   const theme = useTheme();
   const classes = useStyles();
-  // const downSM = useMediaQuery(theme.breakpoints.down('sm'));
+  const upSM = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <Delta2ColLayout
-      paddingTop={10}
-      paddingBottom={10}
+      paddingTop={-10}
+      paddingBottom={-9}
       background={theme.palette.primary.main}
+      fullWidth
       art={art}
       extendBottomWith={
         <img
