@@ -92,6 +92,9 @@ const theme = createMuiTheme({
           backgroundColor: '#4452bf'
         }
       },
+      outlined: {
+        borderRadius: 25
+      },
       containedSizeLarge: {
         paddingLeft: 20,
         paddingRight: 20,

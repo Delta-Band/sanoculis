@@ -3,8 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import disableScroll from 'disable-scroll';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { motion } from 'framer-motion';
-import cx from 'classnames';
-import { Grid, Box, Typography } from '@material-ui/core';
+import { Grid, Box, Typography, ButtonGroup, Button } from '@material-ui/core';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import { useScrollYPosition } from 'react-use-scroll-position';
 import { Rotate as Hamburger } from 'hamburger-react';
@@ -39,16 +38,18 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     boxSizing: 'border-box',
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center'
   },
   menuWrapper: {
     height: '100%',
-    width: '100%'
-  },
-  menuWrapperInner: {
-    position: 'absolute',
     width: '100%',
-    height: '100%'
+    position: 'absolute',
+    background: theme.palette.primary.dark,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    paddingBottom: theme.spacing(5)
   },
   logo: {
     width: '42vw',
@@ -62,10 +63,13 @@ const useStyles = makeStyles((theme) => ({
   },
   menuItemTxt: {
     color: 'inherit',
-    fontWeight: '900',
+    fontWeight: '700',
     fontStyle: 'italic',
     fontSize: '22px',
-    textAlign: 'center'
+    textAlign: 'center',
+    [theme.breakpoints.up('md')]: {
+      fontSize: '32px'
+    }
   },
   linkWrap: {
     overflow: 'hidden',
@@ -103,19 +107,14 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 64,
     position: 'relative'
   },
-  circleBtn: {
-    background: '#FFF',
-    width: 80,
-    height: 80,
-    borderRadius: 80,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    border: `2px solid ${theme.palette.primary.dark}`,
-    position: 'absolute'
+  toggleSwitch: {
+    position: 'absolute',
+    bottom: theme.spacing(7),
+    borderRadius: 30
   },
-  contactCircle: {
-    left: 0
+  toggleBtn: {
+    width: '30vw',
+    maxWidth: 200
   }
 }));
 
@@ -198,6 +197,15 @@ const item = {
   }
 };
 
+const toggleSwitch = {
+  hide: { opacity: 0, scale: 0, transition: { bounce: 0 } },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: { delay: 1 }
+  }
+};
+
 // SUB-COMPONENTS
 function TopSection({ logo, setExpand, expand, upSM }) {
   const classes = useStyles();
@@ -227,6 +235,38 @@ function TopSection({ logo, setExpand, expand, upSM }) {
         <Hamburger toggled={expand} toggle={setExpand} size={upSM ? 36 : 26} />
       </Grid>
     </Grid>
+  );
+}
+
+function ToggleSwitch({ setShowContact, expand }) {
+  const classes = useStyles();
+  return (
+    <motion.div
+      variants={toggleSwitch}
+      animate={expand ? 'show' : 'hide'}
+      className={classes.toggleSwitch}
+    >
+      <ButtonGroup
+        size='large'
+        color='primary'
+        disableElevation
+        variant='outlined'
+        aria-label='large outlined primary button group'
+      >
+        <Button
+          className={classes.toggleBtn}
+          onClick={() => setShowContact(false)}
+        >
+          Menu
+        </Button>
+        <Button
+          className={classes.toggleBtn}
+          onClick={() => setShowContact(true)}
+        >
+          Contact
+        </Button>
+      </ButtonGroup>
+    </motion.div>
   );
 }
 
@@ -265,6 +305,7 @@ function ExpandableSection({
             );
           }}
         />
+        <ToggleSwitch setShowContact={setShowContact} expand={expand} />
       </motion.div>
     </Grid>
   );
@@ -280,51 +321,24 @@ function Menu({ menuItems, expand, setExpand, setShowContact }) {
       className={classes.menuWrapper}
       animate={expand ? 'show' : 'hidden'}
     >
-      <Grid
-        container
-        alignItems='stretch'
-        direction='row'
-        justify='flex-start'
-        className={classes.menuWrapperInner}
-      >
-        <Grid item xs={10} className={classes.blueBg}>
-          {menuItems.map((itm) => (
-            <motion.div
-              key={itm.linkTo}
-              style={{ color: '#FFF' }}
-              onClick={() => setExpand(false)}
-              whileHover={{ color: '#FF4F26' }}
-              className={classes.menuItem}
-              variants={item}
-            >
-              <Link href={`/${itm.linkTo}`}>
-                <a className={classes.linkWrap}>
-                  <Typography variant='h1' className={classes.menuItemTxt}>
-                    {itm.label}
-                  </Typography>
-                </a>
-              </Link>
-            </motion.div>
-          ))}
-        </Grid>
-        <Grid item xs={2} className={classes.peachBg}>
-          <motion.div
-            className={cx(classes.contactCircle, classes.circleBtn)}
-            onTouchStart={() => setShowContact(1)}
-            style={{
-              x: '-50%'
-            }}
-            animate={{
-              scale: expand ? 1 : 0
-            }}
-            transition={{
-              delay: expand ? 1 : 0
-            }}
-          >
-            <Typography>Contact</Typography>
-          </motion.div>
-        </Grid>
-      </Grid>
+      {menuItems.map((itm) => (
+        <motion.div
+          key={itm.linkTo}
+          style={{ color: '#FFF' }}
+          onClick={() => setExpand(false)}
+          whileHover={{ color: '#FF4F26' }}
+          className={classes.menuItem}
+          variants={item}
+        >
+          <Link href={`/${itm.linkTo}`}>
+            <a className={classes.linkWrap}>
+              <Typography variant='h1' className={classes.menuItemTxt}>
+                {itm.label}
+              </Typography>
+            </a>
+          </Link>
+        </motion.div>
+      ))}
     </motion.div>
   );
 }

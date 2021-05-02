@@ -28,10 +28,14 @@ function DeltaCarousel({
 
   const handlers = useSwipeable({
     onSwipedLeft: () => {
-      setIndex(Math.min(items.length - 1, index + 1));
+      const newIndex = Math.min(items.length - 1, index + 1);
+      setIndex(newIndex);
+      onChange(newIndex);
     },
     onSwipedRight: () => {
-      setIndex(Math.max(0, index - 1));
+      const newIndex = Math.max(0, index - 1);
+      setIndex(newIndex);
+      onChange(newIndex);
     }
   });
 
@@ -71,14 +75,9 @@ function DeltaCarousel({
     }
   }, [inView]);
 
-  useEffect(() => {
-    console.log(`index changed to: ${index}`);
-    onChange(index);
-  }, [index]);
-
   const spring = {
     type: 'spring',
-    stiffness: 50
+    stiffness: 30
   };
 
   const refPassthrough = (el) => {
@@ -104,7 +103,8 @@ function DeltaCarousel({
           }}
           transition={{
             type: 'spring',
-            stiffness: 30
+            // stiffness: 100,
+            bounce: 0
           }}
           style={{
             display: 'flex',
