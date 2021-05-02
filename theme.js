@@ -111,16 +111,16 @@ const theme = createMuiTheme({
     },
     MuiFilledInput: {
       root: {
-        backgroundColor: '#FFF',
+        // backgroundColor: '#FFF',
         borderRadius: 0,
         '&:hover': {
-          backgroundColor: '#FFF !important'
+          // backgroundColor: '#FFF !important'
         }
       }
     },
     MuiTextField: {
       root: {
-        backgroundColor: '#FFF',
+        // backgroundColor: '#FFF',
         borderRadius: 0
       }
     },
@@ -139,7 +139,7 @@ const theme = createMuiTheme({
     },
     MuiOutlinedInput: {
       root: {
-        backgroundColor: '#FFF'
+        // backgroundColor: '#FFF'
       }
     },
     MuiInputLabel: {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import disableScroll from 'disable-scroll';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -50,7 +50,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    paddingBottom: theme.spacing(5)
+    paddingBottom: theme.spacing(5),
+    [theme.breakpoints.up('md')]: {
+      width: '50%',
+      paddingLeft: theme.spacing(10)
+    }
   },
   logo: {
     width: '42vw',
@@ -70,7 +74,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '22px',
     textAlign: 'center',
     [theme.breakpoints.up('md')]: {
-      fontSize: '32px'
+      fontSize: '32px',
+      textAlign: 'left'
     }
   },
   linkWrap: {
@@ -78,15 +83,20 @@ const useStyles = makeStyles((theme) => ({
     display: 'block'
   },
   contactWrapper: {
+    height: '100%',
+    background: theme.palette.primary.dark
+  },
+  contactWrapperInner: {
     paddingTop: theme.spacing(5),
     paddingBottom: theme.spacing(5),
+    background: '#FFDACE',
     height: '100%',
+    width: '100%',
     overflow: 'auto',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    background: '#FFDACE'
+    justifyContent: 'center'
   },
   blueBg: {
     background: theme.palette.primary.dark,
@@ -119,6 +129,9 @@ const useStyles = makeStyles((theme) => ({
   toggleBtn: {
     width: '30vw',
     maxWidth: 200
+  },
+  gridForDesktop: {
+    height: '100%'
   }
 }));
 
@@ -210,6 +223,24 @@ const toggleSwitch = {
   }
 };
 
+const contactForm = {
+  hide: { opacity: 0, y: 50, transition: { bounce: 0 } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 1 }
+  }
+};
+
+const contactWrapper = {
+  hide: { background: '#07003C', transition: { bounce: 0 }, y: '100%' },
+  show: {
+    background: '#FFDACE',
+    y: 0,
+    transition: { delay: 0.5, bounce: 0 }
+  }
+};
+
 // SUB-COMPONENTS
 function TopSection({ logo, setExpand, expand, upSM, showContact }) {
   const classes = useStyles();
@@ -269,7 +300,7 @@ function TopSection({ logo, setExpand, expand, upSM, showContact }) {
       <Grid item>
         <motion.div
           animate={{
-            color: showContact ? '#000' : '#FFF'
+            color: (upSM && expand) || showContact ? '#000' : '#FFF'
           }}
         >
           <Hamburger
@@ -323,6 +354,8 @@ function ExpandableSection({
   setShowContact
 }) {
   const classes = useStyles();
+  const theme = useTheme();
+  const upMD = useMediaQuery(theme.breakpoints.up('md'));
   return (
     <Grid item xs={12}>
       <motion.div
@@ -331,26 +364,44 @@ function ExpandableSection({
         initial='collapse'
         animate={expand ? 'expand' : 'collapse'}
       >
-        <DeltaCarousel
-          noFade
-          items={['menu', 'contact']}
-          focus={showContact ? 1 : 0}
-          disableClickOnItem
-          onChange={(index) => setShowContact(index)}
-          itemBuilder={(item, i, index) => {
-            return item === 'menu' ? (
+        {upMD ? (
+          <Grid container className={classes.gridForDesktop}>
+            <Grid xs={6} item>
               <Menu
                 setShowContact={setShowContact}
                 menuItems={menuItems}
                 expand={expand}
                 setExpand={setExpand}
               />
-            ) : (
+            </Grid>
+            <Grid xs={6} item>
               <Contact expand={expand} />
-            );
-          }}
-        />
-        <ToggleSwitch setShowContact={setShowContact} expand={expand} />
+            </Grid>
+          </Grid>
+        ) : (
+          <Fragment>
+            <DeltaCarousel
+              noFade
+              items={['menu', 'contact']}
+              focus={showContact ? 1 : 0}
+              disableClickOnItem
+              onChange={(index) => setShowContact(index)}
+              itemBuilder={(item, i, index) => {
+                return item === 'menu' ? (
+                  <Menu
+                    setShowContact={setShowContact}
+                    menuItems={menuItems}
+                    expand={expand}
+                    setExpand={setExpand}
+                  />
+                ) : (
+                  <Contact expand={expand} />
+                );
+              }}
+            />
+            <ToggleSwitch setShowContact={setShowContact} expand={expand} />
+          </Fragment>
+        )}
       </motion.div>
     </Grid>
   );
@@ -390,9 +441,35 @@ function Menu({ menuItems, expand, setExpand, setShowContact }) {
 
 function Contact({ expand }) {
   const classes = useStyles();
+  const theme = useTheme();
   return (
     <Box className={classes.contactWrapper}>
-      <ContactForm clear={!expand} />
+      <motion.div
+        variants={contactWrapper}
+        className={classes.contactWrapperInner}
+        initial='hide'
+        animate={expand ? 'show' : 'hide'}
+      >
+        <motion.div
+          variants={contactForm}
+          animate={expand ? 'show' : 'hide'}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Typography
+            variant='h1'
+            style={{ width: '100%', paddingLeft: theme.spacing(5) }}
+          >
+            Contact
+          </Typography>
+          <Box mb={5} />
+          <ContactForm clear={!expand} />
+        </motion.div>
+      </motion.div>
     </Box>
   );
 }

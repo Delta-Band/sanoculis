@@ -8,7 +8,8 @@ let to;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '80vw'
+    width: '80%',
+    maxWidth: 400
   }
 }));
 
@@ -63,7 +64,7 @@ function Contact({ clear = false }) {
         id='outlined-error'
         required
         label={validateName && !nameIsValid ? 'Your name is required' : 'Name'}
-        variant='filled'
+        // variant='filled'
         value={name}
         // InputLabelProps={{ shrink: false }}
         onChange={(event) => {
@@ -82,7 +83,7 @@ function Contact({ clear = false }) {
         error={validateEmail && !emailIsValid}
         id='outlined-error-helper-text'
         label={validateEmail && !emailIsValid ? 'Not a valid email' : 'Email'}
-        variant='filled'
+        // variant='filled'
         value={email}
         onChange={(event) => {
           setEmail(event.target.value);
@@ -99,7 +100,7 @@ function Contact({ clear = false }) {
         label='Message'
         multiline
         rows={3}
-        variant='filled'
+        // variant='filled'
         value={message}
         onChange={(event) => {
           setMessage(event.target.value);
