@@ -55,7 +55,8 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     width: '42vw',
     maxWidth: 190,
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(2),
+    transform: 'translateY(2px)'
   },
   menuItem: {
     color: '#FFF',
