@@ -5,7 +5,7 @@ import { ChevronRight } from '@styled-icons/boxicons-regular/ChevronRight';
 import { ChevronLeft } from '@styled-icons/boxicons-regular/ChevronLeft';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { motion } from 'framer-motion';
-import { Grid, Box, Typography, ButtonGroup, Button } from '@material-ui/core';
+import { Grid, Box, Typography } from '@material-ui/core';
 // import { useScrollDirection } from 'react-use-scroll-direction';
 // import { useScrollYPosition } from 'react-use-scroll-position';
 import { Rotate as Hamburger } from 'hamburger-react';
@@ -102,38 +102,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  blueBg: {
-    background: theme.palette.primary.dark,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    flexShrink: 0,
-    paddingTop: 64,
-    paddingBottom: 64,
-    paddingLeft: theme.spacing(3),
-    paddingRight: theme.spacing(2)
-  },
-  peachBg: {
-    background: '#FFDACE',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexShrink: 0,
-    paddingTop: 64,
-    paddingBottom: 64,
-    position: 'relative'
-  },
-  toggleSwitch: {
-    position: 'absolute',
-    bottom: theme.spacing(12),
-    borderRadius: 30
-  },
-  toggleBtn: {
-    width: '30vw',
-    maxWidth: 200
-  },
   gridForDesktop: {
     height: '100%'
   },
@@ -220,15 +188,6 @@ const item = {
     opacity: 1,
     y: '0%',
     transition: { bounce: 0 }
-  }
-};
-
-const toggleSwitch = {
-  hide: { opacity: 0, scale: 0, transition: { bounce: 0 } },
-  show: {
-    opacity: 1,
-    scale: 1,
-    transition: { delay: 1 }
   }
 };
 
