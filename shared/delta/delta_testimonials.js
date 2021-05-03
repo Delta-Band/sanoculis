@@ -18,8 +18,7 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: '93px'
     },
     [theme.breakpoints.up('md')]: {
-      marginBottom: 0,
-      marginRight: '5vw'
+      margin: '0 auto'
     }
   },
   lineClamp: {
@@ -82,7 +81,7 @@ export default function DeltaTestimonials({ testimonials, title }) {
       art={
         <Box
           width={PROFILE_SIZE * (upMD ? 2 : 4)}
-          display='inline-block'
+          display='block'
           ref={ref}
           className={classes.profileGrid}
         >

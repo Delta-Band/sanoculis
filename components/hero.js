@@ -22,21 +22,37 @@ const useStyles = makeStyles((theme) => ({
   },
   white: {
     color: '#FFF'
+  },
+  video: {
+    width: '100%',
+    marginBottom: '40px',
+    [theme.breakpoints.up('md')]: {
+      marginBottom: 0
+    }
   }
 }));
 
-function Hero({ tagline, description, art }) {
+function Hero({ tagline, description }) {
   const theme = useTheme();
   const classes = useStyles();
   const upSM = useMediaQuery(theme.breakpoints.up('sm'));
+  const upMD = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <Delta2ColLayout
-      paddingTop={-10}
-      paddingBottom={upSM ? -9 : 5}
+      paddingTop={upMD ? -2 : -10}
+      paddingBottom={upMD ? -8 : 5}
       background={theme.palette.primary.main}
       fullWidth
-      art={art}
+      art={
+        <video
+          playsInline
+          muted
+          className={classes.video}
+          src={`videos/${upSM ? 'desktop' : 'mobile'}/hero.mp4`}
+          autoPlay
+        />
+      }
       extendBottomWith={
         <img
           src='images/white_wave.png'

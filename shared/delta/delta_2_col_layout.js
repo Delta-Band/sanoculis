@@ -63,7 +63,7 @@ function Delta2ColLayout({
             width: fullWidth ? '100%' : 'auto'
           }}
         >
-          <Grid item xs={12} md={6} style={{ textAlign: 'center' }}>
+          <Grid item xs={12} md={6}>
             {art}
           </Grid>
           <Grid item xs={12} md={6}>

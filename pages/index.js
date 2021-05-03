@@ -1,33 +1,18 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import screenfull from 'screenfull';
-import {
-  Box,
-  Typography,
-  Link as MuiLink,
-  Button,
-  Grid
-} from '@material-ui/core';
+import React, { Fragment } from 'react';
+import { Box, Typography, Link as MuiLink, Button } from '@material-ui/core';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
-import { PlayCircleFill as PlayIcon } from '@styled-icons/bootstrap/PlayCircleFill';
 import { Download as DownloadIcon } from '@styled-icons/octicons/Download';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Lottie from 'react-lottie';
+// import useMediaQuery from '@material-ui/core/useMediaQuery';
 import reactor from '../reactor';
 import Head from '../head';
-import lottie1 from '../public/lottie/1.json';
-import lottie2 from '../public/lottie/2.json';
-import lottie3 from '../public/lottie/3.json';
-import lottie4 from '../public/lottie/4.json';
-import lottie5 from '../public/lottie/5.json';
+import { DeltaTestimonials, Delta2ColLayout, Footer } from '../shared';
 import {
-  DeltaModal,
-  DeltaMouseTip,
-  DeltaTestimonials,
-  Delta2ColLayout,
-  Footer
-} from '../shared';
-import { Hero, News, LearnMore } from '../components';
+  Hero,
+  News,
+  LearnMore,
+  ClinicalPerformance,
+  HowItWorks
+} from '../components';
 
 export async function getServerSideProps(context) {
   // console.log(context.req.headers['user-agent']);
@@ -59,16 +44,21 @@ const useStyles = makeStyles((theme) => ({
     color: '#FFF'
   },
   art: {
-    margin: '0 0 20px 0',
+    position: 'relative',
+    margin: '0 auto 10vw',
+    width: '80vw',
+    height: '80vw',
     [theme.breakpoints.up('md')]: {
-      // margin: '0 2.5vw 0 0'
-    },
-    '& > img': {
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: '90%'
-      }
+      margin: '0 auto',
+      width: '40vw',
+      height: '40vw'
     }
+    // '& > img': {
+    //   width: '100%',
+    //   [theme.breakpoints.up('md')]: {
+    //     width: '90%'
+    //   }
+    // }
   },
   newsLogo: {
     width: '100%',
@@ -102,107 +92,39 @@ const useStyles = makeStyles((theme) => ({
 export default function Home({ homePage, testimonials, news, footer }) {
   const theme = useTheme();
   const classes = useStyles();
-  const upSM = useMediaQuery(theme.breakpoints.up('sm'));
   // const upMD = useMediaQuery(theme.breakpoints.up('md'));
   // const _isMobile = isMobile || matches;
-  const [openVideo, setOpenVideo] = useState(false);
-  const videoRef = useRef();
-
-  function playFullScreen() {
-    if (screenfull.isEnabled) {
-      screenfull.request();
-    }
-    // videoRef.current.play();
-  }
-
-  function ImageContainer({ src }) {
-    return (
-      <Lottie
-        className={classes.art}
-        options={{
-          loop: true,
-          autoplay: true,
-          animationData: src,
-          rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice'
-          }
-        }}
-      />
-    );
-  }
-
-  function closeVideo(e) {
-    if (e.key === 'Escape') {
-      videoRef.current.pause();
-      setOpenVideo(false);
-    }
-  }
-
-  function playVideo() {
-    videoRef.current.play();
-    upSM ? setOpenVideo(true) : playFullScreen();
-  }
-
-  useEffect(function () {
-    document.addEventListener('keyup', closeVideo);
-    return document.removeEventListener('keyup', closeVideo);
-  }, []);
 
   return (
     <Fragment>
       <Head title='MIMS Story' />
-      <Hero
-        tagline={homePage.tagline}
-        description={homePage.description}
+      <Hero tagline={homePage.tagline} description={homePage.description} />
+      <Delta2ColLayout
         art={
           <Box className={classes.art}>
-            <video
-              playsInline
-              muted
-              style={{ width: '100%' }}
-              src={`videos/${upSM ? 'desktop' : 'mobile'}/hero.mp4`}
-              autoPlay
+            <lottie-interactive
+              loop
+              path='lottie/1.json'
+              interaction='play-on-show'
             />
           </Box>
         }
-      />
-      <Delta2ColLayout
-        art={<ImageContainer src={lottie1} />}
         title={homePage.section1Title}
         content={[
           <Typography key={1}>{homePage.section1Description}</Typography>
         ]}
       />
+      <HowItWorks homePage={homePage} classes={classes} />
       <Delta2ColLayout
         art={
-          <DeltaMouseTip
-            tip='PLAY'
-            style={{ width: '100%' }}
-            onClick={playVideo}
-          >
-            <ImageContainer src={lottie2} />
-          </DeltaMouseTip>
+          <Box className={classes.art}>
+            <lottie-interactive
+              loop
+              path='lottie/3.json'
+              interaction='play-on-show'
+            />
+          </Box>
         }
-        title={homePage.section2Title}
-        content={[
-          <Typography key={1}>{homePage.section2Description}</Typography>,
-          <Button
-            key={2}
-            variant='contained'
-            disableElevation
-            color='primary'
-            size='large'
-            onClick={playVideo}
-          >
-            {homePage.section2BtnTxt}
-            <Box ml={2} mt='-2px'>
-              <PlayIcon size={upSM ? 22 : 20} />
-            </Box>
-          </Button>
-        ]}
-      />
-      <Delta2ColLayout
-        art={<ImageContainer src={lottie3} />}
         title={homePage.section3Title}
         content={[
           <Typography key={1}>{homePage.section3Description}</Typography>
@@ -257,100 +179,14 @@ export default function Home({ homePage, testimonials, news, footer }) {
           </MuiLink>
         ]}
       />
-      <Delta2ColLayout
-        background={theme.palette.primary.dark}
-        titleColor='#FFF'
-        paddingTop={10}
-        paddingBottom={5}
-        art={<ImageContainer src={lottie4} />}
-        title={homePage.performanceTitle}
-        content={[
-          <Grid container key={1} spacing={4}>
-            <Grid item xs={6}>
-              <Typography variant='h3' className={classes.blueInfo}>
-                {homePage.performanceMinDuration}
-              </Typography>
-              <Typography classes={{ root: classes.whiteText }}>
-                Min Procedure
-                <br />
-                duration
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant='h3' className={classes.blueInfo}>
-                {homePage.performanceIOP}
-              </Typography>
-              <Typography classes={{ root: classes.whiteText }}>
-                IOP Reduction after 12
-                <br />
-                Months
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant='h3' className={classes.blueInfo}>
-                {homePage.performanceMedReduction}
-              </Typography>
-              <Typography classes={{ root: classes.whiteText }}>
-                Medication reduction
-                <br />
-                at 12 mo.
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant='h3' className={classes.blueInfo}>
-                {homePage.performanceComplication}
-              </Typography>
-              <Typography classes={{ root: classes.whiteText }}>
-                Major intra/post-op
-                <br />
-                complications
-              </Typography>
-            </Grid>
-          </Grid>,
-          <Link key={2} href='/clinical'>
-            <a>
-              <Button
-                variant='contained'
-                disableElevation
-                color='secondary'
-                size='large'
-              >
-                {homePage.performanceBtnTxt}
-              </Button>
-            </a>
-          </Link>
-        ]}
-      />
+      <ClinicalPerformance homePage={homePage} classes={classes} />
       <DeltaTestimonials
         testimonials={testimonials}
         title={homePage.testimonialsTitle}
       />
-      <News
-        art={<ImageContainer src={lottie5} />}
-        title={homePage.newsTitle}
-        items={news}
-      />
+      <News artClass={classes.art} title={homePage.newsTitle} items={news} />
       <LearnMore />
       <Footer specPDF={homePage.specPdf} footerData={footer} />
-      <DeltaModal
-        show={openVideo}
-        onClose={function () {
-          videoRef.current.pause();
-          setOpenVideo(false);
-        }}
-      >
-        <video
-          controls
-          style={{
-            height: '70vh',
-            objectFit: 'cover',
-            marginBottom: '-4px'
-          }}
-          ref={videoRef}
-        >
-          <source src='/how_mims_works.mp4' type='video/mp4' />
-        </video>
-      </DeltaModal>
     </Fragment>
   );
 }

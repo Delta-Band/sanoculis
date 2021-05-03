@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function News({ art, title, items }) {
+export default function News({ art, title, items, artClass }) {
   const theme = useTheme();
   const classes = useStyles();
   const [index, setIndex] = useState(0);
@@ -72,7 +72,40 @@ export default function News({ art, title, items }) {
       paddingBottom={5}
       titleColor='#FFF'
       background={theme.palette.primary.dark}
-      art={art}
+      art={
+        <Box className={artClass}>
+          <img
+            src='images/gradient_bg.svg'
+            style={{
+              position: 'absolute',
+              right: 0,
+              top: 0,
+              width: '100%',
+              height: '100%'
+            }}
+          />
+          <img
+            src='images/news.png'
+            style={{
+              position: 'absolute',
+              right: '1%',
+              top: '1.5%',
+              width: '98%',
+              height: '98%'
+            }}
+          />
+          <lottie-interactive
+            path='lottie/5.json'
+            loop
+            interaction='play-on-show'
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0
+            }}
+          />
+        </Box>
+      }
       title={title}
       content={[
         <DeltaCarousel

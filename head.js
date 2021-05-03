@@ -18,6 +18,10 @@ function Head({ title }) {
         as='font'
         crossOrigin=''
       />
+      <script
+        type='text/javascript'
+        src='https://unpkg.com/lottie-interactive@latest/dist/lottie-interactive.js'
+      ></script>
     </NextHead>
   );
 }
