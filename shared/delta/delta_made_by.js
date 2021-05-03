@@ -1,8 +1,9 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import cx from 'classnames';
+import { motion } from 'framer-motion';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Button, Link as MuiLink, Grid } from '@material-ui/core';
+import { Link as MuiLink, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,22 +21,26 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: 'italic',
     fontWeight: 900
   },
-  outlinedBtn: {
-    borderRadius: 40,
-    borderWidth: 2
-  },
   spacer: {
     marginBottom: theme.spacing(2)
   },
-  link: {
+  linkWrapper: {
     textDecoration: 'none',
-    marginLeft: theme.spacing(2),
+    '&:hover': {
+      textDecoration: 'none'
+    },
     '&:visited': {
       textDecoration: 'none'
     },
     '&:focus': {
       textDecoration: 'none'
     }
+  },
+  link: {
+    marginLeft: theme.spacing(2),
+    borderRadius: 40,
+    border: '2px solid rgba(255, 255, 255 , 0.5)',
+    padding: '5px 15px'
   },
   opacity: {
     opacity: 0.5
@@ -74,17 +79,21 @@ export default function MadeByDelta() {
             target='_blank'
             rel='noreferrer'
             href='https://delta.band'
-            className={classes.link}
+            className={classes.linkWrapper}
           >
-            <Button
-              variant='outlined'
-              color='secondary'
-              size='large'
-              disableElevation
-              className={classes.outlinedBtn}
+            <motion.div
+              style={{
+                color: '#FFF',
+                background: 'rgba(255, 255, 255, 0)'
+              }}
+              whileHover={{
+                background: 'rgba(255, 255, 255, 1)',
+                color: '#FF0048'
+              }}
+              className={classes.link}
             >
-              <span className={classes.textStyle}>DELTA</span>
-            </Button>
+              DELTA
+            </motion.div>
           </MuiLink>
         </Grid>
       </GridElement>
@@ -97,17 +106,21 @@ export default function MadeByDelta() {
             target='_blank'
             rel='noreferrer'
             href='https://rechter.co'
-            className={classes.link}
+            className={classes.linkWrapper}
           >
-            <Button
-              variant='outlined'
-              color='secondary'
-              size='large'
-              disableElevation
-              className={classes.outlinedBtn}
+            <motion.div
+              className={classes.link}
+              style={{
+                color: '#FFF',
+                background: 'rgba(255, 255, 255, 0)'
+              }}
+              whileHover={{
+                background: 'rgba(255, 255, 255, 1)',
+                color: '#000'
+              }}
             >
-              <span className={classes.textStyle}>Rechter.</span>
-            </Button>
+              Rechter.
+            </motion.div>
           </MuiLink>
         </Grid>
       </GridElement>
