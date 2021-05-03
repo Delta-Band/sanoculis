@@ -1,12 +1,28 @@
 import React from 'react';
 import { Box, Typography, Button, Grid } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
+import cx from 'classnames';
 import { Delta2ColLayout } from '../shared';
+
+const useStyles = makeStyles((theme) => ({
+  art: {
+    height: '80vw',
+    width: '80vw',
+    [theme.breakpoints.up('md')]: {
+      height: '40vw',
+      width: '40vw'
+    },
+    [theme.breakpoints.up('md')]: {
+      height: '25vw',
+      width: '25vw'
+    }
+  }
+}));
 
 export default function ClinicalPerformance({ homePage, classes }) {
   const theme = useTheme();
-
+  const _classes = useStyles();
   return (
     <Delta2ColLayout
       background={theme.palette.primary.dark}
@@ -14,7 +30,7 @@ export default function ClinicalPerformance({ homePage, classes }) {
       paddingTop={10}
       paddingBottom={5}
       art={
-        <Box className={classes.art}>
+        <Box className={cx(classes.art, _classes.art)}>
           <img
             src='images/gradient_bg.svg'
             style={{
@@ -42,7 +58,8 @@ export default function ClinicalPerformance({ homePage, classes }) {
             style={{
               width: '50%',
               position: 'absolute',
-              bottom: 0
+              bottom: 0,
+              left: 0
             }}
           />
         </Box>

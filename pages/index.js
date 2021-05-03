@@ -47,11 +47,14 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     margin: '0 auto 10vw',
     width: '80vw',
-    height: '80vw',
+    // height: '80vw',
     [theme.breakpoints.up('md')]: {
       margin: '0 auto',
       width: '40vw',
-      height: '40vw'
+      maxWidth: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
     }
     // '& > img': {
     //   width: '100%',

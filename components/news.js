@@ -17,15 +17,15 @@ const useStyles = makeStyles((theme) => ({
     color: '#FFF'
   },
   art: {
-    margin: '0 0 20px 0',
+    height: '80vw',
+    width: '80vw',
     [theme.breakpoints.up('md')]: {
-      margin: '0 2.5vw 0 0'
+      height: '40vw',
+      width: '40vw'
     },
-    '& > img': {
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: '100%'
-      }
+    [theme.breakpoints.up('md')]: {
+      height: '25vw',
+      width: '25vw'
     }
   },
   newsLogo: {
@@ -73,7 +73,7 @@ export default function News({ art, title, items, artClass }) {
       titleColor='#FFF'
       background={theme.palette.primary.dark}
       art={
-        <Box className={artClass}>
+        <Box className={cx(artClass, classes.art)}>
           <img
             src='images/gradient_bg.svg'
             style={{
