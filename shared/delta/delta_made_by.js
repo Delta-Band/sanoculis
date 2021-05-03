@@ -1,8 +1,8 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames';
 import { motion } from 'framer-motion';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+// import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Link as MuiLink, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '20px 0',
     color: '#FFF',
     marginTop: theme.spacing(5),
-    maxWidth: 490,
+    maxWidth: 440,
     margin: '0 auto',
     [theme.breakpoints.up('xs')]: {
       padding: 0
@@ -19,7 +19,12 @@ const useStyles = makeStyles((theme) => ({
   textStyle: {
     fontFamily: 'Rubik',
     fontStyle: 'italic',
-    fontWeight: 900
+    fontWeight: 900,
+    display: 'flex',
+    alignItems: 'center',
+    [theme.breakpoints.up('xs')]: {
+      padding: 0
+    }
   },
   spacer: {
     marginBottom: theme.spacing(2)
@@ -49,17 +54,13 @@ const useStyles = makeStyles((theme) => ({
 
 function GridElement({ children }) {
   const classes = useStyles();
-  const theme = useTheme();
-  const upXS = useMediaQuery(theme.breakpoints.up('xs'));
+
   return (
     <Grid
       item
-      xs={12}
-      sm={6}
+      // xs={12}
+      // sm={6}
       className={cx(classes.textStyle)}
-      container
-      justify={upXS ? 'flex-start' : 'space-between'}
-      alignItems='center'
     >
       {children}
     </Grid>
@@ -68,13 +69,21 @@ function GridElement({ children }) {
 
 export default function MadeByDelta() {
   const classes = useStyles();
+  // const theme = useTheme();
+  // const upXS = useMediaQuery(theme.breakpoints.up('xs'));
+
   return (
-    <Grid container className={classes.root} spacing={2}>
+    <Grid
+      container
+      className={classes.root}
+      spacing={2}
+      direction='row'
+      justify='space-between'
+      alignItems='center'
+    >
       <GridElement>
-        <Grid item className={classes.opacity}>
-          Made By{' '}
-        </Grid>
-        <Grid item>
+        <div className={classes.opacity}>Made By </div>
+        <div>
           <MuiLink
             target='_blank'
             rel='noreferrer'
@@ -95,13 +104,11 @@ export default function MadeByDelta() {
               DELTA
             </motion.div>
           </MuiLink>
-        </Grid>
+        </div>
       </GridElement>
       <GridElement>
-        <Grid item className={classes.opacity}>
-          Guided by{' '}
-        </Grid>
-        <Grid item>
+        <div className={classes.opacity}>Guided by </div>
+        <div>
           <MuiLink
             target='_blank'
             rel='noreferrer'
@@ -122,7 +129,7 @@ export default function MadeByDelta() {
               Rechter.
             </motion.div>
           </MuiLink>
-        </Grid>
+        </div>
       </GridElement>
     </Grid>
   );
