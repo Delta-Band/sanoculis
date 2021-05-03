@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@material-ui/core';
 import cx from 'classnames';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   learnWrapper: {
@@ -110,22 +110,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LearnMore() {
   const classes = useStyles();
-  const theme = useTheme();
-  const [colorize1, setColorize1] = useState(false);
-  const [colorize2, setColorize2] = useState(false);
 
-  function ImageFilter({ children, colorize }) {
-    console.log(`colorize: ${colorize}`);
+  function ImageFilter({ children }) {
     return (
       <motion.div
         style={{
           height: '100%',
           filter: 'grayscale(1)'
         }}
-        transition={{ duration: 1 }}
-        animate={{
-          filter: colorize ? 'grayscale(0)' : 'grayscale(1)'
+        whileHover={{
+          filter: 'grayscale(0)'
         }}
+        transition={{ duration: 0.25 }}
       >
         {children}
       </motion.div>
@@ -135,7 +131,7 @@ export default function LearnMore() {
   return (
     <div className={classes.learnWrapper}>
       <div className={classes.section}>
-        <ImageFilter colorize={colorize1}>
+        <ImageFilter>
           <img
             src='images/vision.jpg'
             className={cx(classes.img, classes.img1)}
@@ -149,21 +145,6 @@ export default function LearnMore() {
               color='primary'
               size='large'
               className={classes.muiBtn}
-              onTouchStart={() => {
-                setColorize1(true);
-              }}
-              onMouseEnter={() => {
-                setColorize1(true);
-              }}
-              onTouchEnd={() => {
-                setColorize1(false);
-              }}
-              onTouchCancel={() => {
-                setColorize1(false);
-              }}
-              onMouseLeave={() => {
-                setColorize1(false);
-              }}
             >
               LEARN MORE ABOUT SANOCULIS
             </Button>
@@ -171,7 +152,7 @@ export default function LearnMore() {
         </Link>
       </div>
       <div className={classes.section}>
-        <ImageFilter colorize={colorize2}>
+        <ImageFilter>
           <img
             src='images/about.jpg'
             className={cx(classes.img, classes.img2)}
@@ -185,21 +166,6 @@ export default function LearnMore() {
               color='secondary'
               size='large'
               className={classes.muiBtn}
-              onTouchStart={() => {
-                setColorize2(true);
-              }}
-              onMouseEnter={() => {
-                setColorize2(true);
-              }}
-              onTouchEnd={() => {
-                setColorize2(false);
-              }}
-              onTouchCancel={() => {
-                setColorize2(false);
-              }}
-              onMouseLeave={() => {
-                setColorize2(false);
-              }}
             >
               Why INTERVENTIONAL GLAUCOMA helps
             </Button>
