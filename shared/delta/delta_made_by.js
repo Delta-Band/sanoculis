@@ -96,7 +96,7 @@ export default function MadeByDelta() {
           <MuiLink
             target='_blank'
             rel='noreferrer'
-            href='https://rechter.io'
+            href='https://rechter.co'
             className={classes.link}
           >
             <Button

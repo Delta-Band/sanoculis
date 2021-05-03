@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-// import disableScroll from 'disable-scroll';
 import { ChevronRight } from '@styled-icons/boxicons-regular/ChevronRight';
 import { ChevronLeft } from '@styled-icons/boxicons-regular/ChevronLeft';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { motion } from 'framer-motion';
 import { Grid, Box, Typography } from '@material-ui/core';
-// import { useScrollDirection } from 'react-use-scroll-direction';
-// import { useScrollYPosition } from 'react-use-scroll-position';
 import { Rotate as Hamburger } from 'hamburger-react';
 import Link from 'next/link';
 import cx from 'classnames';
@@ -76,7 +73,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '700',
     fontStyle: 'italic',
     fontSize: '22px',
-    // textAlign: 'center',
     [theme.breakpoints.up('md')]: {
       fontSize: '32px',
       textAlign: 'left'
@@ -210,7 +206,7 @@ const contactWrapper = {
 };
 
 // SUB-COMPONENTS
-function TopSection({ logo, setExpand, expand, upSM, showContact }) {
+function TopSection({ setExpand, expand, upSM, showContact }) {
   const classes = useStyles();
   return (
     <Grid
@@ -349,6 +345,9 @@ function Menu({ menuItems, expand, setExpand, setShowContact }) {
       variants={container}
       initial='hidden'
       className={classes.menuWrapper}
+      style={{
+        pointerEvents: expand ? 'all' : 'none'
+      }}
       animate={expand ? 'show' : 'hidden'}
     >
       {menuItems.map((itm) => (
@@ -441,42 +440,18 @@ function AppBar({ menuItems, logo }) {
   const [hide, setHide] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const theme = useTheme();
-  // const upMd = useMediaQuery(theme.breakpoints.up('md'));
   const upSM = useMediaQuery(theme.breakpoints.up('sm'));
-  // const { isScrollingUp, isScrollingDown } = useScrollDirection();
-  // const scrollY = useScrollYPosition();
   const ref = useRef();
   const isReady = useReadyState();
   const classes = useStyles();
 
   // EFFECTS
 
-  // useEffect(() => {
-  //   if (isScrollingDown && !hide && scrollY > 100) {
-  //     // setHide(true);
-  //     // console.log('hide app bar');
-  //     // setExpand(false);
-  //   }
-  // }, [isScrollingDown]);
-
-  // useEffect(() => {
-  //   if (isScrollingUp && hide) {
-  //     // setHide(false);
-  //     // console.log('show app bar');
-  //   }
-  // }, [isScrollingUp]);
-
   useEffect(() => {
     if (isReady) {
       setHide(false);
     }
   }, [isReady]);
-
-  // useEffect(() => {
-  //   if (!showContact) {
-  //     debugger;
-  //   }
-  // }, [showContact]);
 
   useEffect(() => {
     if (expand) {
@@ -498,7 +473,6 @@ function AppBar({ menuItems, logo }) {
       <Grid container direction='row' spacing={0}>
         <TopSection
           showContact={showContact}
-          logo={logo}
           setExpand={setExpand}
           expand={expand}
           upSM={upSM}

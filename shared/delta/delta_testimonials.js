@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { Grid, Box, Typography } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import cx from 'classnames';
+import { useInView } from 'react-intersection-observer';
 import Delta2ColLayout from './delta_2_col_layout';
 import DeltaProfile from './delta_profile';
 import DeltaCarousel from './delta_carousel';
@@ -32,17 +33,45 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DeltaTestimonials({ testimonials, title }) {
   const theme = useTheme();
+  const [autoAnimate, setAutoAnimate] = useState(false);
   const upSM = useMediaQuery(theme.breakpoints.up('sm'));
   const upMD = useMediaQuery(theme.breakpoints.up('md'));
   const upLG = useMediaQuery(theme.breakpoints.up('lg'));
   const [index, setIndex] = useState(0);
-  const containerRef = useRef();
   const classes = useStyles();
   const PROFILE_SIZE = upLG ? 240 : upMD ? 200 : upSM ? 140 : 80;
+  const timeoutRef = useRef(null);
 
-  // useScrollPosition(({ prevPos, currPos }) => {
-  //   console.log(Math.abs(currPos.y));
-  // });
+  const { ref, inView } = useInView({
+    threshold: 1
+  });
+
+  // Methods
+  function incrementIndex() {
+    if (timeoutRef.current !== null) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      timeoutRef.current = null;
+      setIndex(index < testimonials.length - 1 ? index + 1 : 0);
+    }, 5000);
+  }
+
+  useEffect(() => {
+    if (inView) {
+      setAutoAnimate(true);
+    } else {
+      setAutoAnimate(false);
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    if (!autoAnimate) return;
+    incrementIndex();
+    return () => {
+      clearTimeout(timeoutRef.current);
+    };
+  }, [index, autoAnimate]);
 
   return (
     <Delta2ColLayout
@@ -54,7 +83,7 @@ export default function DeltaTestimonials({ testimonials, title }) {
         <Box
           width={PROFILE_SIZE * (upMD ? 2 : 4)}
           display='inline-block'
-          ref={containerRef}
+          ref={ref}
           className={classes.profileGrid}
         >
           <Grid

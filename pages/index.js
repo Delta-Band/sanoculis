@@ -1,8 +1,5 @@
-// eslint-disable-next-line no-unused-vars
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-// eslint-disable-next-line no-unused-vars
-import { useSwipeable } from 'react-swipeable';
 import screenfull from 'screenfull';
 import {
   Box,
@@ -10,22 +7,19 @@ import {
   Link as MuiLink,
   Button,
   Grid
-  // Radio,
-  // FormControl,
-  // FormControlLabel,
-  // RadioGroup
 } from '@material-ui/core';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
-// import { motion } from 'framer-motion';
-// import useMediaQuery from '@material-ui/core/useMediaQuery';
-// import { LeftArrow } from '@styled-icons/boxicons-solid/LeftArrow';
-// import { RightArrow } from '@styled-icons/boxicons-solid/RightArrow';
-// import { DownArrow } from '@styled-icons/boxicons-solid/DownArrow';
 import { PlayCircleFill as PlayIcon } from '@styled-icons/bootstrap/PlayCircleFill';
 import { Download as DownloadIcon } from '@styled-icons/octicons/Download';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Lottie from 'react-lottie';
 import reactor from '../reactor';
 import Head from '../head';
+import lottie1 from '../public/lottie/1.json';
+import lottie2 from '../public/lottie/2.json';
+import lottie3 from '../public/lottie/3.json';
+import lottie4 from '../public/lottie/4.json';
+import lottie5 from '../public/lottie/5.json';
 import {
   DeltaModal,
   DeltaMouseTip,
@@ -123,9 +117,17 @@ export default function Home({ homePage, testimonials, news, footer }) {
 
   function ImageContainer({ src }) {
     return (
-      <Box className={classes.art}>
-        <img src={src} />
-      </Box>
+      <Lottie
+        className={classes.art}
+        options={{
+          loop: true,
+          autoplay: true,
+          animationData: src,
+          rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
+          }
+        }}
+      />
     );
   }
 
@@ -165,7 +167,7 @@ export default function Home({ homePage, testimonials, news, footer }) {
         }
       />
       <Delta2ColLayout
-        art={<ImageContainer src='section1.png' />}
+        art={<ImageContainer src={lottie1} />}
         title={homePage.section1Title}
         content={[
           <Typography key={1}>{homePage.section1Description}</Typography>
@@ -178,7 +180,7 @@ export default function Home({ homePage, testimonials, news, footer }) {
             style={{ width: '100%' }}
             onClick={playVideo}
           >
-            <ImageContainer src='how_it_works.png' />
+            <ImageContainer src={lottie2} />
           </DeltaMouseTip>
         }
         title={homePage.section2Title}
@@ -200,7 +202,7 @@ export default function Home({ homePage, testimonials, news, footer }) {
         ]}
       />
       <Delta2ColLayout
-        art={<ImageContainer src='simple.png' />}
+        art={<ImageContainer src={lottie3} />}
         title={homePage.section3Title}
         content={[
           <Typography key={1}>{homePage.section3Description}</Typography>
@@ -260,7 +262,7 @@ export default function Home({ homePage, testimonials, news, footer }) {
         titleColor='#FFF'
         paddingTop={10}
         paddingBottom={5}
-        art={<ImageContainer src='performance.svg' />}
+        art={<ImageContainer src={lottie4} />}
         title={homePage.performanceTitle}
         content={[
           <Grid container key={1} spacing={4}>
@@ -324,7 +326,7 @@ export default function Home({ homePage, testimonials, news, footer }) {
         title={homePage.testimonialsTitle}
       />
       <News
-        art={<ImageContainer src='performance.svg' />}
+        art={<ImageContainer src={lottie5} />}
         title={homePage.newsTitle}
         items={news}
       />

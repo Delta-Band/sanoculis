@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative'
   },
   innerWrapper: {
-    position: 'relative'
+    position: 'relative',
+    margin: '0 auto'
   },
   contentWrapper: {
     width: '80vw',

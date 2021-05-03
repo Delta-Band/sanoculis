@@ -3,8 +3,7 @@ import { TextField, Button } from '@material-ui/core';
 import { Bounce } from 'react-activity';
 import 'react-activity/dist/react-activity.css';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-
-let to;
+import emailjs from 'emailjs-com';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,9 +17,9 @@ function Contact({ clear = false }) {
   const classes = useStyles();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
   const [sending, setSending] = useState(false);
   const [ok, setOK] = useState(false);
-  const [message, setMessage] = useState('');
   const [nameIsValid, setNameIsValid] = useState(false);
   const [emailIsValid, setEmailIsValid] = useState(false);
   const [validateName, setValaidateName] = useState(false);
@@ -125,13 +124,30 @@ function Contact({ clear = false }) {
           }
           if (sending) return;
           setSending(true);
-          if (to) {
-            clearTimeout(to);
-          }
-          to = setTimeout(() => {
-            setSending(false);
-            setOK(true);
-          }, 2000);
+          const serviceID = 'service_k1ae8xr';
+          const templateID = 'new_lead';
+          const templateParams = {
+            name,
+            email,
+            message
+          };
+          const userID = 'user_54jeSZNlO93cckYtc9Sd7';
+          // emailjs.send(serviceID, templateID, templateParams, userID).then(
+          //   function (response) {
+          //     console.log('SUCCESS!', response.status, response.text);
+          //     setSending(false);
+          //     setOK(true);
+          //     setTimeout(function () {
+          //       setTimeout(function () {
+          //         setOK(false);
+          //       }, 1000);
+          //     }, 5000);
+          //   },
+          //   function (error) {
+          //     console.log('FAILED...', error);
+          //     setSending(false);
+          //   }
+          // );
         }}
       >
         {ok ? 'Got it!' : sending ? <Bounce size={16} color='white' /> : 'Send'}
