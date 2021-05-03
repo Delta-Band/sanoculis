@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
-import { Box, Typography, Link as MuiLink, Button } from '@material-ui/core';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
-import { Download as DownloadIcon } from '@styled-icons/octicons/Download';
+import { Box, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 // import useMediaQuery from '@material-ui/core/useMediaQuery';
 import reactor from '../reactor';
 import Head from '../head';
@@ -11,7 +10,8 @@ import {
   News,
   LearnMore,
   ClinicalPerformance,
-  HowItWorks
+  HowItWorks,
+  SpecSection
 } from '../components';
 
 export async function getServerSideProps(context) {
@@ -50,8 +50,16 @@ const useStyles = makeStyles((theme) => ({
     // height: '80vw',
     [theme.breakpoints.up('md')]: {
       margin: '0 auto',
-      width: '40vw',
-      maxWidth: '100%',
+      width: '400px',
+      height: '400px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    [theme.breakpoints.up('lg')]: {
+      margin: '0 auto',
+      width: '550px',
+      height: '550px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'
@@ -93,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home({ homePage, testimonials, news, footer }) {
-  const theme = useTheme();
+  // const theme = useTheme();
   const classes = useStyles();
   // const upMD = useMediaQuery(theme.breakpoints.up('md'));
   // const _isMobile = isMobile || matches;
@@ -133,55 +141,7 @@ export default function Home({ homePage, testimonials, news, footer }) {
           <Typography key={1}>{homePage.section3Description}</Typography>
         ]}
       />
-      <Delta2ColLayout
-        extendTopWith={
-          <img
-            src='images/white_wave.png'
-            style={{ width: '100%', transform: 'translateY(50%) scaleY(-1)' }}
-          />
-        }
-        background={theme.palette.primary.main}
-        art={
-          <Box mr={10} mt='-90px' mb='-90px' width={1} textAlign='left'>
-            <img
-              src='spec.png'
-              style={{
-                width: '100%',
-                objectFit: 'cover'
-              }}
-            />
-          </Box>
-        }
-        title={homePage.specTitle}
-        titleColor='#FFF'
-        content={[
-          <Typography key={1} style={{ color: '#FFF' }}>
-            {homePage.specDescription}
-          </Typography>,
-          <img key={2} src='images/israel_ce_stamp.png' />,
-          <MuiLink
-            key={3}
-            target='_blank'
-            rel='noreferrer'
-            href={homePage.specPdf}
-            style={{
-              textDecoration: 'none'
-            }}
-          >
-            <Button
-              variant='contained'
-              disableElevation
-              color='secondary'
-              size='large'
-            >
-              {homePage.specBtnTxt}
-              <Box ml={2}>
-                <DownloadIcon size={22} />
-              </Box>
-            </Button>
-          </MuiLink>
-        ]}
-      />
+      <SpecSection artClass={classes.art} homePage={homePage} />
       <ClinicalPerformance homePage={homePage} classes={classes} />
       <DeltaTestimonials
         testimonials={testimonials}
