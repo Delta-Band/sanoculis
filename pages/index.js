@@ -11,7 +11,8 @@ import {
   LearnMore,
   ClinicalPerformance,
   HowItWorks,
-  SpecSection
+  SpecSection,
+  DistributorsForHome
 } from '../components';
 
 export async function getServerSideProps(context) {
@@ -148,6 +149,7 @@ export default function Home({ homePage, testimonials, news, footer }) {
         title={homePage.testimonialsTitle}
       />
       <News artClass={classes.art} title={homePage.newsTitle} items={news} />
+      <DistributorsForHome />
       <LearnMore />
       <Footer specPDF={homePage.specPdf} footerData={footer} />
     </Fragment>

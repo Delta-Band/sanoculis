@@ -5,3 +5,4 @@ export { default as LearnMore } from './learn_more';
 export { default as ClinicalPerformance } from './clinical_performance';
 export { default as HowItWorks } from './how_it_works';
 export { default as SpecSection } from './SpecSection';
+export { default as DistributorsForHome } from './DistributorsForHome';
