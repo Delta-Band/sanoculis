@@ -26,13 +26,15 @@ export async function getServerSideProps(context) {
   const homePage = await reactor.getDoc('unwyUBZmIqLoM5SDnwxo');
   const testimonials = await reactor.getCollection('uZJDusr9qBPPkkxrxw6j');
   const news = await reactor.getCollection('wTe6w2bKS0b2mNdHCHYu');
+  const disributors = await reactor.getCollection('mQbnHW9wcV79q9SWOfXN');
   const footer = await reactor.getDoc('0q0P18TgtXrfMIStLToh');
   return {
     props: {
       homePage,
       testimonials,
       news,
-      footer
+      footer,
+      disributors
     }
   };
 }
@@ -101,7 +103,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Home({ homePage, testimonials, news, footer }) {
+export default function Home({
+  homePage,
+  testimonials,
+  news,
+  footer,
+  disributors
+}) {
   // const theme = useTheme();
   const classes = useStyles();
   // const upMD = useMediaQuery(theme.breakpoints.up('md'));
@@ -149,7 +157,7 @@ export default function Home({ homePage, testimonials, news, footer }) {
         title={homePage.testimonialsTitle}
       />
       <News artClass={classes.art} title={homePage.newsTitle} items={news} />
-      <DistributorsForHome />
+      <DistributorsForHome disributors={disributors} />
       <LearnMore />
       <Footer specPDF={homePage.specPdf} footerData={footer} />
     </Fragment>

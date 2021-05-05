@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import disableScroll from 'disable-scroll';
 import { motion } from 'framer-motion';
 
@@ -13,13 +14,22 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     width: '100vw',
     height: '100%',
-    background: 'rgba(0, 0, 0, 0.6)'
+    background: 'rgba(0, 0, 0, 0.6)',
+    zIndex: 1
   },
   bottomDrawer: {
     position: 'absolute',
     bottom: 0,
     left: 0,
-    width: '100%'
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      bottom: '50%',
+      left: '50%',
+      width: 'auto'
+    }
+  },
+  trigger: {
+    cursor: 'pointer'
   }
 }));
 
@@ -56,10 +66,32 @@ const bottomDrawer = {
   }
 };
 
+const modal = {
+  open: {
+    scale: 1,
+    x: '-50%',
+    y: '50%'
+    // transition: {
+    //   type: 'spring',
+    //   bounce: 0.25
+    // }
+  },
+  close: {
+    scale: 0,
+    x: '-50%',
+    y: '50%'
+    // transition: {
+    //   type: 'spring',
+    //   bounce: 0
+    // }
+  }
+};
+
 export default function DeltaDropMenu({ target, menu }) {
-  const theme = useTheme();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const theme = useTheme();
+  const upSM = useMediaQuery(theme.breakpoints.up('sm'));
 
   /** METHODS */
   function openMenu() {
@@ -81,7 +113,9 @@ export default function DeltaDropMenu({ target, menu }) {
 
   return (
     <div className={classes.root}>
-      <div onClick={openMenu}>{target}</div>
+      <div onClick={openMenu} className={classes.trigger}>
+        {target}
+      </div>
       <motion.div
         className={classes.mobileMenu}
         onClick={closeMenu}
@@ -92,7 +126,11 @@ export default function DeltaDropMenu({ target, menu }) {
           pointerEvents: open ? 'all' : 'none'
         }}
       >
-        <motion.div variants={bottomDrawer} className={classes.bottomDrawer}>
+        <motion.div
+          initial='close'
+          variants={upSM ? modal : bottomDrawer}
+          className={classes.bottomDrawer}
+        >
           {menu}
         </motion.div>
       </motion.div>

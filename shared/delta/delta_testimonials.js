@@ -38,7 +38,7 @@ export default function DeltaTestimonials({ testimonials, title }) {
   const upLG = useMediaQuery(theme.breakpoints.up('lg'));
   const [index, setIndex] = useState(0);
   const classes = useStyles();
-  const PROFILE_SIZE = upLG ? 240 : upMD ? 200 : upSM ? 140 : 80;
+  const PROFILE_SIZE = upLG ? 240 : upMD ? 200 : upSM ? 140 : upSM ? 80 : 63;
   const timeoutRef = useRef(null);
 
   const { ref, inView } = useInView({

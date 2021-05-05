@@ -69,7 +69,7 @@ export default function News({ art, title, items, artClass }) {
 
   return (
     <Delta2ColLayout
-      paddingBottom={5}
+      paddingBottom={7}
       titleColor='#FFF'
       background={theme.palette.primary.dark}
       art={
