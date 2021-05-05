@@ -87,7 +87,8 @@ export default function DeltaProfile({
                     marginTop: theme.spacing(row ? 0 : 2),
                     whiteSpace: 'nowrap',
                     textOverflow: 'ellipsis',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    width: 100
                   }}
                 >
                   {name}

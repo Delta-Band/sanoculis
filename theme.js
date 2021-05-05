@@ -40,6 +40,10 @@ const theme = createMuiTheme({
         lineHeight: pxToRem(28)
       }
     },
+    body2: {
+      fontSize: pxToRem(16),
+      lineHeight: pxToRem(20)
+    },
     p: {
       padding: 0,
       fontFamily: 'Rubik'

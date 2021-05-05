@@ -6,7 +6,7 @@ import cx from 'classnames';
 import { useInView } from 'react-intersection-observer';
 import Delta2ColLayout from './delta_2_col_layout';
 import DeltaProfile from './delta_profile';
-import DeltaCarousel from './delta_carousel';
+import DeltaCarousel from './delta_carousel_old';
 
 const useStyles = makeStyles((theme) => ({
   whiteText: {
