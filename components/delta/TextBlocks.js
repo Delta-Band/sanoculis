@@ -53,7 +53,7 @@ export default function TextBlocks({ titleVariant, blocks = [] }) {
         spacing={10}
         direction='row'
         justify='space-between'
-        alignItems='center'
+        alignItems='flex-start'
       >
         {blocks.map((block, i) => (
           <Grid
