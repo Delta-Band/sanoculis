@@ -16,8 +16,11 @@ const useStyles = makeStyles((theme) => ({
     width: '100vw',
     height: '100vw',
     maxHeight: '50vh',
-    objectFit: 'contain',
+    objectFit: 'cover',
     margin: '0 auto',
+    [theme.breakpoints.up('md')]: {
+      objectFit: 'contain'
+    },
     [theme.breakpoints.up('lg')]: {
       maxHeight: '80vh'
     }

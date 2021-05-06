@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     background: 'rgba(0, 0, 0, 0.6)',
     zIndex: 1
   },
-  bottomDrawer: {
+  menu: {
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /** MOTION VARIANTS */
-const menuMotion = {
+const backDropMotion = {
   open: {
     opacity: 1,
     transition: {
@@ -68,18 +68,14 @@ const bottomDrawer = {
 
 const modal = {
   open: {
-    scale: 1,
-    x: '-50%',
-    y: '50%'
+    scale: 1
     // transition: {
     //   type: 'spring',
     //   bounce: 0.25
     // }
   },
   close: {
-    scale: 0,
-    x: '-50%',
-    y: '50%'
+    scale: 0
     // transition: {
     //   type: 'spring',
     //   bounce: 0
@@ -119,7 +115,7 @@ export default function DeltaDropMenu({ target, menu }) {
       <motion.div
         className={classes.mobileMenu}
         onClick={closeMenu}
-        variants={menuMotion}
+        variants={backDropMotion}
         initial='close'
         animate={open ? 'open' : 'close'}
         style={{
@@ -129,7 +125,12 @@ export default function DeltaDropMenu({ target, menu }) {
         <motion.div
           initial='close'
           variants={upSM ? modal : bottomDrawer}
-          className={classes.bottomDrawer}
+          style={{
+            x: upSM ? '-50%' : 0,
+            y: upSM ? '50%' : 0,
+            scale: upSM ? 0 : 1
+          }}
+          className={classes.menu}
         >
           {menu}
         </motion.div>
