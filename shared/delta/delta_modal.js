@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
     backdropFilter: 'blur(17px)',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    zIndex: 1
   },
   modal: {
     // backgroundColor: theme.palette.primary.dark,
