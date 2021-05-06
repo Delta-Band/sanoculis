@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Head from '../head';
 import reactor from '../reactor';
-import { Hero } from '../components/vision';
+import { Hero } from '../components/shared';
 
 export async function getServerSideProps(context) {
   // console.log(context.req.headers['user-agent']);

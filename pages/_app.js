@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
           menuItems={[
             { label: 'Home', linkTo: '' },
             { label: 'Our Vision', linkTo: 'vision' },
-            { label: 'Why It Helps', linkTo: 'about' },
+            { label: 'Why It Helps', linkTo: 'interventional_glaucoma' },
             { label: 'Clinical Trial Data', linkTo: 'clinical' },
             { label: 'Technical Specs', linkTo: 'specs' },
             { label: 'Distributors Login', linkTo: 'login' }

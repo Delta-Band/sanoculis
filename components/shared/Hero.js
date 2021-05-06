@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
+import cx from 'classnames';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -8,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: theme.spacing(8),
     height: 876,
-    background: 'green',
     position: 'relative',
     [theme.breakpoints.up('md')]: {
       height: '80vh'
@@ -50,33 +50,52 @@ const useStyles = makeStyles((theme) => ({
       padding: 0,
       maxWidth: '80vw',
       left: '50%',
-      bottom: 120,
+      bottom: theme.spacing(10),
       transform: 'translateX(-50%)'
     }
   },
   whiteTxt: {
     color: '#FFF',
     marginTop: theme.spacing(5.5)
+  },
+  title: {
+    whiteSpace: 'break-spaces'
   }
 }));
 
-export default function Hero({ imageSrc, imageSrcMobile, title, description }) {
+export default function Hero({
+  imageSrc,
+  imageSrcMobile,
+  title,
+  description,
+  mobileHeight
+}) {
   const classes = useStyles();
   const theme = useTheme();
   const upMD = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      style={{
+        height: upMD ? undefined : mobileHeight
+      }}
+    >
       <img
         src={upMD ? imageSrc : imageSrcMobile}
         className={classes.heroImage}
       />
       <div className={classes.heroImageOverlay} />
       <div className={classes.contentWrapper}>
-        <Typography variant='h2' className={classes.whiteTxt}>
+        <Typography
+          variant='h2'
+          className={cx(classes.whiteTxt, classes.title)}
+        >
           {title}
         </Typography>
-        <Typography className={classes.whiteTxt}>{description}</Typography>
+        {description ? (
+          <Typography className={classes.whiteTxt}>{description}</Typography>
+        ) : null}
       </div>
     </div>
   );

@@ -49,11 +49,11 @@ const theme = createMuiTheme({
       fontFamily: 'Rubik'
     },
     h1: {
-      fontSize: pxToRem(42),
+      fontSize: 42,
       fontFamily: 'Rubik'
     },
     h2: {
-      fontSize: pxToRem(42),
+      fontSize: 42,
       fontFamily: 'Domaine',
       fontWeight: 'bold',
       [breakpoints.down('xs')]: {
