@@ -29,15 +29,15 @@ const theme = createMuiTheme({
       fontFamily: 'Rubik'
     },
     body1: {
-      fontSize: pxToRem(16),
-      lineHeight: pxToRem(24),
+      fontSize: 16,
+      lineHeight: '24px',
       [breakpoints.up('sm')]: {
-        fontSize: pxToRem(17),
-        lineHeight: pxToRem(26)
+        fontSize: 17,
+        lineHeight: '26px'
       },
       [breakpoints.up('xl')]: {
-        fontSize: pxToRem(19),
-        lineHeight: pxToRem(28)
+        fontSize: 19,
+        lineHeight: '28px'
       }
     },
     body2: {
