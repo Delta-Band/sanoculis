@@ -59,7 +59,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(5.5)
   },
   title: {
-    whiteSpace: 'break-spaces'
+    whiteSpace: 'break-spaces',
+    [theme.breakpoints.up('lg')]: {
+      fontSize: 52
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: 72
+    }
   }
 }));
 

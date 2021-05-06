@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,12 @@ const useStyles = makeStyles((theme) => ({
     // marginBottom: theme.spacing(13),
     '&:last-child': {
       marginBottom: 0
+    },
+    [theme.breakpoints.up('lg')]: {
+      marginBottom: theme.spacing(5)
+    },
+    [theme.breakpoints.up('xl')]: {
+      marginBottom: theme.spacing(10)
     }
   },
   title: {
@@ -36,17 +43,31 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TextBlocks({ titleVariant, blocks = [] }) {
   const classes = useStyles({});
+  const theme = useTheme();
+  const upXL = useMediaQuery(theme.breakpoints.up('xl'));
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={10}>
+      <Grid
+        container
+        spacing={10}
+        direction='row'
+        justify='space-between'
+        alignItems='center'
+      >
         {blocks.map((block, i) => (
           <Grid
             key={block.title}
             item
             xs={12}
             sm={12}
-            md={i === blocks.length - 1 && blocks.length % 2 === 1 ? 12 : 6}
+            md={
+              i === blocks.length - 1 && blocks.length % 2 === 1
+                ? 12
+                : upXL
+                ? 5
+                : 6
+            }
             className={classes.txtBlock}
           >
             <Typography variant={titleVariant} className={classes.title}>
