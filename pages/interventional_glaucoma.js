@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Head from '../head';
 import reactor from '../reactor';
-import { Hero, TextBlocks } from '../components/shared';
+import { Hero, TextBlocks, LearnMore } from '../components/shared';
 
 export async function getServerSideProps(context) {
   // console.log(context.req.headers['user-agent']);
@@ -54,6 +54,10 @@ export default function InterventionalGlaucoma({ pageData }) {
             txt: pageData.textBlock5Description
           }
         ]}
+      />
+      <LearnMore
+        imageSrc={pageData.learnMorePic}
+        btnTxt={pageData.learnMoreBtnTxt}
       />
     </Fragment>
   );
