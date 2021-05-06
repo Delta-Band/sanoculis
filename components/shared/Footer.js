@@ -5,7 +5,7 @@ import cx from 'classnames';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { LinkedinWithCircle as LinkedInIcon } from '@styled-icons/entypo-social/LinkedinWithCircle';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
-import MadeByDelta from './delta/delta_made_by';
+import { MadeByDelta } from '../delta';
 
 const useStyles = makeStyles((theme) => ({
   root: {

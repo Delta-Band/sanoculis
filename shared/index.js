@@ -2,7 +2,6 @@ export { default as SectionLayout } from './section_layout';
 export { default as SectionLayoutNew } from './section_layout_new';
 export { default as ScrollCarousel } from './scroll_carousel';
 export { default as ImageParallax } from './delta/image_parallax';
-export { default as Footer } from './footer';
 export { default as DeltaCarousel } from './delta/delta_carousel_old';
 export { default as DeltaCarousel2 } from './delta/delta_carousel';
 export { default as DeltaProfile } from './delta/delta_profile';

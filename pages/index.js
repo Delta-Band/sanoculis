@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 // import useMediaQuery from '@material-ui/core/useMediaQuery';
 import reactor from '../reactor';
 import Head from '../head';
-import { DeltaTestimonials, Delta2ColLayout, Footer } from '../shared';
+import { DeltaTestimonials, Delta2ColLayout } from '../shared';
+import { Footer } from '../components/shared';
 import {
   Hero,
   News,

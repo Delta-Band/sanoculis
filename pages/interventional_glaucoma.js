@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Head from '../head';
 import reactor from '../reactor';
-import { Hero, TextBlocks, LearnMore } from '../components/shared';
+import { Hero, TextBlocks, LearnMore, Footer } from '../components/shared';
 
 export async function getServerSideProps(context) {
   // console.log(context.req.headers['user-agent']);
@@ -12,14 +12,22 @@ export async function getServerSideProps(context) {
   // );
   reactor.init();
   const pageData = await reactor.getDoc('tr6L3TlA067DRHaczE2i');
+  const footerData = await reactor.getDoc('0q0P18TgtXrfMIStLToh');
+  const homeData = await reactor.getDoc('unwyUBZmIqLoM5SDnwxo');
   return {
     props: {
-      pageData
+      pageData,
+      footerData,
+      homeData
     }
   };
 }
 
-export default function InterventionalGlaucoma({ pageData }) {
+export default function InterventionalGlaucoma({
+  pageData,
+  footerData,
+  homeData
+}) {
   return (
     <Fragment>
       <Head title='MIMS - Interventional Glaucoma' />
@@ -59,6 +67,7 @@ export default function InterventionalGlaucoma({ pageData }) {
         imageSrc={pageData.learnMorePic}
         btnTxt={pageData.learnMoreBtnTxt}
       />
+      <Footer specPDF={homeData.specPdf} footerData={footerData} />
     </Fragment>
   );
 }
