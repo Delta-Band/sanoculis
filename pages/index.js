@@ -135,7 +135,7 @@ export default function Home({
           <Typography key={1}>{homePage.section1Description}</Typography>
         ]}
       />
-      <HowItWorks homePage={homePage} classes={classes} />
+      <HowItWorks homePage={homePage} artClass={classes.art} />
       <Delta2ColLayout
         art={
           <Box className={classes.art}>

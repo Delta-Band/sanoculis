@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: theme.palette.primary.dark,
     boxShadow: theme.shadows[15],
     borderRadius: 15,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    position: 'relative'
   }
 }));
 

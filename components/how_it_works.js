@@ -2,15 +2,31 @@ import React, { Fragment, useRef, useState, useEffect } from 'react';
 import { Box, Typography, Button } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 // import { LottieInteractive } from 'lottie-interactive';
-import { useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import screenfull from 'screenfull';
+import { motion } from 'framer-motion';
 import { PlayCircleFill as PlayIcon } from '@styled-icons/bootstrap/PlayCircleFill';
-import { Delta2ColLayout, DeltaModal } from '../shared';
+import { CloseCircle as CloseIcon } from '@styled-icons/evaicons-solid/CloseCircle';
+import { SectionLayout, Modal } from './delta';
 
-export default function HowItWorks({ homePage, classes }) {
+const useStyles = makeStyles((theme) => ({
+  closeBtn: {
+    position: 'absolute',
+    right: theme.spacing(2),
+    top: theme.spacing(2),
+    zIndex: 1,
+    cursor: 'pointer'
+  },
+  closeIcon: {
+    width: 50,
+    height: 50
+  }
+}));
+
+export default function HowItWorks({ homePage, artClass }) {
   const theme = useTheme();
   const upSM = useMediaQuery(theme.breakpoints.up('sm'));
-  const [openVideo, setOpenVideo] = useState(false);
+  const [openVideo, setOpenVideo] = useState(true);
   const videoRef = useRef();
 
   // METHODS
@@ -38,11 +54,27 @@ export default function HowItWorks({ homePage, classes }) {
     return document.removeEventListener('keyup', closeVideo);
   }, []);
 
+  /** SUB-COMPONENTS */
+  function CloseButton() {
+    const classes = useStyles();
+
+    return (
+      <motion.div
+        className={classes.closeBtn}
+        whileHover={{
+          scale: 1.2
+        }}
+      >
+        <CloseIcon className={classes.closeIcon} oncClick={closeVideo} />
+      </motion.div>
+    );
+  }
+
   return (
     <Fragment>
-      <Delta2ColLayout
+      <SectionLayout
         art={
-          <Box className={classes.art} onClick={playVideo}>
+          <Box className={artClass} onClick={playVideo}>
             <lottie-interactive
               path='lottie/2.json'
               interaction='morph'
@@ -70,7 +102,7 @@ export default function HowItWorks({ homePage, classes }) {
           </Button>
         ]}
       />
-      <DeltaModal
+      <Modal
         show={openVideo}
         onClose={function () {
           videoRef.current.pause();
@@ -84,11 +116,13 @@ export default function HowItWorks({ homePage, classes }) {
             objectFit: 'cover',
             marginBottom: '-4px'
           }}
+          onClick={(e) => e.stopPropagation()}
           ref={videoRef}
         >
           <source src='/how_mims_works.mp4' type='video/mp4' />
         </video>
-      </DeltaModal>
+        <CloseButton />
+      </Modal>
     </Fragment>
   );
 }
