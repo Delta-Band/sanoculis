@@ -3,7 +3,7 @@ import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { Box, Typography, Button, Link as MuiLink } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Download as DownloadIcon } from '@styled-icons/octicons/Download';
-import { Delta2ColLayout } from '../shared';
+import { SectionLayout } from '../components/delta';
 
 const useStyles = makeStyles((theme) => ({
   blob: {
@@ -21,36 +21,56 @@ const useStyles = makeStyles((theme) => ({
     top: -88,
     left: -25,
     [theme.breakpoints.up('sm')]: {
-      width: '100%',
-      left: -40,
-      top: -100
+      width: '60%',
+      left: '15%',
+      top: -90
     },
     [theme.breakpoints.up('md')]: {
-      width: '110%',
-      left: -40,
-      top: -94
-    },
-    [theme.breakpoints.up('lg')]: {
-      width: '100%',
-      left: -40,
+      width: '40%',
+      left: '2.5%',
       top: -80
     },
+    [theme.breakpoints.up('lg')]: {
+      left: '-1.5%'
+    },
     [theme.breakpoints.up('xl')]: {
-      width: '110%',
-      left: -40,
-      top: -105
+      width: '50%',
+      left: '-6%',
+      top: -120
+    }
+  },
+  art: {
+    width: '80vw',
+    height: '80vw',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    [theme.breakpoints.up('sm')]: {
+      width: '50vw',
+      height: '50vw'
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '40vw',
+      height: '40vw'
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '60vh',
+      height: '60vh',
+      maxWidth: '40vw',
+      maxHeight: '40vw',
+      marginRight: theme.spacing(10)
     }
   }
 }));
 
-export default function SpecSection({ artClass, homePage }) {
+export default function SpecSection({ homePage }) {
   const theme = useTheme();
   const classes = useStyles();
   const upMD = useMediaQuery(theme.breakpoints.up('md'));
   const upXL = useMediaQuery(theme.breakpoints.up('xl'));
 
   return (
-    <Delta2ColLayout
+    <SectionLayout
       paddingTop={theme.spacing(upXL ? 1 : 0)}
       paddingBottom={theme.spacing(upXL ? 0 : upMD ? -0.2 : 0)}
       extendTopWith={
@@ -58,22 +78,24 @@ export default function SpecSection({ artClass, homePage }) {
           src='images/white_wave.png'
           style={{
             width: '100%',
-            transform: 'translateY(50%) scaleY(-1)',
-            position: 'relative',
-            zIndex: 1
+            transform: 'translateY(-50%) scaleY(-1)',
+            position: 'absolute',
+            zIndex: 1,
+            top: 0
           }}
         />
       }
       background={theme.palette.primary.main}
       art={
-        <Box className={artClass}>
+        <div className={classes.art}>
           <img src='images/blob.png' className={classes.blob} />
           <img src='images/device.png' className={classes.device} />
-        </Box>
+        </div>
       }
-      title={homePage.specTitle}
-      titleColor='#FFF'
       content={[
+        <Typography key={0} variant='h2' style={{ color: '#FFF' }}>
+          {homePage.specTitle}
+        </Typography>,
         <Typography key={1} style={{ color: '#FFF' }}>
           {homePage.specDescription}
         </Typography>,

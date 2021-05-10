@@ -1,56 +1,70 @@
 import React from 'react';
-import { Box, Typography, Button, Grid } from '@material-ui/core';
+import { Typography, Button, Grid } from '@material-ui/core';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
-import cx from 'classnames';
-import { Delta2ColLayout } from '../shared';
+import { SectionLayout } from '../components/delta';
 
 const useStyles = makeStyles((theme) => ({
   art: {
-    height: '80vw',
     width: '80vw',
-    [theme.breakpoints.up('md')]: {
-      height: '40vw',
-      width: '40vw'
+    height: '80vw',
+    position: 'relative',
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.up('sm')]: {
+      width: '50vw',
+      height: '50vw'
     },
     [theme.breakpoints.up('md')]: {
-      height: '25vw',
-      width: '25vw'
+      width: '40vw',
+      height: '40vw',
+      marginBottom: theme.spacing(0)
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '60vh',
+      height: '60vh',
+      maxWidth: '40vw',
+      maxHeight: '40vw',
+      marginRight: theme.spacing(10)
     }
+  },
+  gradientCircle: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    width: '100%',
+    height: '100%'
+  },
+  image: {
+    position: 'absolute',
+    right: '1%',
+    top: '1.5%',
+    width: '98%',
+    height: '98%'
+  },
+  whiteText: {
+    color: '#FFF'
+  },
+  blueInfo: {
+    color: theme.palette.primary.main
   }
 }));
 
-export default function ClinicalPerformance({ homePage, classes }) {
+export default function ClinicalPerformance({ homePage }) {
   const theme = useTheme();
-  const _classes = useStyles();
+  const classes = useStyles();
   return (
-    <Delta2ColLayout
+    <SectionLayout
       background={theme.palette.primary.dark}
       titleColor='#FFF'
       paddingTop={10}
       paddingBottom={5}
       art={
-        <Box className={cx(classes.art, _classes.art)}>
+        <div className={classes.art}>
           <img
             src='images/gradient_bg.svg'
-            style={{
-              position: 'absolute',
-              right: 0,
-              top: 0,
-              width: '100%',
-              height: '100%'
-            }}
+            className={classes.gradientCircle}
           />
-          <img
-            src='images/performance.png'
-            style={{
-              position: 'absolute',
-              right: '1%',
-              top: '1.5%',
-              width: '98%',
-              height: '98%'
-            }}
-          />
+          <img src='images/performance.png' className={classes.image} />
           <lottie-interactive
             path='lottie/4.json'
             interaction='play-on-show'
@@ -62,10 +76,12 @@ export default function ClinicalPerformance({ homePage, classes }) {
               left: 0
             }}
           />
-        </Box>
+        </div>
       }
-      title={homePage.performanceTitle}
       content={[
+        <Typography key={0} variant='h2' style={{ color: '#FFF' }}>
+          {homePage.performanceTitle}
+        </Typography>,
         <Grid container key={1} spacing={4}>
           <Grid item xs={6}>
             <Typography variant='h3' className={classes.blueInfo}>

@@ -10,6 +10,25 @@ import { CloseCircle as CloseIcon } from '@styled-icons/evaicons-solid/CloseCirc
 import { SectionLayout, Modal } from './delta';
 
 const useStyles = makeStyles((theme) => ({
+  art: {
+    width: '80vw',
+    height: '80vw',
+    [theme.breakpoints.up('sm')]: {
+      width: '50vw',
+      height: '50vw'
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '40vw',
+      height: '40vw'
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '60vh',
+      height: '60vh',
+      maxWidth: '40vw',
+      maxHeight: '40vw',
+      marginRight: theme.spacing(10)
+    }
+  },
   closeBtn: {
     position: 'absolute',
     right: theme.spacing(2),
@@ -26,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
 export default function HowItWorks({ homePage, artClass }) {
   const theme = useTheme();
   const upSM = useMediaQuery(theme.breakpoints.up('sm'));
-  const [openVideo, setOpenVideo] = useState(true);
+  const [openVideo, setOpenVideo] = useState(false);
+  const classes = useStyles();
   const videoRef = useRef();
 
   // METHODS
@@ -56,8 +76,6 @@ export default function HowItWorks({ homePage, artClass }) {
 
   /** SUB-COMPONENTS */
   function CloseButton() {
-    const classes = useStyles();
-
     return (
       <motion.div
         className={classes.closeBtn}
@@ -74,7 +92,7 @@ export default function HowItWorks({ homePage, artClass }) {
     <Fragment>
       <SectionLayout
         art={
-          <Box className={artClass} onClick={playVideo}>
+          <Box className={classes.art} onClick={playVideo}>
             <lottie-interactive
               path='lottie/2.json'
               interaction='morph'
@@ -84,8 +102,10 @@ export default function HowItWorks({ homePage, artClass }) {
             />
           </Box>
         }
-        title={homePage.section2Title}
         content={[
+          <Typography key={0} variant='h2'>
+            {homePage.section2Title}
+          </Typography>,
           <Typography key={1}>{homePage.section2Description}</Typography>,
           <Button
             key={2}

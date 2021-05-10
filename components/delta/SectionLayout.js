@@ -1,12 +1,19 @@
 import React from 'react';
-import { Grid, Box, Typography } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
+import cx from 'classnames';
+import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles((theme) => ({
   layoutWrapper: {
     marginTop: '-1px',
-    position: 'relative'
+    position: 'relative',
+    flexShrink: 0,
+    width: '100vw',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   innerWrapper: {
     position: 'relative',
@@ -15,27 +22,30 @@ const useStyles = makeStyles((theme) => ({
   contentWrapper: {
     width: '80vw',
     margin: '0 auto',
+    flexShrink: 0,
     [theme.breakpoints.up('md')]: {
       width: '85%',
       maxWidth: 600,
       // maxWidth: '500px',
       margin: 0
     }
+  },
+  artWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 }));
 
 function SectionLayout({
-  title,
   content,
   art,
   extendTopWith,
   extendBottomWith,
   background,
-  titleColor,
   paddingTop = 0,
   paddingBottom = 0,
-  isMobile,
-  fullWidth = false
+  className
 }) {
   // const headerTxt = 'A Simple & Stent-less Treatment Innovation';
   // const bodyTxt =
@@ -44,12 +54,14 @@ function SectionLayout({
   const upSM = useMediaQuery(theme.breakpoints.up('sm'));
   const classes = useStyles();
   return (
-    <Box className={classes.layoutWrapper}>
+    <Box
+      className={classes.layoutWrapper}
+      style={{ background: background || 'transparent' }}
+    >
       {extendTopWith}
       <Box
         pt={10 + paddingTop}
         pb={10 + paddingBottom}
-        style={{ background: background || 'transparent' }}
         // display={upSM ? 'flex' : 'inline-block'}
         // justifyContent={upSM ? 'center' : undefined}
       >
@@ -57,20 +69,13 @@ function SectionLayout({
           container
           alignItems='center'
           direction={upSM ? 'row' : 'column'}
-          className={classes.innerWrapper}
-          style={{
-            maxWidth: fullWidth ? '100%' : 1620,
-            width: fullWidth ? '100%' : 'auto'
-          }}
+          className={cx(classes.innerWrapper, className)}
         >
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} className={classes.artWrapper}>
             {art}
           </Grid>
           <Grid item xs={12} md={6}>
             <Box className={classes.contentWrapper}>
-              <Typography variant='h2' style={{ color: titleColor }}>
-                {title}
-              </Typography>
               {content.map((itm) => (
                 <Box mt={5} key={`item-${itm.key}`}>
                   {itm}
@@ -84,5 +89,16 @@ function SectionLayout({
     </Box>
   );
 }
+
+SectionLayout.proptypes = {
+  art: PropTypes.element,
+  content: PropTypes.arrayOf(PropTypes.element),
+  extendTopWith: PropTypes.element,
+  extendBottomWith: PropTypes.element,
+  background: PropTypes.string,
+  paddingTop: PropTypes.number,
+  paddingBottom: PropTypes.number,
+  className: PropTypes.string
+};
 
 export default SectionLayout;

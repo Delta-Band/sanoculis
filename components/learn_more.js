@@ -158,7 +158,7 @@ export default function LearnMore() {
             className={cx(classes.img, classes.img2)}
           />
         </ImageFilter>
-        <Link href='/about'>
+        <Link href='/interventional_glaucoma'>
           <a className={cx(classes.btn, classes.transformBtn2)}>
             <Button
               variant='contained'

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // import useMediaQuery from '@material-ui/core/useMediaQuery';
 import reactor from '../reactor';
 import Head from '../head';
-import { DeltaTestimonials, Delta2ColLayout } from '../shared';
+import { DeltaTestimonials } from '../shared';
 import { Footer } from '../components/shared';
 import {
   Hero,
@@ -15,6 +15,7 @@ import {
   SpecSection,
   DistributorsForHome
 } from '../components';
+import { SectionLayout } from '../components/delta';
 
 export async function getServerSideProps(context) {
   // console.log(context.req.headers['user-agent']);
@@ -48,32 +49,23 @@ const useStyles = makeStyles((theme) => ({
     color: '#FFF'
   },
   art: {
-    position: 'relative',
-    margin: '0 auto 10vw',
     width: '80vw',
-    // height: '80vw',
+    height: '80vw',
+    [theme.breakpoints.up('sm')]: {
+      width: '50vw',
+      height: '50vw'
+    },
     [theme.breakpoints.up('md')]: {
-      margin: '0 auto',
-      width: '400px',
-      height: '400px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
+      width: '40vw',
+      height: '40vw'
     },
     [theme.breakpoints.up('lg')]: {
-      margin: '0 auto',
-      width: '550px',
-      height: '550px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
+      width: '60vh',
+      height: '60vh',
+      maxWidth: '40vw',
+      maxHeight: '40vw',
+      marginRight: theme.spacing(10)
     }
-    // '& > img': {
-    //   width: '100%',
-    //   [theme.breakpoints.up('md')]: {
-    //     width: '90%'
-    //   }
-    // }
   },
   newsLogo: {
     width: '100%',
@@ -120,7 +112,7 @@ export default function Home({
     <Fragment>
       <Head title='MIMS Story' />
       <Hero tagline={homePage.tagline} description={homePage.description} />
-      <Delta2ColLayout
+      <SectionLayout
         art={
           <Box className={classes.art}>
             <lottie-interactive
@@ -130,13 +122,15 @@ export default function Home({
             />
           </Box>
         }
-        title={homePage.section1Title}
         content={[
+          <Typography key={0} variant='h2'>
+            {homePage.section1Title}
+          </Typography>,
           <Typography key={1}>{homePage.section1Description}</Typography>
         ]}
       />
       <HowItWorks homePage={homePage} artClass={classes.art} />
-      <Delta2ColLayout
+      <SectionLayout
         art={
           <Box className={classes.art}>
             <lottie-interactive
@@ -146,8 +140,10 @@ export default function Home({
             />
           </Box>
         }
-        title={homePage.section3Title}
         content={[
+          <Typography key={0} variant='h2'>
+            {homePage.section3Title}
+          </Typography>,
           <Typography key={1}>{homePage.section3Description}</Typography>
         ]}
       />

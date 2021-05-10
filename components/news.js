@@ -6,7 +6,8 @@ import { motion } from 'framer-motion';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { ChevronBackCircle as GoLeftIcon } from '@styled-icons/ionicons-solid/ChevronBackCircle';
 import { ChevronForwardCircle as GoRightIcon } from '@styled-icons/ionicons-solid/ChevronForwardCircle';
-import { Delta2ColLayout, DeltaCarousel } from '../shared';
+import { DeltaCarousel } from '../shared';
+import { SectionLayout } from '../components/delta';
 import { Box, Typography, Button, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -17,16 +18,40 @@ const useStyles = makeStyles((theme) => ({
     color: '#FFF'
   },
   art: {
-    height: '80vw',
     width: '80vw',
-    [theme.breakpoints.up('md')]: {
-      height: '40vw',
-      width: '40vw'
+    height: '80vw',
+    position: 'relative',
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.up('sm')]: {
+      width: '50vw',
+      height: '50vw'
     },
     [theme.breakpoints.up('md')]: {
-      height: '25vw',
-      width: '25vw'
+      width: '40vw',
+      height: '40vw',
+      marginBottom: theme.spacing(0)
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '60vh',
+      height: '60vh',
+      maxWidth: '40vw',
+      maxHeight: '40vw',
+      marginRight: theme.spacing(10)
     }
+  },
+  gradientCircle: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    width: '100%',
+    height: '100%'
+  },
+  image: {
+    position: 'absolute',
+    right: '0.5%',
+    top: '0.5%',
+    width: '99%',
+    height: '99%'
   },
   newsLogo: {
     width: '100%',
@@ -61,39 +86,24 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function News({ art, title, items, artClass }) {
+export default function News({ art, title, items }) {
   const theme = useTheme();
   const classes = useStyles();
   const [index, setIndex] = useState(0);
   const upSM = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
-    <Delta2ColLayout
+    <SectionLayout
       paddingBottom={7}
       titleColor='#FFF'
       background={theme.palette.primary.dark}
       art={
-        <Box className={cx(artClass, classes.art)}>
+        <div className={classes.art}>
           <img
             src='images/gradient_bg.svg'
-            style={{
-              position: 'absolute',
-              right: 0,
-              top: 0,
-              width: '100%',
-              height: '100%'
-            }}
+            className={classes.gradientCircle}
           />
-          <img
-            src='images/news.png'
-            style={{
-              position: 'absolute',
-              right: '1%',
-              top: '1.5%',
-              width: '98%',
-              height: '98%'
-            }}
-          />
+          <img src='images/news.png' className={classes.image} />
           <lottie-interactive
             path='lottie/5.json'
             loop
@@ -104,10 +114,13 @@ export default function News({ art, title, items, artClass }) {
               left: 0
             }}
           />
-        </Box>
+        </div>
       }
       title={title}
       content={[
+        <Typography key={0} variant='h2' className={classes.whiteText}>
+          {title}
+        </Typography>,
         <DeltaCarousel
           key={1}
           items={items}
