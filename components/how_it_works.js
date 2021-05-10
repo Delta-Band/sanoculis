@@ -14,18 +14,25 @@ const useStyles = makeStyles((theme) => ({
     width: '80vw',
     height: '80vw',
     [theme.breakpoints.up('sm')]: {
-      width: '50vw',
-      height: '50vw'
-    },
-    [theme.breakpoints.up('md')]: {
       width: '40vw',
       height: '40vw'
     },
+    [theme.breakpoints.up('md')]: {
+      width: '34vw',
+      height: '34vw'
+    },
     [theme.breakpoints.up('lg')]: {
-      width: '60vh',
-      height: '60vh',
-      maxWidth: '40vw',
-      maxHeight: '40vw',
+      width: '25vw',
+      height: '25vw',
+      maxWidth: 600,
+      maxHeight: 600,
+      marginRight: theme.spacing(10)
+    },
+    [theme.breakpoints.up('xl')]: {
+      width: '22vw',
+      height: '22vw',
+      maxWidth: 600,
+      maxHeight: 600,
       marginRight: theme.spacing(10)
     }
   },

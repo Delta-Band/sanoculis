@@ -60,10 +60,10 @@ const useStyles = makeStyles((theme) => ({
       height: '40vw'
     },
     [theme.breakpoints.up('lg')]: {
-      width: '60vh',
-      height: '60vh',
-      maxWidth: '40vw',
-      maxHeight: '40vw',
+      width: '30vw',
+      height: '30vw',
+      maxWidth: 600,
+      maxHeight: 600,
       marginRight: theme.spacing(10)
     }
   },

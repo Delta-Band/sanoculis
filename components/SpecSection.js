@@ -31,11 +31,12 @@ const useStyles = makeStyles((theme) => ({
       top: -80
     },
     [theme.breakpoints.up('lg')]: {
-      left: '-1.5%'
+      width: '35%',
+      left: '2%'
     },
     [theme.breakpoints.up('xl')]: {
-      width: '50%',
-      left: '-6%',
+      width: '42%',
+      left: '-1.5%',
       top: -120
     }
   },
@@ -54,10 +55,10 @@ const useStyles = makeStyles((theme) => ({
       height: '40vw'
     },
     [theme.breakpoints.up('lg')]: {
-      width: '60vh',
-      height: '60vh',
-      maxWidth: '40vw',
-      maxHeight: '40vw',
+      width: '30vw',
+      height: '30vw',
+      maxWidth: 600,
+      maxHeight: 600,
       marginRight: theme.spacing(10)
     }
   }

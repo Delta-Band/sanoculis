@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
   },
   innerWrapper: {
     position: 'relative',
-    margin: '0 auto'
+    margin: '0 auto',
+    maxWidth: 1600
   },
   contentWrapper: {
     width: '80vw',
@@ -57,34 +58,29 @@ function SectionLayout({
     <Box
       className={classes.layoutWrapper}
       style={{ background: background || 'transparent' }}
+      pt={10 + paddingTop}
+      pb={10 + paddingBottom}
     >
       {extendTopWith}
-      <Box
-        pt={10 + paddingTop}
-        pb={10 + paddingBottom}
-        // display={upSM ? 'flex' : 'inline-block'}
-        // justifyContent={upSM ? 'center' : undefined}
+      <Grid
+        container
+        alignItems='center'
+        direction={upSM ? 'row' : 'column'}
+        className={cx(classes.innerWrapper, className)}
       >
-        <Grid
-          container
-          alignItems='center'
-          direction={upSM ? 'row' : 'column'}
-          className={cx(classes.innerWrapper, className)}
-        >
-          <Grid item xs={12} md={6} className={classes.artWrapper}>
-            {art}
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Box className={classes.contentWrapper}>
-              {content.map((itm) => (
-                <Box mt={5} key={`item-${itm.key}`}>
-                  {itm}
-                </Box>
-              ))}
-            </Box>
-          </Grid>
+        <Grid item xs={12} md={6} className={classes.artWrapper}>
+          {art}
         </Grid>
-      </Box>
+        <Grid item xs={12} md={6}>
+          <Box className={classes.contentWrapper}>
+            {content.map((itm) => (
+              <Box mt={5} key={`item-${itm.key}`}>
+                {itm}
+              </Box>
+            ))}
+          </Box>
+        </Grid>
+      </Grid>
       {extendBottomWith}
     </Box>
   );

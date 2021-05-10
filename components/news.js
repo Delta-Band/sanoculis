@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     height: '80vw',
     position: 'relative',
     marginBottom: theme.spacing(5),
+    flexShrink: 0,
     [theme.breakpoints.up('sm')]: {
       width: '50vw',
       height: '50vw'
@@ -32,10 +33,10 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(0)
     },
     [theme.breakpoints.up('lg')]: {
-      width: '60vh',
-      height: '60vh',
-      maxWidth: '40vw',
-      maxHeight: '40vw',
+      width: '30vw',
+      height: '30vw',
+      maxWidth: 600,
+      maxHeight: 600,
       marginRight: theme.spacing(10)
     }
   },
