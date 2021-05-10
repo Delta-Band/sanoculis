@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
+import { useLocalStorage } from '@rehooks/local-storage';
 import reactor from '../reactor';
 
 const useStyles = makeStyles((theme) => ({
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 function Docs({ disributorsData }) {
   const classes = useStyles();
   const router = useRouter();
-  const { password } = router.query;
+  const { password } = useLocalStorage('password');
   const validPasswords = disributorsData.map((item) => item.password);
 
   useEffect(() => {
