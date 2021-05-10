@@ -568,6 +568,10 @@
   dependencies:
     "@react-hook/latest" "^1.0.2"
 
+"@rehooks/local-storage@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@rehooks/local-storage/-/local-storage-2.4.1.tgz#a35bf8ea03d8bf2202029a7b5885ed2806a3594b"
+
 "@styled-icons/bootstrap@10.25.0":
   version "10.25.0"
   resolved "https://registry.yarnpkg.com/@styled-icons/bootstrap/-/bootstrap-10.25.0.tgz#a08a2a099a4e67f9cc2295b3bf2e112fbc899880"

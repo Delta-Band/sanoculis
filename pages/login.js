@@ -117,7 +117,7 @@ function Login({ honmePageData, footerData, loginPageData }) {
               <div className={classes.input}>
                 <input type='password' maxLength='5' />
               </div>
-              <Link href='/docs'>
+              <Link href='/docs?password=12345'>
                 <a>
                   <Button
                     variant='contained'
