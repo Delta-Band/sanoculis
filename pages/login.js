@@ -1,10 +1,26 @@
-import React, { Fragment } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Typography } from '@material-ui/core';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { SectionLayout } from '../components/delta';
-import { Typography, Button } from '@material-ui/core';
-import Link from 'next/link';
+import { Footer } from '../components/shared';
+// import Link from 'next/link';
 import reactor from '../reactor';
 import Head from '../head';
+
+/** CONSTS */
+const MOTION_VARIANTS = {
+  errorMsg: {
+    show: {
+      opacity: 1
+    },
+    hide: {
+      opacity: 0
+    }
+  }
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +46,11 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   contentWrapper: {
-    maxWidth: 400
+    maxWidth: 400,
+    margin: '0 auto',
+    [theme.breakpoints.up('md')]: {
+      margin: 'unset'
+    }
   },
   art: {
     width: '80vw',
@@ -85,39 +105,72 @@ const useStyles = makeStyles((theme) => ({
       // '&:focus-visible': {
       //   border: 'none'
       // }
+    },
+    [theme.breakpoints.up('md')]: {
+      borderRadius: theme.spacing(0.5)
     }
   },
   errorMsg: {
     color: '#C60000',
-    textAlign: 'center',
+    // textAlign: 'center',
     fontSize: 12,
     marginTop: theme.spacing(2)
   }
 }));
 
-function Login({ honmePageData, footerData, loginPageData }) {
+function Login({ homeData, footerData, loginPageData, disributorsData }) {
   const classes = useStyles();
+  const router = useRouter();
+  const [errMsg, setErrMsg] = useState('hide');
+  const [password, setPassword] = useState('');
+  const validPasswords = disributorsData.map((item) => item.password);
+  const theme = useTheme();
+  const upMD = useMediaQuery(theme.breakpoints.up('md'));
+
+  useEffect(() => {
+    setPassword(window.localStorage.getItem('password') || '');
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('password', password);
+    if (validPasswords.includes(password)) {
+      router.push('/docs');
+    } else if (password.length === 5) {
+      setErrMsg('show');
+    } else {
+      setErrMsg('hide');
+    }
+  }, [password]);
+
+  function updatePassword(e) {
+    setPassword(e.target.value);
+  }
 
   return (
     <Fragment>
       <Head title='MIMS - Distributors Login' />
-      <div className={classes.root}>
-        <SectionLayout
-          className={classes.sectionLayout}
-          paddingTop={5}
-          art={<img src={loginPageData.loginPic} className={classes.art} />}
-          content={[
-            <Typography key={0} variant='h1' className={classes.title}>
-              DISTRIBUTORS LOGIN
-            </Typography>,
-            <div key={1} className={classes.contentWrapper}>
-              <Typography className={classes.instruction}>
-                PLEASE ENTER YOUR PASSWORD TO ACCESS
-              </Typography>
-              <div className={classes.input}>
-                <input type='password' maxLength='5' />
-              </div>
-              <Link href='/docs'>
+      <SectionLayout
+        className={classes.sectionLayout}
+        paddingTop={upMD ? 13 : 7}
+        paddingBottom={upMD ? 5 : -3}
+        art={<img src={loginPageData.loginPic} className={classes.art} />}
+        content={[
+          <Typography key={0} variant='h1' className={classes.title}>
+            DISTRIBUTORS LOGIN
+          </Typography>,
+          <div key={1} className={classes.contentWrapper}>
+            <Typography className={classes.instruction}>
+              PLEASE ENTER YOUR PASSWORD TO ACCESS
+            </Typography>
+            <div className={classes.input}>
+              <input
+                type='password'
+                maxLength='5'
+                value={password}
+                onChange={updatePassword}
+              />
+            </div>
+            {/* <Link href='/docs'>
                 <a>
                   <Button
                     variant='contained'
@@ -125,19 +178,21 @@ function Login({ honmePageData, footerData, loginPageData }) {
                     size='large'
                     fullWidth
                     disableElevation
-                    disabled={false}
+                    disabled={password.length === 5}
                   >
                     Enter
                   </Button>
                 </a>
-              </Link>
+              </Link> */}
+            <motion.div variants={MOTION_VARIANTS.errorMsg} animate={errMsg}>
               <Typography className={classes.errorMsg}>
-                PLEASE RE-ENTER THE PASSWORD
+                PASSWORD IS INCORRECT
               </Typography>
-            </div>
-          ]}
-        />
-      </div>
+            </motion.div>
+          </div>
+        ]}
+      />
+      <Footer specPDF={homeData.specPdf} footerData={footerData} />
     </Fragment>
   );
 }
@@ -150,14 +205,16 @@ export async function getServerSideProps(context) {
   //   )
   // );
   reactor.init();
-  const honmePageData = await reactor.getDoc('unwyUBZmIqLoM5SDnwxo');
+  const homeData = await reactor.getDoc('unwyUBZmIqLoM5SDnwxo');
   const footerData = await reactor.getDoc('0q0P18TgtXrfMIStLToh');
   const loginPageData = await reactor.getDoc('wAklSicOZj68wmBfuI8i');
+  const disributorsData = await reactor.getCollection('mQbnHW9wcV79q9SWOfXN');
   return {
     props: {
-      honmePageData,
+      homeData,
       footerData,
-      loginPageData
+      loginPageData,
+      disributorsData
     }
   };
 }
