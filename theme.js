@@ -150,6 +150,24 @@ const theme = createMuiTheme({
       outlined: {
         // color: '#5668FF'
       }
+    },
+    MuiAccordionSummary: {
+      root: {
+        backgroundColor: '#FFDACE',
+        '&.Mui-expanded': {
+          minHeight: 48
+        }
+      },
+      content: {
+        '&.Mui-expanded': {
+          margin: '12px 0'
+        }
+      }
+    },
+    MuiAccordionDetails: {
+      root: {
+        backgroundColor: '#FFDACE'
+      }
     }
   },
   transition: '1s cubic-bezier(.21,.47,.49,.92)',
