@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 function Hero({ tagline, description }) {
   const theme = useTheme();
   const classes = useStyles();
-  const upSM = useMediaQuery(theme.breakpoints.up('sm'));
   const upMD = useMediaQuery(theme.breakpoints.up('md'));
 
   return (

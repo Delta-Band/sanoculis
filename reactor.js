@@ -32,7 +32,13 @@ const getCollection = async (collectionId) => {
 const getDoc = async (pageId) => {
   const ref = firebase.firestore().collection('pages').doc(pageId);
   const page = await ref.get();
-  return page.data().data;
+  const data = page.data().data;
+  Object.keys(data).forEach(function (key) {
+    if (data[key].seconds) {
+      data[key] = data[key].toDate().toString();
+    }
+  });
+  return data;
 };
 
 const subscribeToCollection = async (

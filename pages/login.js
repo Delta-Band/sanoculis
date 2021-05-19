@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
       outline: 'none',
       color: '#07003C',
       fontFamily: 'small-caption',
-      fontSize: 26,
+      fontSize: 17,
       letterSpacing: 3
       // '&:focus-visible': {
       //   border: 'none'
