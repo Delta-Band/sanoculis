@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   video: {
     width: '100%',
     marginBottom: '40px',
+    marginTop: theme.spacing(8),
     [theme.breakpoints.up('md')]: {
       marginBottom: 0
     }
@@ -49,7 +50,7 @@ function Hero({ tagline, description }) {
           playsInline
           muted
           className={classes.video}
-          src={`videos/${upSM ? 'desktop' : 'mobile'}/hero.mp4`}
+          src='videos/hero.mp4'
           autoPlay
         />
       }
