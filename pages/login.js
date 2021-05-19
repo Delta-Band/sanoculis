@@ -1,26 +1,12 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Typography } from '@material-ui/core';
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
-import { SectionLayout } from '../components/delta';
+import { SectionLayout, Login as DeltaLogin } from '../components/delta';
 import { Footer } from '../components/shared';
 // import Link from 'next/link';
 import reactor from '../reactor';
 import Head from '../head';
-
-/** CONSTS */
-const MOTION_VARIANTS = {
-  errorMsg: {
-    show: {
-      opacity: 1
-    },
-    hide: {
-      opacity: 0
-    }
-  }
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,8 +34,11 @@ const useStyles = makeStyles((theme) => ({
   contentWrapper: {
     maxWidth: 400,
     margin: '0 auto',
+    marginTop: theme.spacing(-2),
+    marginBottom: theme.spacing(-2),
     [theme.breakpoints.up('md')]: {
-      margin: 'unset'
+      margin: 'unset',
+      marginTop: theme.spacing(-2)
     }
   },
   art: {
@@ -82,69 +71,18 @@ const useStyles = makeStyles((theme) => ({
       textAlign: 'left'
     }
   },
-  input: {
-    height: 40,
-    wodth: 260,
-    borderRadius: 40,
-    backgroundColor: '#D9D9D9',
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    '& input': {
-      width: '100%',
-      height: '100%',
-      border: 'none',
-      backgroundColor: 'transparent',
-      outline: 'none',
-      color: '#07003C',
-      fontFamily: 'small-caption',
-      fontSize: 17,
-      letterSpacing: 3
-      // '&:focus-visible': {
-      //   border: 'none'
-      // }
-    },
+  login: {
     [theme.breakpoints.up('md')]: {
       borderRadius: theme.spacing(0.5)
     }
-  },
-  errorMsg: {
-    color: '#C60000',
-    // textAlign: 'center',
-    fontSize: 12,
-    marginTop: theme.spacing(2)
   }
 }));
 
 function Login({ homeData, footerData, loginPageData, disributorsData }) {
   const classes = useStyles();
-  const router = useRouter();
-  const [errMsg, setErrMsg] = useState('hide');
-  const [password, setPassword] = useState('');
   const validPasswords = disributorsData.map((item) => item.password);
   const theme = useTheme();
   const upMD = useMediaQuery(theme.breakpoints.up('md'));
-
-  useEffect(() => {
-    setPassword(window.localStorage.getItem('password') || '');
-  }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem('password', password);
-    if (validPasswords.includes(password)) {
-      router.push('/docs');
-    } else if (password.length === 5) {
-      setErrMsg('show');
-    } else {
-      setErrMsg('hide');
-    }
-  }, [password]);
-
-  function updatePassword(e) {
-    setPassword(e.target.value);
-  }
 
   return (
     <Fragment>
@@ -159,36 +97,12 @@ function Login({ homeData, footerData, loginPageData, disributorsData }) {
             DISTRIBUTORS LOGIN
           </Typography>,
           <div key={1} className={classes.contentWrapper}>
-            <Typography className={classes.instruction}>
-              PLEASE ENTER YOUR PASSWORD TO ACCESS
-            </Typography>
-            <div className={classes.input}>
-              <input
-                type='password'
-                maxLength='5'
-                value={password}
-                onChange={updatePassword}
-              />
-            </div>
-            {/* <Link href='/docs'>
-                <a>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    size='large'
-                    fullWidth
-                    disableElevation
-                    disabled={password.length === 5}
-                  >
-                    Enter
-                  </Button>
-                </a>
-              </Link> */}
-            <motion.div variants={MOTION_VARIANTS.errorMsg} animate={errMsg}>
-              <Typography className={classes.errorMsg}>
-                PASSWORD IS INCORRECT
-              </Typography>
-            </motion.div>
+            <DeltaLogin
+              validPasswords={validPasswords}
+              redirectPath='/docs'
+              className={classes.login}
+              placeHolder='ENTER YOUR PASSWORD TO ACCESS'
+            />
           </div>
         ]}
       />
