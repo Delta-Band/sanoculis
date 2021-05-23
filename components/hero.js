@@ -28,7 +28,21 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '40px',
     marginTop: theme.spacing(8),
     [theme.breakpoints.up('md')]: {
-      marginBottom: 0
+      marginBottom: 0,
+      marginTop: theme.spacing(0)
+    }
+  },
+  gradientOverlay: {
+    background:
+      'linear-gradient(-90deg, rgba(97, 114, 255, 1) 0%, rgba(97, 114, 255, 0) 100%)',
+    width: 50,
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'block'
     }
   }
 }));
@@ -45,13 +59,16 @@ function Hero({ tagline, description }) {
       background={theme.palette.primary.main}
       fullWidth
       art={
-        <video
-          playsInline
-          muted
-          className={classes.video}
-          src='videos/hero.mp4'
-          autoPlay
-        />
+        <div style={{ position: 'relative ' }}>
+          <video
+            playsInline
+            muted
+            className={classes.video}
+            src='videos/hero.mp4'
+            autoPlay
+          />
+          <div className={classes.gradientOverlay} />
+        </div>
       }
       extendBottomWith={
         <img
