@@ -76,7 +76,6 @@ function Hero({ tagline, description }) {
       <video
         playsInline
         muted
-        loop
         className={classes.video}
         src={`videos/${upMD ? 'desktop' : 'mobile'}/hero.mp4`}
         autoPlay
