@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import cx from 'classnames';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   heroRoot: {

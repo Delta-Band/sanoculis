@@ -12,10 +12,10 @@ function MyApp({ Component, pageProps }) {
         <AppBar
           menuItems={[
             { label: 'Home', linkTo: '' },
-            { label: 'Our Vision', linkTo: 'vision' },
+            // { label: 'Our Vision', linkTo: 'vision' },
             { label: 'Why It Helps', linkTo: 'interventional_glaucoma' },
             { label: 'Clinical Trial Data', linkTo: 'clinical' },
-            { label: 'Technical Specs', linkTo: 'specs' },
+            // { label: 'Technical Specs', linkTo: 'specs' },
             { label: 'Distributors Login', linkTo: 'login' }
           ]}
           logo='/sanoculis_logo.svg'
