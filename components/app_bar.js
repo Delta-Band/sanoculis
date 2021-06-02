@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     paddingBottom: theme.spacing(5),
+    paddingTop: theme.spacing(5),
     paddingLeft: theme.spacing(10),
     [theme.breakpoints.up('md')]: {
       width: '50%',

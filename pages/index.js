@@ -59,8 +59,8 @@ const useStyles = makeStyles((theme) => ({
       width: '30vw',
       height: '30vw',
       maxWidth: 600,
-      maxHeight: 600,
-      marginRight: theme.spacing(10)
+      maxHeight: 600
+      // marginRight: theme.spacing(10)
     }
   },
   newsLogo: {

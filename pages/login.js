@@ -52,15 +52,15 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       width: '40vw',
       height: '40vw',
-      marginRight: theme.spacing(10),
+      // marginRight: theme.spacing(10),
       marginBottom: theme.spacing(0)
     },
     [theme.breakpoints.up('lg')]: {
       width: '30vw',
       height: '30vw',
       maxWidth: 600,
-      maxHeight: 600,
-      marginRight: theme.spacing(10)
+      maxHeight: 600
+      // marginRight: theme.spacing(10)
     }
   },
   instruction: {

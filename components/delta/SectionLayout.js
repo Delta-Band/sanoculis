@@ -13,7 +13,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100vw',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    overflow: 'hidden'
   },
   innerWrapper: {
     position: 'relative',
