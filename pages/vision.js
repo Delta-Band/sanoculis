@@ -17,7 +17,7 @@ export async function getServerSideProps(context) {
   const homeData = await reactor.getDoc('unwyUBZmIqLoM5SDnwxo');
   const vision = await reactor.getDoc('7l4t8f1VUXEKmgtyeI3x');
   const footerData = await reactor.getDoc('0q0P18TgtXrfMIStLToh');
-  const cookies = await reactor.getDoc('COhYTLtDIMHmy9llUc6d');
+  const cookies = await reactor.getDoc('jD2rPC57vkYGWT7rvcdO');
   const leadership = await reactor.getCollection('v0duELYFMBPWaXzL9Q1M');
   const advisors = await reactor.getCollection('BxLbiTqgrOCEYFOpxZXM');
   const partners = await reactor.getCollection('TFonimSupP6KQaFfPONd');

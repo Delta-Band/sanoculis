@@ -8,7 +8,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import cx from 'classnames';
 import reactor from '../reactor';
 import { DeltaCarousel2 } from '../shared';
-import { Cookies } from '../compoenents/delta';
+import { Cookies } from '../components/delta';
 import Head from '../head';
 
 const useStyles = makeStyles((theme) => ({
@@ -365,7 +365,11 @@ export default function ClinicalData({ europe, india, cookies }) {
           </DeltaCarousel2>
         </div>
       </div>
-      <Cookies text={cookies.statement} privacyPolicyUrl={cookies.pdf} />
+      <Cookies
+        text={cookies.statement}
+        privacyPolicyUrl={cookies.pdf}
+        immediate
+      />
     </Fragment>
   );
 }

@@ -40,10 +40,10 @@ const MOTION_VARIANTS = {
   }
 };
 
-function Cookies({ text, privacyPolicyUrl }) {
+function Cookies({ text, privacyPolicyUrl, immediate }) {
   const classes = useStyles();
   const [accept, setAccept] = useStorage('accept', false);
-  const [waitForIt, setWaitForIt] = useState(true);
+  const [waitForIt, setWaitForIt] = useState(!immediate);
   const to = useRef();
 
   function releaseWait() {
