@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
+    background: theme.palette.primary.dark
   }
 }));
 
@@ -47,6 +48,7 @@ export default function LearnMore({ imageSrc, btnTxt }) {
             className={classes.btn}
             size='large'
             color='primary'
+            disableElevation
           >
             {btnTxt}
           </Button>

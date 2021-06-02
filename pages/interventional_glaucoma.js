@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Head from '../head';
 import reactor from '../reactor';
 import { Hero, LearnMore, Footer } from '../components/shared';
-import { TextBlocks } from '../components/delta';
+import { TextBlocks, Cookies } from '../components/delta';
 
 export async function getServerSideProps(context) {
   // console.log(context.req.headers['user-agent']);
@@ -12,6 +12,7 @@ export async function getServerSideProps(context) {
   //   )
   // );
   reactor.init();
+  const cookies = await reactor.getDoc('jD2rPC57vkYGWT7rvcdO');
   const pageData = await reactor.getDoc('tr6L3TlA067DRHaczE2i');
   const footerData = await reactor.getDoc('0q0P18TgtXrfMIStLToh');
   const homeData = await reactor.getDoc('unwyUBZmIqLoM5SDnwxo');
@@ -19,7 +20,8 @@ export async function getServerSideProps(context) {
     props: {
       pageData,
       footerData,
-      homeData
+      homeData,
+      cookies
     }
   };
 }
@@ -27,7 +29,8 @@ export async function getServerSideProps(context) {
 export default function InterventionalGlaucoma({
   pageData,
   footerData,
-  homeData
+  homeData,
+  cookies
 }) {
   return (
     <Fragment>
@@ -69,6 +72,7 @@ export default function InterventionalGlaucoma({
         btnTxt={pageData.learnMoreBtnTxt}
       />
       <Footer specPDF={homeData.specPdf} footerData={footerData} />
+      <Cookies text={cookies.statement} privacyPolicyUrl={cookies.pdf} />
     </Fragment>
   );
 }

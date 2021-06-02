@@ -62,12 +62,6 @@ const useStyles = makeStyles((theme) => ({
   newsVerticalSpacing: {
     marginBottom: theme.spacing(4)
   },
-  ellipsis: {
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    width: '100%'
-  },
   lineClamp: {
     display: '-webkit-box',
     '-webkit-line-clamp': 5,
@@ -84,6 +78,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: 125
     }
+  },
+  readMore: {
+    width: 140
   }
 }));
 
@@ -138,15 +135,6 @@ export default function News({ art, title, items }) {
                 className={cx(classes.newsLogo, classes.newsVerticalSpacing)}
               />
               <Typography
-                className={cx(
-                  classes.whiteText,
-                  classes.newsVerticalSpacing,
-                  classes.ellipsis
-                )}
-              >
-                {item.source}
-              </Typography>
-              <Typography
                 variant='h3'
                 className={cx(
                   classes.whiteText,
@@ -156,6 +144,16 @@ export default function News({ art, title, items }) {
               >
                 &#34;{item.headline}&#34;
               </Typography>
+              <Button
+                href={item.link}
+                target='_blank'
+                rel='noreferrer'
+                variant='outlined'
+                color='secondary'
+                className={classes.readMore}
+              >
+                Read More
+              </Button>
             </Box>
           )}
         />,

@@ -133,7 +133,7 @@ export default function LearnMore() {
       <div className={classes.section}>
         <ImageFilter>
           <img
-            src='images/vision.jpg'
+            src='images/vision.png'
             className={cx(classes.img, classes.img1)}
           />
         </ImageFilter>
@@ -154,7 +154,7 @@ export default function LearnMore() {
       <div className={classes.section}>
         <ImageFilter>
           <img
-            src='images/about.jpg'
+            src='images/about.png'
             className={cx(classes.img, classes.img2)}
           />
         </ImageFilter>

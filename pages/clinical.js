@@ -8,6 +8,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import cx from 'classnames';
 import reactor from '../reactor';
 import { DeltaCarousel2 } from '../shared';
+import { Cookies } from '../compoenents/delta';
 import Head from '../head';
 
 const useStyles = makeStyles((theme) => ({
@@ -134,16 +135,18 @@ export async function getServerSideProps(context) {
   reactor.init();
   const europe = await reactor.getCollection('PZQcOJtjfdrWfGJ7DsbR');
   const india = await reactor.getCollection('T0QN1PiIk1GXQPXWNcia');
+  const cookies = await reactor.getDoc('jD2rPC57vkYGWT7rvcdO');
   return {
     props: {
       deviceType,
       europe,
-      india
+      india,
+      cookies
     }
   };
 }
 
-export default function ClinicalData({ europe, india }) {
+export default function ClinicalData({ europe, india, cookies }) {
   const theme = useTheme();
   const [tab, setTab] = useState(0);
   const [index, setIndex] = useState(0);
@@ -362,6 +365,7 @@ export default function ClinicalData({ europe, india }) {
           </DeltaCarousel2>
         </div>
       </div>
+      <Cookies text={cookies.statement} privacyPolicyUrl={cookies.pdf} />
     </Fragment>
   );
 }

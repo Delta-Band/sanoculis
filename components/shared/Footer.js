@@ -60,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     '&:focus': {
       textDecoration: 'none'
+    },
+    '&:hover *': {
+      textDecoration: 'underline'
     }
   },
   linkedIn: {
@@ -91,19 +94,19 @@ function Learn() {
         Learn
       </Typography>
       <Link href='/vision'>
-        <a>
+        <a className={classes.link}>
           <Typography className={classes.blueTxt}>OUR VISION</Typography>
         </a>
       </Link>
       <Link href='/about'>
-        <a>
+        <a className={classes.link}>
           <Typography className={classes.blueTxt}>
             INTERVENTIONAL GLAUCOMA
           </Typography>
         </a>
       </Link>
       <Link href='/clinical'>
-        <a>
+        <a className={classes.link}>
           <Typography className={classes.blueTxt}>
             CLINICAL TRIAL DATA
           </Typography>
@@ -129,13 +132,13 @@ function Resources({ specPDF, privacyPolicy }) {
         href={specPDF}
         className={classes.link}
       >
-        <Typography className={classes.whiteTxt}>
+        <Typography className={classes.blueTxt}>
           TECHNICAL SPECIFICATIONS
         </Typography>
       </MuiLink>
       <Link href='/login'>
-        <a>
-          <Typography className={classes.whiteTxt}>
+        <a className={classes.link}>
+          <Typography className={classes.blueTxt}>
             DISTRIBUTORS LOGIN
           </Typography>
         </a>
@@ -146,7 +149,7 @@ function Resources({ specPDF, privacyPolicy }) {
         href={privacyPolicy}
         className={classes.link}
       >
-        <Typography className={classes.whiteTxt}>
+        <Typography className={classes.blueTxt}>
           PRIVACY POLICY & TERMS
         </Typography>
       </MuiLink>
@@ -176,7 +179,7 @@ function Company({ footerData }) {
         href={`mailto:${footerData.email}`}
         className={classes.link}
       >
-        <Typography className={classes.whiteTxt}>{footerData.email}</Typography>
+        <Typography className={classes.blueTxt}>{footerData.email}</Typography>
       </MuiLink>
       <MuiLink
         target='_blank'
@@ -184,7 +187,7 @@ function Company({ footerData }) {
         href={`tel:${footerData.phone}`}
         className={classes.link}
       >
-        <Typography className={classes.whiteTxt}>{footerData.phone}</Typography>
+        <Typography className={classes.blueTxt}>{footerData.phone}</Typography>
       </MuiLink>
       <MuiLink
         target='_blank'
@@ -192,7 +195,7 @@ function Company({ footerData }) {
         href={footerData.gmap}
         className={classes.link}
       >
-        <Typography className={classes.whiteTxt}>
+        <Typography className={classes.blueTxt}>
           {footerData.address}
         </Typography>
       </MuiLink>

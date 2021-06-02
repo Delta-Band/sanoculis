@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     left: 0,
     width: '100%',
-    paddingLeft: theme.spacing(5),
-    paddingRight: theme.spacing(5),
+    paddingLeft: theme.spacing(2.5),
+    paddingRight: theme.spacing(2.5),
     paddingBottom: theme.spacing(5),
     [theme.breakpoints.up('sm')]: {
       width: '60%',
@@ -59,13 +59,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(5.5)
   },
   title: {
-    whiteSpace: 'break-spaces',
-    [theme.breakpoints.up('lg')]: {
-      fontSize: 52
-    },
-    [theme.breakpoints.up('xl')]: {
-      fontSize: 72
-    }
+    whiteSpace: 'break-spaces'
+    // [theme.breakpoints.up('lg')]: {
+    //   fontSize: 52
+    // },
+    // [theme.breakpoints.up('xl')]: {
+    //   fontSize: 72
+    // }
   }
 }));
 

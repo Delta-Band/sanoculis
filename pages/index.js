@@ -15,17 +15,12 @@ import {
   SpecSection,
   DistributorsForHome
 } from '../components';
-import { SectionLayout } from '../components/delta';
+import { SectionLayout, Cookies } from '../components/delta';
 
 export async function getServerSideProps(context) {
-  // console.log(context.req.headers['user-agent']);
-  // const isMobile = Boolean(
-  //   context.req.headers['user-agent'].match(
-  //     /iPhone|Android|webOS|iPad|iPod|BlackBerry|Windows Phone/i
-  //   )
-  // );
   reactor.init();
   const homePage = await reactor.getDoc('unwyUBZmIqLoM5SDnwxo');
+  const cookies = await reactor.getDoc('jD2rPC57vkYGWT7rvcdO');
   const testimonials = await reactor.getCollection('uZJDusr9qBPPkkxrxw6j');
   const news = await reactor.getCollection('wTe6w2bKS0b2mNdHCHYu');
   const disributors = await reactor.getCollection('mQbnHW9wcV79q9SWOfXN');
@@ -36,7 +31,8 @@ export async function getServerSideProps(context) {
       testimonials,
       news,
       footer,
-      disributors
+      disributors,
+      cookies
     }
   };
 }
@@ -101,7 +97,8 @@ export default function Home({
   testimonials,
   news,
   footer,
-  disributors
+  disributors,
+  cookies
 }) {
   // const theme = useTheme();
   const classes = useStyles();
@@ -157,6 +154,7 @@ export default function Home({
       <DistributorsForHome disributors={disributors} />
       <LearnMore />
       <Footer specPDF={homePage.specPdf} footerData={footer} />
+      <Cookies text={cookies.statement} privacyPolicyUrl={cookies.pdf} />
     </Fragment>
   );
 }

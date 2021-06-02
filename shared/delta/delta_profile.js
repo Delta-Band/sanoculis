@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Typography, Grid } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import ImageParallax from './image_parallax';
 
 export default function DeltaProfile({
   pic,
@@ -38,7 +37,21 @@ export default function DeltaProfile({
             scale: scale
           }}
         >
-          <ImageParallax
+          <img
+            src={pic}
+            style={{
+              // width: '100%',
+              transition: theme.fastTransition,
+              mixBlendMode: mixBlendMode,
+              filter: !applyFilter ? 'grayscale(0)' : 'grayscale(1)',
+              height: size,
+              width: size,
+              borderRadius: size,
+              border: border,
+              objectFit: 'cover'
+            }}
+          />
+          {/* <ImageParallax
             src={pic}
             itemStyle={{
               height: size,
@@ -52,7 +65,7 @@ export default function DeltaProfile({
               filter: !applyFilter ? 'grayscale(0)' : 'grayscale(1)'
             }}
             blendColor={applyFilter ? theme.palette.primary.main : '#FFF'}
-          />
+          /> */}
         </motion.div>
       </Grid>
       {name ||
