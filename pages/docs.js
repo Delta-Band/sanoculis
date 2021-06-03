@@ -23,7 +23,12 @@ const useStyles = makeStyles((theme) => ({
   },
   pageInner: {
     maxWidth: 1600,
-    margin: '0 auto'
+    margin: '0 auto',
+    minHeight: '70vh',
+    display: 'flex',
+    flexDirection: 'column'
+    // alignItems: 'center',
+    // justifyContent: 'center'
   },
   accordionContainer: {
     paddingLeft: theme.spacing(4),
@@ -39,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'uppercase',
     paddingLeft: theme.spacing(4),
     marginBottom: theme.spacing(2),
+    alignSelf: 'flex-start',
     [theme.breakpoints.up('sm')]: {
       fontSize: 30
     }
@@ -193,7 +199,7 @@ export async function getServerSideProps(context) {
   const footerData = await reactor.getDoc('0q0P18TgtXrfMIStLToh');
   const regulatoryData = await reactor.getCollection('lIlNrxE94i0QHCYHIM0Y');
   const manualData = await reactor.getCollection('yIHx3NaCdF2CbGAvvxad');
-  const specsData = await reactor.getCollection('yIHx3NaCdF2CbGAvvxad');
+  const specsData = await reactor.getCollection('VGEKpRqusvnfrxxju3QF');
   const trainingData = await reactor.getCollection('C31pBEH1BRd72vHfgkLk');
   const abstractData = await reactor.getCollection('ctFE6wXmvqESjGerIaIz');
   return {

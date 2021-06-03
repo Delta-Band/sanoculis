@@ -153,9 +153,9 @@ const theme = createMuiTheme({
     },
     MuiAccordionSummary: {
       root: {
-        backgroundColor: '#FFDACE',
+        minHeight: 68,
         '&.Mui-expanded': {
-          minHeight: 48
+          minHeight: 68
         }
       },
       content: {
@@ -164,8 +164,8 @@ const theme = createMuiTheme({
         }
       }
     },
-    MuiAccordionDetails: {
-      root: {
+    MuiAccordion: {
+      rounded: {
         backgroundColor: '#FFDACE'
       }
     }
