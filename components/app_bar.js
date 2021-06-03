@@ -18,9 +18,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     width: '100vw',
     borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
-    // overflow: 'hidden',
     zIndex: 3,
-    // height: 'auto !important',
     color: '#FFF'
   },
   topSection: {
@@ -50,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    paddingBottom: theme.spacing(5),
+    // paddingBottom: theme.spacing(5),
     paddingTop: theme.spacing(5),
     paddingLeft: theme.spacing(10),
     [theme.breakpoints.up('md')]: {
