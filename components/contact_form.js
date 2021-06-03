@@ -24,7 +24,8 @@ function Contact({ clear = false }) {
   const [emailIsValid, setEmailIsValid] = useState(false);
   const [validateName, setValaidateName] = useState(false);
   const [validateEmail, setValaidateEmail] = useState(false);
-  const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line
+  const regexEmail =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line
 
   useEffect(() => {
     setNameIsValid(name.trim().length > 0);
@@ -124,30 +125,30 @@ function Contact({ clear = false }) {
           }
           if (sending) return;
           setSending(true);
-          const serviceID = 'service_k1ae8xr';
-          const templateID = 'new_lead';
+          const serviceID = 'mims_email_service';
+          const templateID = 'mims_contact_form';
           const templateParams = {
             name,
             email,
             message
           };
-          const userID = 'user_54jeSZNlO93cckYtc9Sd7';
-          // emailjs.send(serviceID, templateID, templateParams, userID).then(
-          //   function (response) {
-          //     console.log('SUCCESS!', response.status, response.text);
-          //     setSending(false);
-          //     setOK(true);
-          //     setTimeout(function () {
-          //       setTimeout(function () {
-          //         setOK(false);
-          //       }, 1000);
-          //     }, 5000);
-          //   },
-          //   function (error) {
-          //     console.log('FAILED...', error);
-          //     setSending(false);
-          //   }
-          // );
+          const userID = 'user_KLCuHsat1fff998ntT9jG';
+          emailjs.send(serviceID, templateID, templateParams, userID).then(
+            function (response) {
+              console.log('SUCCESS!', response.status, response.text);
+              setSending(false);
+              setOK(true);
+              setTimeout(function () {
+                setTimeout(function () {
+                  setOK(false);
+                }, 1000);
+              }, 5000);
+            },
+            function (error) {
+              console.log('FAILED...', error);
+              setSending(false);
+            }
+          );
         }}
       >
         {ok ? 'Got it!' : sending ? <Bounce size={16} color='white' /> : 'Send'}

@@ -388,17 +388,19 @@ function Contact({ expand, setShowContact }) {
   const classes = useStyles();
   const theme = useTheme();
   const upMD = useMediaQuery(theme.breakpoints.up('md'));
+  const downMD = useMediaQuery(theme.breakpoints.down('md'));
   return (
     <Box className={classes.contactWrapper}>
       <motion.div
         variants={contactWrapper}
         className={classes.contactWrapperInner}
-        initial={upMD ? 'hide' : 'show'}
-        animate={!upMD ? 'show' : expand ? 'show' : 'hide'}
+        initial={!downMD ? 'hide' : 'show'}
+        animate={downMD ? 'show' : expand ? 'show' : 'hide'}
       >
         <motion.div
           variants={contactForm}
           animate={expand ? 'show' : 'hide'}
+          initial='hide'
           style={{
             display: 'flex',
             flexDirection: 'column',
