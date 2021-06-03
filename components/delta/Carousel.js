@@ -61,8 +61,8 @@ function CarouselItem({ children, itemWidth, spacing }) {
       ref={targetRef}
       className={cx(classes.item, { [classes.disableChildren]: visible < 0.9 })}
       animate={{
-        opacity: visible > 0.9 ? 1 : 0.4,
-        filter: visible > 0.9 ? 'grayscale(0)' : 'grayscale(1)'
+        opacity: visible <= 0.5 ? 0.4 : 1,
+        filter: visible <= 0.5 ? 'grayscale(1)' : 'grayscale(0)'
       }}
       style={{
         width: itemWidth - spacing,
@@ -164,7 +164,10 @@ export default function Carousel({
     if (debug) {
       console.log('itemWidth: ', itemWidth);
     }
-    setXPos(-index * itemWidth + (index === 0 ? 0 : spacing * 2));
+    setXPos(
+      -index * itemWidth +
+        (index === 0 ? 0 : spacing * (index === children.length - 1 ? 1 : 2))
+    );
   }, [index, itemWidth]);
 
   useEffect(() => {

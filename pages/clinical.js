@@ -7,23 +7,24 @@ import { useSwipeable } from 'react-swipeable';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import cx from 'classnames';
 import reactor from '../reactor';
-import { DeltaCarousel2 } from '../shared';
-import { Cookies } from '../components/delta';
+import { Footer } from '../components/shared';
+import { Cookies, Carousel } from '../components/delta';
 import Head from '../head';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  clinicalPageRoot: {
     background: theme.palette.primary.main,
     display: 'flex',
     flexDirection: 'column',
     width: '100vw',
-    height: '100%',
+    minHeight: 'calc(100vh - 60px)',
     paddingTop: theme.spacing(12),
     paddingBottom: theme.spacing(12),
+    overflowX: 'hidden',
     [theme.breakpoints.up('sm')]: {
       paddingTop: theme.spacing(20),
-      justifyContent: 'center',
-      position: 'fixed'
+      justifyContent: 'center'
+      // position: 'fixed'
     }
     // paddingTop: theme.spacing(5)
   },
@@ -40,9 +41,10 @@ const useStyles = makeStyles((theme) => ({
   pageHeader: {
     fontSize: 32,
     color: '#FFF',
-    paddingLeft: theme.spacing(5),
+    paddingLeft: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
-      fontSize: 42
+      fontSize: 42,
+      paddingLeft: theme.spacing(5)
     },
     [theme.breakpoints.up('lg')]: {
       paddingLeft: theme.spacing(17)
@@ -54,9 +56,9 @@ const useStyles = makeStyles((theme) => ({
   tabContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
+    paddingLeft: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
       justifyContent: 'flex-start',
       paddingLeft: theme.spacing(5),
@@ -67,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   tabDivider: {
-    width: 4,
+    width: 2,
     height: 30,
     background: '#FFF',
     opacity: 0.5,
@@ -75,16 +77,25 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(4),
     marginLeft: theme.spacing(4)
   },
+  carousel: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5)
+    },
+    [theme.breakpoints.up('lg')]: {
+      paddingLeft: theme.spacing(17),
+      paddingRight: theme.spacing(17)
+    }
+  },
   paper: {
-    width: 360,
+    width: '100%',
     flexShrink: 0,
     borderRadius: '28px',
     marginRight: theme.spacing(2),
     marginBottom: theme.spacing(2),
-    cursor: 'pointer',
-    [theme.breakpoints.up('sm')]: {
-      width: 400
-    }
+    cursor: 'pointer'
   },
   title: {
     fontSize: 16,
@@ -106,23 +117,30 @@ const useStyles = makeStyles((theme) => ({
   },
   profileContainer: {
     display: 'flex',
+    alignItems: 'center',
     '& img': {
       width: 40,
       height: 40,
-      borderRadius: 40
+      borderRadius: 40,
+      [theme.breakpoints.up('lg')]: {
+        width: 70,
+        height: 70,
+        borderRadius: 70
+      }
     }
+  },
+  secondProfileContainer: {
+    justifyContent: 'flex-end'
   },
   profileInfo: {
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(1),
+    width: 'calc(100% - 40px)'
   },
   profileTxt: {
-    width: 90,
+    width: '100%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    [theme.breakpoints.up('sm')]: {
-      width: 110
-    }
+    whiteSpace: 'nowrap'
   },
   justMe: {
     width: 'auto'
@@ -136,24 +154,36 @@ export async function getServerSideProps(context) {
   const europe = await reactor.getCollection('PZQcOJtjfdrWfGJ7DsbR');
   const india = await reactor.getCollection('T0QN1PiIk1GXQPXWNcia');
   const cookies = await reactor.getDoc('jD2rPC57vkYGWT7rvcdO');
+  const homeData = await reactor.getDoc('unwyUBZmIqLoM5SDnwxo');
+  const footerData = await reactor.getDoc('0q0P18TgtXrfMIStLToh');
   return {
     props: {
       deviceType,
       europe,
       india,
-      cookies
+      cookies,
+      homeData,
+      footerData
     }
   };
 }
 
-export default function ClinicalData({ europe, india, cookies }) {
-  const theme = useTheme();
+export default function ClinicalData({
+  europe,
+  india,
+  cookies,
+  homeData,
+  footerData
+}) {
   const [tab, setTab] = useState(0);
   const [index, setIndex] = useState(0);
   const classes = useStyles();
-  const upSM = useMediaQuery(theme.breakpoints.up('sm'));
-  const upLG = useMediaQuery(theme.breakpoints.up('lg'));
-  const cardWidth = upSM ? 400 : 360;
+  const theme = useTheme();
+  const upSm = useMediaQuery(theme.breakpoints.up('sm'));
+  const upMd = useMediaQuery(theme.breakpoints.up('md'));
+  const upLg = useMediaQuery(theme.breakpoints.up('lg'));
+  const upXl = useMediaQuery(theme.breakpoints.up('xl'));
+  const visibleItems = upXl ? 4.5 : upLg ? 2.4 : upMd ? 2.4 : upSm ? 1.8 : 1.1;
   const myRef = useRef();
   const handlers = useSwipeable({
     onSwipedLeft: () => {
@@ -245,17 +275,11 @@ export default function ClinicalData({ europe, india, cookies }) {
   return (
     <Fragment>
       <Head title='MIMS Clinical Data' />
-      <div className={classes.root}>
+      <div className={classes.clinicalPageRoot}>
         <PageHeader />
         <Tabs />
         <div ref={refPassthrough}>
-          <DeltaCarousel2
-            paddingLeft={theme.spacing(upLG ? 17 : upSM ? 5 : 2)}
-            xPosition={
-              -index * (cardWidth + theme.spacing(2)) +
-              (index === getCollectionByTab().length - 1 ? theme.spacing(2) : 0)
-            }
-          >
+          <Carousel className={classes.carousel} visibleItems={visibleItems}>
             {getCollectionByTab().map((itm, i) => (
               <Paper
                 key={itm.id}
@@ -265,7 +289,7 @@ export default function ClinicalData({ europe, india, cookies }) {
               >
                 <Box pl={4.5} pr={4.5} pt={3} pb={3}>
                   <Grid container spacing={3}>
-                    <Grid item xs={8}>
+                    <Grid item xs={7}>
                       <Typography className={classes.title}>
                         Follow Up
                       </Typography>
@@ -273,7 +297,7 @@ export default function ClinicalData({ europe, india, cookies }) {
                         {itm.followUp} MONTHS
                       </Typography>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={5}>
                       <Typography className={classes.title}>Size</Typography>
                       <Typography className={classes.data}>
                         N = {itm.size}
@@ -311,7 +335,8 @@ export default function ClinicalData({ europe, india, cookies }) {
                       </Grid>
                       <Grid
                         item
-                        xs={itm.surgeon2Pic ? 6 : 12}
+                        xs={12}
+                        sm={itm.surgeon2Pic ? 6 : 12}
                         className={classes.profileContainer}
                       >
                         <Profile
@@ -322,7 +347,15 @@ export default function ClinicalData({ europe, india, cookies }) {
                         />
                       </Grid>
                       {itm.surgeon2Pic && (
-                        <Grid item xs={6} className={classes.profileContainer}>
+                        <Grid
+                          item
+                          xs={12}
+                          sm={6}
+                          className={cx(
+                            classes.profileContainer,
+                            classes.secondProfileContainer
+                          )}
+                        >
                           <Profile
                             pic={itm.surgeon2Pic}
                             name={itm.surgeon2Name}
@@ -362,9 +395,10 @@ export default function ClinicalData({ europe, india, cookies }) {
                 </Box>
               </Paper>
             ))}
-          </DeltaCarousel2>
+          </Carousel>
         </div>
       </div>
+      <Footer specPDF={homeData.specPdf} footerData={footerData} />
       <Cookies
         text={cookies.statement}
         privacyPolicyUrl={cookies.pdf}
