@@ -98,7 +98,7 @@ function Learn() {
           <Typography className={classes.blueTxt}>OUR VISION</Typography>
         </a>
       </Link>
-      <Link href='/about'>
+      <Link href='/interventional_glaucoma'>
         <a className={classes.link}>
           <Typography className={classes.blueTxt}>
             INTERVENTIONAL GLAUCOMA

@@ -38,7 +38,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: 11,
-    textAlign: 'center'
+    lineHeight: 1.7,
+    textAlign: 'center',
+    marginTop: theme.spacing(1)
   },
   linkIcon: {
     position: 'absolute',

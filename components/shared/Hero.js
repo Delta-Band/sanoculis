@@ -8,10 +8,10 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: theme.spacing(8),
-    height: 876,
+    height: 'calc(100vh - 60px)',
     position: 'relative',
     [theme.breakpoints.up('md')]: {
-      height: '80vh'
+      // height: '80vh'
     }
   },
   heroImage: {

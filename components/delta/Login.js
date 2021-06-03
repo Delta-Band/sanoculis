@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
   placeHolder: {
     position: 'absolute',
     top: '50%',
-    left: theme.spacing(3)
+    left: theme.spacing(3),
+    pointerEvents: 'none'
   },
   instruction: {
     fontSize: 12
