@@ -158,7 +158,6 @@ export default function DistributorsForHome({ disributors }) {
                   <Typography>{selection.company}</Typography>
                   <Typography>{selection.address}</Typography>
                   <MuiLink
-                    key={3}
                     target='_blank'
                     rel='noreferrer'
                     href={`tel:${selection.phone}`}
@@ -166,7 +165,6 @@ export default function DistributorsForHome({ disributors }) {
                     <Typography>{selection.phone}</Typography>
                   </MuiLink>
                   <MuiLink
-                    key={3}
                     target='_blank'
                     rel='noreferrer'
                     href={`mailto:${selection.email}`}
@@ -174,7 +172,6 @@ export default function DistributorsForHome({ disributors }) {
                     <Typography>{selection.email}</Typography>
                   </MuiLink>
                   <MuiLink
-                    key={3}
                     target='_blank'
                     rel='noreferrer'
                     href={selection.website}

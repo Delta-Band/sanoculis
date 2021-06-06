@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ReadyProvider } from '../context/ready.context';
 import { ThemeProvider } from '@material-ui/core/styles';
+import ReactGA from 'react-ga';
 import { AppBar } from '../components';
 import '../styles/globals.css';
 import theme from '../theme';
 
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    ReactGA.initialize('G-G6D797E340', {
+      debug: true
+    });
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <ReadyProvider>
