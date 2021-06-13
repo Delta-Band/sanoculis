@@ -1,200 +1,161 @@
-import React, { useRef, useState, useEffect } from 'react';
-import cx from 'classnames';
-import { Page } from '../components';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Button from '@material-ui/core/Button';
-import { Email } from '@styled-icons/material-rounded/Email';
-import { MarkEmailRead as EmailSent } from '@styled-icons/material-rounded/MarkEmailRead';
-import { Warning } from '@styled-icons/material-rounded/Warning';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { validateEmail } from '../utils';
-import { emailJS, GA } from '../services';
-import styles from './styles.scss';
+import React, { Fragment } from 'react';
+import { Box, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+// import useMediaQuery from '@material-ui/core/useMediaQuery';
+import reactor from '../reactor';
+import Head from '../head';
+import { DeltaTestimonials } from '../shared';
+import { Footer } from '../components/shared';
+import {
+  Hero,
+  News,
+  LearnMore,
+  ClinicalPerformance,
+  HowItWorks,
+  SpecSection,
+  DistributorsForHome
+} from '../components';
+import { SectionLayout, Cookies } from '../components/delta';
 
-export default function Home() {
-  const pageRef = useRef();
-  const [emailSent, setEmailSent] = useState(false);
-  const [working, setWorking] = useState(false);
-  const [email, setEmail] = useState('');
-  const [emailIsValid, setEmailIsValid] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [scrollPosition, setscrollPosition] = useState(0);
-  const theme = useTheme();
-  const mobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  function handleScroll() {
-    setscrollPosition(pageRef.current.scrollTop);
-  }
-
-  useEffect(() => {
-    setTimeout(() => {
-      handleScroll();
-    }, 1000);
-    pageRef.current.addEventListener('scroll', handleScroll);
-    return () => {
-      if (pageRef.current) {
-        pageRef.current.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    setEmailIsValid(validateEmail(email));
-  }, [email]);
-
-  useEffect(() => {
-    if (showError && emailIsValid) {
-      setShowError(false);
+export async function getServerSideProps(context) {
+  reactor.init();
+  const homePage = await reactor.getDoc('unwyUBZmIqLoM5SDnwxo');
+  const cookies = await reactor.getDoc('jD2rPC57vkYGWT7rvcdO');
+  const testimonials = await reactor.getCollection('uZJDusr9qBPPkkxrxw6j');
+  const news = await reactor.getCollection('wTe6w2bKS0b2mNdHCHYu');
+  const disributors = await reactor.getCollection('mQbnHW9wcV79q9SWOfXN');
+  const footer = await reactor.getDoc('0q0P18TgtXrfMIStLToh');
+  return {
+    props: {
+      homePage,
+      testimonials,
+      news,
+      footer,
+      disributors,
+      cookies
     }
-  }, [emailIsValid]);
+  };
+}
 
-  async function sendEmail() {
-    if (!emailIsValid) {
-      setShowError(true);
-    } else {
-      setWorking(true);
-      try {
-        await emailJS.send({ email });
-        setEmailSent(true);
-        GA.logEvent('contact-form', 'sent-successful');
-      } catch (err) {
-        GA.logEvent('contact-form', 'sent-failed');
-      }
-      setWorking(false);
+const useStyles = makeStyles((theme) => ({
+  blueInfo: {
+    color: theme.palette.primary.main
+  },
+  whiteText: {
+    color: '#FFF'
+  },
+  art: {
+    width: '80vw',
+    height: '80vw',
+    [theme.breakpoints.up('sm')]: {
+      width: '50vw',
+      height: '50vw'
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '40vw',
+      height: '40vw'
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '30vw',
+      height: '30vw',
+      maxWidth: 600,
+      maxHeight: 600
+      // marginRight: theme.spacing(10)
     }
+  },
+  newsLogo: {
+    width: '100%',
+    objectFit: 'contain'
+  },
+  newsVerticalSpacing: {
+    marginBottom: theme.spacing(4)
+  },
+  ellipsis: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: '100%'
+  },
+  lineClamp: {
+    display: '-webkit-box',
+    '-webkit-line-clamp': 5,
+    '-webkit-box-orient': 'vertical',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden'
+  },
+  carouselNavBtn: {
+    width: 100,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    color: '#FFF'
   }
+}));
 
-  function attachTypingClass() {
-    document.getElementById('__next').classList.add('typing');
-  }
-
-  function removeTypingClass() {
-    document.getElementById('__next').classList.remove('typing');
-  }
+export default function Home({
+  homePage,
+  testimonials,
+  news,
+  footer,
+  disributors,
+  cookies
+}) {
+  // const theme = useTheme();
+  const classes = useStyles();
+  // const upMD = useMediaQuery(theme.breakpoints.up('md'));
+  // const _isMobile = isMobile || matches;
 
   return (
-    <Page
-      getRef={pageRef}
-      className={cx(styles.stage, { [styles.mobile]: mobile })}
-    >
-      <img
-        src='images/logo.svg'
-        className={cx(styles.logo, { [styles.mobile]: mobile })}
-        style={{
-          opacity: 3 - scrollPosition * (1 / 100)
-        }}
-      />
-      <img
-        src='images/ce.svg'
-        className={cx(styles.ceLogo, { [styles.mobile]: mobile })}
-        style={{
-          opacity: 3 - scrollPosition * (1 / 100)
-        }}
-      />
-      <img
-        src={
-          mobile ? 'images/mims_device_mobile.png' : 'images/mims_device.png'
-        }
-        className={cx(styles.art, { [styles.mobile]: mobile })}
-        style={{
-          transform: `translateX(-${scrollPosition * 0.15}%)`,
-          opacity: 1 - scrollPosition * (1 / 250)
-        }}
-      />
-      <div className={cx(styles.contentBox, { [styles.mobile]: mobile })}>
-        <img src='images/text-content.svg' />
-        <Grid
-          container
-          className={cx(styles.textBox, { [styles.mobile]: mobile })}
-        >
-          <Grid item xs={10}>
-            <TextField
-              id='filled-basic'
-              placeholder='Get updates on clinical progress'
-              variant='outlined'
-              fullWidth
-              className={cx(styles.email, { [styles.mobile]: mobile })}
-              onChange={(e) => {
-                setEmail(e.currentTarget.value);
-              }}
-              onFocus={attachTypingClass}
-              onBlur={removeTypingClass}
+    <Fragment>
+      <Head title='MIMS Story' />
+      <Hero tagline={homePage.tagline} description={homePage.description} />
+      <SectionLayout
+        art={
+          <Box className={classes.art}>
+            <lottie-interactive
+              loop
+              path='lottie/1.json'
+              interaction='play-on-show'
             />
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              variant='contained'
-              color='primary'
-              fullWidth
-              className={cx(styles.submit, {
-                [styles.mobile]: mobile,
-                [styles.sent]: emailSent
-              })}
-              disableElevation
-              onClick={sendEmail}
-            >
-              {working ? (
-                <CircularProgress
-                  color='secondary'
-                  className={styles.circularProgress}
-                />
-              ) : emailSent ? (
-                <EmailSent key='sent' />
-              ) : (
-                <Email key='not_sent' />
-              )}
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Box
-              display='flex'
-              alignItems='center'
-              className={cx(styles.errorMsg, { [styles.show]: showError })}
-            >
-              <div className={styles.errTxt}>Please enter a valid email</div>
-              <Warning />
-            </Box>
-          </Grid>
-        </Grid>
-      </div>
-      <Box
-        display='flex'
-        flexDirection={mobile ? 'column' : 'row'}
-        className={cx(styles.footer, { [styles.mobile]: mobile })}
-        justifyContent='center'
-        alignItems='center'
-      >
-        <Box display='flex'>
-          <a
-            href='https://www.linkedin.com/company/sanoculis/'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            Linkedin
-          </a>
-          <div className={styles.pipe}>|</div>
-          <a
-            href='mailto:info@sanoculis.com?subject=Mail from Our Website&body=Please contact me'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            info@sanoculis.com
-          </a>
-        </Box>
-        {!mobile && <div className={styles.pipe}>|</div>}
-        <div>10 Landau, Kiryat Ono, Israel</div>
-        {!mobile && <div className={styles.pipe}>|</div>}
-        <Box display='flex'>
-          <div>+972 03-550-6432</div>
-          <div className={styles.pipe}>|</div>
-          <div>Sanoculis LTD. 2020</div>
-        </Box>
-      </Box>
-    </Page>
+          </Box>
+        }
+        content={[
+          <Typography key={0} variant='h2'>
+            {homePage.section1Title}
+          </Typography>,
+          <Typography key={1}>{homePage.section1Description}</Typography>
+        ]}
+      />
+      <HowItWorks homePage={homePage} artClass={classes.art} />
+      <SectionLayout
+        art={
+          <Box className={classes.art}>
+            <lottie-interactive
+              loop
+              path='lottie/3.json'
+              interaction='play-on-show'
+            />
+          </Box>
+        }
+        content={[
+          <Typography key={0} variant='h2'>
+            {homePage.section3Title}
+          </Typography>,
+          <Typography key={1}>{homePage.section3Description}</Typography>
+        ]}
+      />
+      <SpecSection artClass={classes.art} homePage={homePage} />
+      <ClinicalPerformance homePage={homePage} classes={classes} />
+      <DeltaTestimonials
+        testimonials={testimonials}
+        title={homePage.testimonialsTitle}
+      />
+      <News artClass={classes.art} title={homePage.newsTitle} items={news} />
+      <DistributorsForHome disributors={disributors} />
+      <LearnMore />
+      <Footer specPDF={homePage.specPdf} footerData={footer} />
+      <Cookies text={cookies.statement} privacyPolicyUrl={cookies.pdf} />
+    </Fragment>
   );
 }
 
