@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://sanoculis.com
+
+# Sitemaps
+Sitemap: https://sanoculis.com/sitemap.xml
