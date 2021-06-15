@@ -183,7 +183,7 @@ export default function ClinicalData({
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
   const upLg = useMediaQuery(theme.breakpoints.up('lg'));
   const upXl = useMediaQuery(theme.breakpoints.up('xl'));
-  const visibleItems = upXl ? 4.5 : upLg ? 2.4 : upMd ? 2.4 : upSm ? 1.8 : 1.1;
+  const visibleItems = upXl ? 3.7 : upLg ? 2.4 : upMd ? 2.4 : upSm ? 1.8 : 1.1;
   const myRef = useRef();
   const handlers = useSwipeable({
     onSwipedLeft: () => {
