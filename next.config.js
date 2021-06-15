@@ -20,6 +20,16 @@ module.exports = {
         source: '/category/about-us',
         destination: '/',
         permanent: true
+      },
+      {
+        source: '/category/background',
+        destination: '/',
+        permanent: true
+      },
+      {
+        source: '/category/video',
+        destination: '/',
+        permanent: true
       }
     ];
   }
