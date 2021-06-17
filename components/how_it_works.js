@@ -80,7 +80,7 @@ export default function HowItWorks({ homePage, artClass }) {
     if (openVideo) {
       videoRef.current.play();
       if (!upMd && screenfull.isEnabled) {
-        screenfull.request();
+        screenfull.request(videoRef.current);
       }
       console.log('playing video');
     } else {
