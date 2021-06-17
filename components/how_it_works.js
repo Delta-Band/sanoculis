@@ -79,7 +79,6 @@ export default function HowItWorks({ homePage, artClass }) {
   }, []);
 
   useEffect(() => {
-    if (!videoRef.current) return;
     if (openVideo) {
       videoRef.current.play();
       console.log('playing video');
