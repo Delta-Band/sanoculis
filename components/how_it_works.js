@@ -5,6 +5,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 // import screenfull from 'screenfull';
 import { motion } from 'framer-motion';
+import cx from 'classnames';
 import { PlayCircleFill as PlayIcon } from '@styled-icons/bootstrap/PlayCircleFill';
 import { CloseCircle as CloseIcon } from '@styled-icons/evaicons-solid/CloseCircle';
 import { SectionLayout, Modal } from './delta';
@@ -46,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
   closeIcon: {
     width: 50,
     height: 50
+  },
+  hide: {
+    display: 'none'
   }
 }));
 
@@ -109,13 +113,31 @@ export default function HowItWorks({ homePage, artClass }) {
       <SectionLayout
         art={
           <Box className={classes.art} onClick={playVideo}>
-            <lottie-interactive
-              path='lottie/2.json'
-              interaction='morph'
-              style={{
-                cursor: 'pointer'
-              }}
-            />
+            {upMd ? (
+              <lottie-interactive
+                path='lottie/2.json'
+                interaction='morph'
+                style={{
+                  cursor: 'pointer'
+                }}
+              />
+            ) : (
+              <video
+                muted
+                controls
+                playsInline
+                style={{
+                  height: '100%',
+                  width: '100%',
+                  objectFit: 'cover',
+                  marginBottom: '-4px'
+                }}
+                onClick={(e) => e.stopPropagation()}
+                ref={videoRef}
+                src='/how_mims_works.mp4'
+                type='video/mp4'
+              />
+            )}
           </Box>
         }
         content={[
@@ -130,6 +152,7 @@ export default function HowItWorks({ homePage, artClass }) {
             color='primary'
             size='large'
             onClick={playVideo}
+            className={cx({ [classes.hide]: !upMd })}
           >
             {homePage.section2BtnTxt}
             <Box ml={2} mt='-2px'>
@@ -140,6 +163,7 @@ export default function HowItWorks({ homePage, artClass }) {
       />
       <Modal
         show={openVideo && upMd}
+        className={cx({ [classes.hide]: !upMd })}
         onClose={function () {
           setOpenVideo(false);
         }}
