@@ -3,7 +3,7 @@ import { Box, Typography, Button } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 // import { LottieInteractive } from 'lottie-interactive';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import screenfull from 'screenfull';
+// import screenfull from 'screenfull';
 import { motion } from 'framer-motion';
 import { PlayCircleFill as PlayIcon } from '@styled-icons/bootstrap/PlayCircleFill';
 import { CloseCircle as CloseIcon } from '@styled-icons/evaicons-solid/CloseCircle';
@@ -79,9 +79,9 @@ export default function HowItWorks({ homePage, artClass }) {
 
   useEffect(() => {
     if (openVideo) {
-      if (!upMd && screenfull.isEnabled) {
-        screenfull.request(videoRef.current);
-      }
+      // if (!upMd && screenfull.isEnabled) {
+      //   screenfull.request(videoRef.current);
+      // }
       videoRef.current.play();
       console.log('playing video');
     } else {
