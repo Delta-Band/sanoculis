@@ -62,9 +62,6 @@ export default function HowItWorks({ homePage, artClass }) {
 
   function playVideo() {
     setOpenVideo(true);
-    if (!upMd && screenfull.isEnabled) {
-      screenfull.request();
-    }
   }
 
   function closeVideo(e) {
@@ -82,6 +79,9 @@ export default function HowItWorks({ homePage, artClass }) {
   useEffect(() => {
     if (openVideo) {
       videoRef.current.play();
+      if (!upMd && screenfull.isEnabled) {
+        screenfull.request();
+      }
       console.log('playing video');
     } else {
       videoRef.current.pause();
