@@ -53,6 +53,7 @@ export default function HowItWorks({ homePage, artClass }) {
   const theme = useTheme();
   const upSm = useMediaQuery(theme.breakpoints.up('sm'));
   const downSm = useMediaQuery(theme.breakpoints.down('sm'));
+  const upMd = useMediaQuery(theme.breakpoints.down('md'));
   const [openVideo, setOpenVideo] = useState(false);
   const classes = useStyles();
   const videoRef = useRef();
@@ -137,7 +138,7 @@ export default function HowItWorks({ homePage, artClass }) {
         ]}
       />
       <Modal
-        show={openVideo}
+        show={openVideo && upMd}
         onClose={function () {
           setOpenVideo(false);
         }}
