@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 export default function HowItWorks({ homePage, artClass }) {
   const theme = useTheme();
   const upSm = useMediaQuery(theme.breakpoints.up('sm'));
-  const downSm = useMediaQuery(theme.breakpoints.down('sm'));
+  // const downSm = useMediaQuery(theme.breakpoints.down('sm'));
   const upMd = useMediaQuery(theme.breakpoints.down('md'));
   const [openVideo, setOpenVideo] = useState(false);
   const classes = useStyles();
@@ -62,7 +62,7 @@ export default function HowItWorks({ homePage, artClass }) {
 
   function playVideo() {
     setOpenVideo(true);
-    if (downSm && screenfull.isEnabled) {
+    if (!upMd && screenfull.isEnabled) {
       screenfull.request();
     }
   }
