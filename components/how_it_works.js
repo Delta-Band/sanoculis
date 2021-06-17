@@ -72,16 +72,17 @@ export default function HowItWorks({ homePage, artClass }) {
 
   // EFFECTS
   useEffect(() => {
+    // videoRef.current.play();
     document.addEventListener('keyup', closeVideo);
     return document.removeEventListener('keyup', closeVideo);
   }, []);
 
   useEffect(() => {
     if (openVideo) {
-      videoRef.current.play();
       if (!upMd && screenfull.isEnabled) {
         screenfull.request(videoRef.current);
       }
+      videoRef.current.play();
       console.log('playing video');
     } else {
       videoRef.current.pause();
