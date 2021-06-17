@@ -154,9 +154,9 @@ export default function HowItWorks({ homePage, artClass }) {
           }}
           onClick={(e) => e.stopPropagation()}
           ref={videoRef}
-        >
-          <source src='/how_mims_works.mp4' type='video/mp4' />
-        </video>
+          src='/how_mims_works.mp4'
+          type='video/mp4'
+        />
         <CloseButton />
       </Modal>
     </Fragment>
