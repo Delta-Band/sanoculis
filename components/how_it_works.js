@@ -143,6 +143,7 @@ export default function HowItWorks({ homePage, artClass }) {
         }}
       >
         <video
+          muted
           controls
           style={{
             height: '70vh',
