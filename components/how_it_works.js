@@ -3,7 +3,7 @@ import { Box, Typography, Button } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 // import { LottieInteractive } from 'lottie-interactive';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-// import screenfull from 'screenfull';
+import screenfull from 'screenfull';
 import { motion } from 'framer-motion';
 import cx from 'classnames';
 import { PlayCircleFill as PlayIcon } from '@styled-icons/bootstrap/PlayCircleFill';
@@ -36,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
       maxHeight: 600
       // marginRight: theme.spacing(10)
     }
+  },
+  mobileVideo: {
+    width: '80vw',
+    borderRadius: theme.spacing(1),
+    objectFit: 'cover'
   },
   closeBtn: {
     position: 'absolute',
@@ -82,10 +87,11 @@ export default function HowItWorks({ homePage, artClass }) {
   }, []);
 
   useEffect(() => {
+    if (!videoRef.current) return;
     if (openVideo) {
-      // if (!upMd && screenfull.isEnabled) {
-      //   screenfull.request(videoRef.current);
-      // }
+      if (!upMd && screenfull.isEnabled) {
+        screenfull.request(videoRef.current);
+      }
       videoRef.current.play();
       console.log('playing video');
     } else {
@@ -112,8 +118,8 @@ export default function HowItWorks({ homePage, artClass }) {
     <Fragment>
       <SectionLayout
         art={
-          <Box className={classes.art} onClick={playVideo}>
-            {upMd ? (
+          upMd ? (
+            <Box className={classes.art} onClick={playVideo}>
               <lottie-interactive
                 path='lottie/2.json'
                 interaction='morph'
@@ -121,24 +127,25 @@ export default function HowItWorks({ homePage, artClass }) {
                   cursor: 'pointer'
                 }}
               />
-            ) : (
-              <video
-                muted
-                controls
-                playsInline
-                style={{
-                  height: '100%',
-                  width: '100%',
-                  objectFit: 'cover',
-                  marginBottom: '-4px'
-                }}
-                onClick={(e) => e.stopPropagation()}
-                ref={videoRef}
-                src='/how_mims_works.mp4'
-                type='video/mp4'
-              />
-            )}
-          </Box>
+            </Box>
+          ) : (
+            <video
+              muted
+              controls
+              playsInline
+              className={classes.mobileVideo}
+              // style={{
+              //   // height: '100%',
+              //   width: '80vw',
+              //   // objectFit: 'cover',
+              // }}
+              onClick={(e) => e.stopPropagation()}
+              ref={videoRef}
+              src='/how_mims_works.mp4'
+              type='video/mp4'
+              poster='/images/video-cover.png'
+            />
+          )
         }
         content={[
           <Typography key={0} variant='h2'>
