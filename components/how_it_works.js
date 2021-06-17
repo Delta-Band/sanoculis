@@ -51,35 +51,43 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HowItWorks({ homePage, artClass }) {
   const theme = useTheme();
-  const upSM = useMediaQuery(theme.breakpoints.up('sm'));
+  const upSm = useMediaQuery(theme.breakpoints.up('sm'));
+  const downSm = useMediaQuery(theme.breakpoints.down('sm'));
   const [openVideo, setOpenVideo] = useState(false);
   const classes = useStyles();
   const videoRef = useRef();
 
   // METHODS
-  function playFullScreen() {
-    if (screenfull.isEnabled) {
+
+  function playVideo() {
+    setOpenVideo(true);
+    if (downSm && screenfull.isEnabled) {
       screenfull.request();
     }
   }
 
-  function playVideo() {
-    videoRef.current.play();
-    upSM ? setOpenVideo(true) : playFullScreen();
-  }
-
   function closeVideo(e) {
     if (e.key === 'Escape') {
-      videoRef.current.pause();
       setOpenVideo(false);
     }
   }
 
   // EFFECTS
-  useEffect(function () {
+  useEffect(() => {
     document.addEventListener('keyup', closeVideo);
     return document.removeEventListener('keyup', closeVideo);
   }, []);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    if (openVideo) {
+      videoRef.current.play();
+      console.log('playing video');
+    } else {
+      videoRef.current.pause();
+      console.log('pausing video');
+    }
+  }, [openVideo]);
 
   /** SUB-COMPONENTS */
   function CloseButton() {
@@ -124,7 +132,7 @@ export default function HowItWorks({ homePage, artClass }) {
           >
             {homePage.section2BtnTxt}
             <Box ml={2} mt='-2px'>
-              <PlayIcon size={upSM ? 22 : 20} />
+              <PlayIcon size={upSm ? 22 : 20} />
             </Box>
           </Button>
         ]}
@@ -132,7 +140,6 @@ export default function HowItWorks({ homePage, artClass }) {
       <Modal
         show={openVideo}
         onClose={function () {
-          videoRef.current.pause();
           setOpenVideo(false);
         }}
       >
