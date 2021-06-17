@@ -5,6 +5,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import screenfull from 'screenfull';
 import { motion } from 'framer-motion';
+import cx from 'classnames';
 import { PlayCircleFill as PlayIcon } from '@styled-icons/bootstrap/PlayCircleFill';
 import { CloseCircle as CloseIcon } from '@styled-icons/evaicons-solid/CloseCircle';
 import { SectionLayout, Modal } from './delta';
@@ -36,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
       // marginRight: theme.spacing(10)
     }
   },
+  mobileVideo: {
+    width: '80vw',
+    borderRadius: theme.spacing(1),
+    objectFit: 'cover'
+  },
   closeBtn: {
     position: 'absolute',
     right: theme.spacing(2),
@@ -46,40 +52,53 @@ const useStyles = makeStyles((theme) => ({
   closeIcon: {
     width: 50,
     height: 50
+  },
+  hide: {
+    display: 'none'
   }
 }));
 
 export default function HowItWorks({ homePage, artClass }) {
   const theme = useTheme();
-  const upSM = useMediaQuery(theme.breakpoints.up('sm'));
+  const upSm = useMediaQuery(theme.breakpoints.up('sm'));
+  // const downSm = useMediaQuery(theme.breakpoints.down('sm'));
+  const upMd = useMediaQuery(theme.breakpoints.up('md'));
   const [openVideo, setOpenVideo] = useState(false);
   const classes = useStyles();
   const videoRef = useRef();
 
   // METHODS
-  function playFullScreen() {
-    if (screenfull.isEnabled) {
-      screenfull.request();
-    }
-  }
 
   function playVideo() {
-    videoRef.current.play();
-    upSM ? setOpenVideo(true) : playFullScreen();
+    setOpenVideo(true);
   }
 
   function closeVideo(e) {
     if (e.key === 'Escape') {
-      videoRef.current.pause();
       setOpenVideo(false);
     }
   }
 
   // EFFECTS
-  useEffect(function () {
+  useEffect(() => {
+    // videoRef.current.play();
     document.addEventListener('keyup', closeVideo);
     return document.removeEventListener('keyup', closeVideo);
   }, []);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    if (openVideo) {
+      if (!upMd && screenfull.isEnabled) {
+        screenfull.request(videoRef.current);
+      }
+      videoRef.current.play();
+      console.log('playing video');
+    } else {
+      videoRef.current.pause();
+      console.log('pausing video');
+    }
+  }, [openVideo]);
 
   /** SUB-COMPONENTS */
   function CloseButton() {
@@ -99,15 +118,34 @@ export default function HowItWorks({ homePage, artClass }) {
     <Fragment>
       <SectionLayout
         art={
-          <Box className={classes.art} onClick={playVideo}>
-            <lottie-interactive
-              path='lottie/2.json'
-              interaction='morph'
-              style={{
-                cursor: 'pointer'
-              }}
+          upMd ? (
+            <Box className={classes.art} onClick={playVideo}>
+              <lottie-interactive
+                path='lottie/2.json'
+                interaction='morph'
+                style={{
+                  cursor: 'pointer'
+                }}
+              />
+            </Box>
+          ) : (
+            <video
+              muted
+              controls
+              playsInline
+              className={classes.mobileVideo}
+              // style={{
+              //   // height: '100%',
+              //   width: '80vw',
+              //   // objectFit: 'cover',
+              // }}
+              onClick={(e) => e.stopPropagation()}
+              ref={videoRef}
+              src='/how_mims_works.mp4'
+              type='video/mp4'
+              poster='/images/video-cover.png'
             />
-          </Box>
+          )
         }
         content={[
           <Typography key={0} variant='h2'>
@@ -121,22 +159,24 @@ export default function HowItWorks({ homePage, artClass }) {
             color='primary'
             size='large'
             onClick={playVideo}
+            className={cx({ [classes.hide]: !upMd })}
           >
             {homePage.section2BtnTxt}
             <Box ml={2} mt='-2px'>
-              <PlayIcon size={upSM ? 22 : 20} />
+              <PlayIcon size={upSm ? 22 : 20} />
             </Box>
           </Button>
         ]}
       />
       <Modal
-        show={openVideo}
+        show={openVideo && upMd}
+        className={cx({ [classes.hide]: !upMd })}
         onClose={function () {
-          videoRef.current.pause();
           setOpenVideo(false);
         }}
       >
         <video
+          muted
           controls
           style={{
             height: '70vh',
@@ -145,9 +185,9 @@ export default function HowItWorks({ homePage, artClass }) {
           }}
           onClick={(e) => e.stopPropagation()}
           ref={videoRef}
-        >
-          <source src='/how_mims_works.mp4' type='video/mp4' />
-        </video>
+          src='/how_mims_works.mp4'
+          type='video/mp4'
+        />
         <CloseButton />
       </Modal>
     </Fragment>
