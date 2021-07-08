@@ -316,7 +316,7 @@ export default function ClinicalData({
                         Standalone / Combined
                       </Typography>
                       <Typography className={classes.data}>
-                        100 ALONE / 20 CATARACT
+                        {itm.sandalone} ALONE / {itm.combined} CATARACT
                       </Typography>
                     </Grid>
                     <Grid
