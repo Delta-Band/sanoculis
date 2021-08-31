@@ -5,7 +5,7 @@ const getStructuredData = (order, querySnapshot) => {
   const structuredData = [];
   order.forEach((itemId) => {
     const item = querySnapshot.docs.find((itm) => itm.id === itemId).data();
-    if (item.published === 'Publish') {
+    if (item.published === 'Publish' || item._show) {
       Object.keys(item).forEach(function (key) {
         if (item[key].seconds) {
           item[key] = item[key].toDate().toString();
