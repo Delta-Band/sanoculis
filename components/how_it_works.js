@@ -141,7 +141,7 @@ export default function HowItWorks({ homePage, artClass }) {
               // }}
               onClick={e => e.stopPropagation()}
               ref={videoRef}
-              src='/how_mims_works.mp4'
+              src='/how_mims_works_2.mp4'
               type='video/mp4'
               poster='/images/video-cover.png'
             />
