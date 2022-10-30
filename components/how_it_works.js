@@ -10,7 +10,7 @@ import { PlayCircleFill as PlayIcon } from '@styled-icons/bootstrap/PlayCircleFi
 import { CloseCircle as CloseIcon } from '@styled-icons/evaicons-solid/CloseCircle';
 import { SectionLayout, Modal } from './delta';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   art: {
     width: '80vw',
     height: '80vw',
@@ -139,7 +139,7 @@ export default function HowItWorks({ homePage, artClass }) {
               //   width: '80vw',
               //   // objectFit: 'cover',
               // }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={e => e.stopPropagation()}
               ref={videoRef}
               src='/how_mims_works.mp4'
               type='video/mp4'
@@ -183,9 +183,9 @@ export default function HowItWorks({ homePage, artClass }) {
             objectFit: 'cover',
             marginBottom: '-4px'
           }}
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
           ref={videoRef}
-          src='/how_mims_works.mp4'
+          src={homePage.section2video}
           type='video/mp4'
         />
         <CloseButton />
