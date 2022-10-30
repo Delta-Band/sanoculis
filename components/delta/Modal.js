@@ -4,7 +4,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import disableScroll from 'disable-scroll';
 import { motion } from 'framer-motion';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   screenCover: {
     position: 'fixed',
     left: 0,
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 1
+    zIndex: 2
   },
   modal: {
     // backgroundColor: theme.palette.primary.dark,
