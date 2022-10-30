@@ -134,9 +134,14 @@ export default function HowItWorks({ homePage, artClass }) {
               controls
               playsInline
               className={classes.mobileVideo}
+              // style={{
+              //   // height: '100%',
+              //   width: '80vw',
+              //   // objectFit: 'cover',
+              // }}
               onClick={e => e.stopPropagation()}
               ref={videoRef}
-              src={homePage.section2video}
+              src='/how_mims_works.mp4'
               type='video/mp4'
               poster='/images/video-cover.png'
             />
@@ -180,7 +185,7 @@ export default function HowItWorks({ homePage, artClass }) {
           }}
           onClick={e => e.stopPropagation()}
           ref={videoRef}
-          src={homePage.section2video}
+          src='/how_mims_works_2.mp4'
           type='video/mp4'
         />
         <CloseButton />
