@@ -10,7 +10,7 @@ import { DeltaCarousel } from '../shared';
 import { SectionLayout } from '../components/delta';
 import { Box, Typography, Button, Grid } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   blueInfo: {
     color: theme.palette.primary.main
   },
@@ -104,7 +104,7 @@ export default function News({ art, title, items }) {
           <img src='images/news.png' className={classes.image} />
           <lottie-interactive
             path='lottie/5.json'
-            loop
+            loop='true'
             interaction='play-on-show'
             style={{
               position: 'absolute',

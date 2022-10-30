@@ -4,7 +4,7 @@ import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import { SectionLayout } from '../components/delta';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   art: {
     width: '80vw',
     height: '80vw',
@@ -69,7 +69,7 @@ export default function ClinicalPerformance({ homePage }) {
           <lottie-interactive
             path='lottie/4.json'
             interaction='play-on-show'
-            loop
+            loop='true'
             style={{
               width: '50%',
               position: 'absolute',
