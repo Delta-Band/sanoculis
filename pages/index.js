@@ -37,7 +37,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   blueInfo: {
     color: theme.palette.primary.main
   },
@@ -113,7 +113,7 @@ export default function Home({
         art={
           <Box className={classes.art}>
             <lottie-interactive
-              loop
+              loop='true'
               path='lottie/1.json'
               interaction='play-on-show'
             />
@@ -131,7 +131,7 @@ export default function Home({
         art={
           <Box className={classes.art}>
             <lottie-interactive
-              loop
+              loop='true'
               path='lottie/3.json'
               interaction='play-on-show'
             />
