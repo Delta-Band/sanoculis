@@ -111,18 +111,17 @@ export default function StepByStep({
 
   return password === sbsPage.password ? (
     <>
-      <Head title='MIMS - Step by Step' />
+      <Head title={sbsPage.mainTitle} />
       <div className={classes.root}>
         <div className={classes.pageInner}>
           <Typography variant='h1' style={{ marginBlockEnd: 16 }}>
-            MIMS STEP BY STEP
+            {sbsPage.mainTitle}
           </Typography>
-          <Typography>
-            Please see below a summary of the required surgical steps for the
-            MIMS proceedure
-          </Typography>
+          <Typography>{sbsPage.mainDescription}</Typography>
           <div className={classes.spacer} />
-          <Typography variant='h2'>Preparation</Typography>
+          <Typography variant='h2'>
+            {sbsPage.preparationSectionTitle}
+          </Typography>
           {preparation.map(itm => (
             <Accordion key={itm.id} label={itm.title} content={itm.content} />
           ))}
@@ -139,7 +138,9 @@ export default function StepByStep({
             </Button>
           )}
           <div className={classes.spacer} />
-          <Typography variant='h2'>Preoperative</Typography>
+          <Typography variant='h2'>
+            {sbsPage.preoperativeSectionTitle}
+          </Typography>
           {preoperative.map(itm => (
             <Accordion key={itm.id} label={itm.title} content={itm.content} />
           ))}
@@ -156,7 +157,9 @@ export default function StepByStep({
             </Button>
           )}
           <div className={classes.spacer} />
-          <Typography variant='h2'>Intraoperative</Typography>
+          <Typography variant='h2'>
+            {sbsPage.intraoperativeSectionTitle}
+          </Typography>
           {intraoperative.map(itm => (
             <Accordion key={itm.id} label={itm.title} content={itm.content} />
           ))}
@@ -173,7 +176,7 @@ export default function StepByStep({
             </Button>
           )}
           <div className={classes.spacer} />
-          <Typography variant='h2'>Follow up</Typography>
+          <Typography variant='h2'>{sbsPage.followSectionTitle}</Typography>
           {followUp.map(itm => (
             <Accordion key={itm.id} label={itm.title} content={itm.content} />
           ))}
@@ -196,9 +199,7 @@ export default function StepByStep({
         style={{ background: '#6172FF', color: '#FFFFFF', paddingBlock: 136 }}
       >
         <div className={classes.pageInner} style={{ minHeight: 'unset' }}>
-          <Typography variant='h2'>
-            Special Steps - When Combined with Cataract Proceedure
-          </Typography>
+          <Typography variant='h2'>{sbsPage.specialSectionTitle}</Typography>
           {specialSteps.map(itm => (
             <Accordion key={itm.id} label={itm.title} content={itm.content} />
           ))}
