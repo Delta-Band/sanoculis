@@ -8,7 +8,7 @@ import { Footer } from '../components/shared';
 import reactor from '../reactor';
 import Head from '../head';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.up('md')]: {
       width: '100vw',
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Login({ homeData, footerData, loginPageData, disributorsData }) {
   const classes = useStyles();
-  const validPasswords = disributorsData.map((item) => item.password);
+  const validPasswords = disributorsData.map(item => item.password);
   const theme = useTheme();
   const upMD = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -102,6 +102,7 @@ function Login({ homeData, footerData, loginPageData, disributorsData }) {
               redirectPath='/docs'
               className={classes.login}
               placeHolder='ENTER YOUR PASSWORD TO ACCESS'
+              id='dist_page'
             />
           </div>
         ]}

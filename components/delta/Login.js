@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     height: 40,
     borderRadius: 40,
@@ -79,25 +79,33 @@ const MOTION_VARIANTS = {
   }
 };
 
-function Login({ validPasswords, redirectPath, className, placeHolder }) {
+function Login({
+  validPasswords,
+  redirectPath,
+  className,
+  placeHolder,
+  onChange = () => {},
+  id
+}) {
   const classes = useStyles();
   const [errMsg, setErrMsg] = useState('hide');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
   useEffect(() => {
-    setPassword(window.localStorage.getItem('password') || '');
+    setPassword(window.localStorage.getItem(`${id}_password`) || '');
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem('password', password);
+    window.localStorage.setItem(`${id}_password`, password);
     if (validPasswords.includes(password)) {
-      router.push(redirectPath);
+      if (redirectPath) router.push(redirectPath);
     } else if (password.length === 5) {
       setErrMsg('show');
     } else {
       setErrMsg('hide');
     }
+    onChange(password);
   }, [password]);
 
   function updatePassword(e) {

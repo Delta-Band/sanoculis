@@ -27,7 +27,8 @@ function MyApp({ Component, pageProps }) {
             },
             { label: 'Clinical Trial Data', linkTo: 'clinical' },
             // { label: 'Technical Specs', linkTo: 'specs' },
-            { label: 'Distributors Login', linkTo: 'login' }
+            { label: 'Distributors Login', linkTo: 'login' },
+            { label: 'Step by Step', linkTo: 'step-by-step' }
           ]}
           logo='/sanoculis_logo.svg'
         />
