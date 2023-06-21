@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import reactor from '../reactor';
 import Head from '../head';
 import { DeltaTestimonials } from '../shared';
-import { Footer } from '../components/shared';
+import { Footer, RichText } from '../components/shared';
 import {
   Hero,
   News,
@@ -123,7 +123,7 @@ export default function Home({
           <Typography key={0} variant='h2'>
             {homePage.section1Title}
           </Typography>,
-          <Typography key={1}>{homePage.section1Description}</Typography>
+          <RichText key={1} html={homePage.section1Description} />
         ]}
       />
       <HowItWorks homePage={homePage} artClass={classes.art} />
@@ -141,7 +141,7 @@ export default function Home({
           <Typography key={0} variant='h2'>
             {homePage.section3Title}
           </Typography>,
-          <Typography key={1}>{homePage.section3Description}</Typography>
+          <RichText key={1} html={homePage.section3Description} />
         ]}
       />
       <SpecSection artClass={classes.art} homePage={homePage} />

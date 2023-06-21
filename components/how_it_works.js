@@ -9,6 +9,7 @@ import cx from 'classnames';
 import { PlayCircleFill as PlayIcon } from '@styled-icons/bootstrap/PlayCircleFill';
 import { CloseCircle as CloseIcon } from '@styled-icons/evaicons-solid/CloseCircle';
 import { SectionLayout, Modal } from './delta';
+import RichText from './shared/RichText';
 
 const useStyles = makeStyles(theme => ({
   art: {
@@ -151,7 +152,7 @@ export default function HowItWorks({ homePage, artClass }) {
           <Typography key={0} variant='h2'>
             {homePage.section2Title}
           </Typography>,
-          <Typography key={1}>{homePage.section2Description}</Typography>,
+          <RichText key={1} html={homePage.section2Description} />,
           <Button
             key={2}
             variant='contained'
